@@ -1,7 +1,8 @@
-# Element Plus with Nuxt 3 Minimal Starter
+# 田正东的毕业护色剂 
+四川大学
 
-- SSR Preview: <https://element-plus-nuxt.vercel.app/>
-- SSG Preview: <https://nuxt-starter.element-plus.org/>
+- SSR Preview: 
+- SSG Preview: 
 
 We recommend to look at the [Nuxt 3 Docs](https://nuxt.com/) and [Element Plus Docs](https://element-plus.org/).
 

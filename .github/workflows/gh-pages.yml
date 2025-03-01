@@ -4,12 +4,13 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch:   # Allow manual triggering 允许手动触发工作流。
 
-permissions:
+permissions: # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#permissions
   contents: read
   pages: write
   id-token: write
+  #设置工作流的权限，包括读取内容、写入页面和写入 ID 令牌。
 
 concurrency:
   group: 'pages'
@@ -49,3 +50,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+
+  

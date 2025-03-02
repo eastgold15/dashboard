@@ -10,20 +10,32 @@ const chartData = ref([
 <template>
   <ClientOnly>
     <div class="water-usage-chart">
-
-      <EchartsComponentsEchartsTitle title="用水占比" unit="m"></EchartsComponentsEchartsTitle>
+      <EchartsComponentsEchartsTitle title="用水占比" unit="m" />
       <div class="chart-container">
-        <EchartsComponentsPipeProport />
-        <EchartsComponentsLineProport />
-     
+        <EchartsComponentsPipeProport class="chart-item" />
+        <EchartsComponentsLineProport class="chart-item" />
       </div>
     </div>
   </ClientOnly>
 </template>
 
 <style scoped>
-.chart-container {
-  margin-top: 20px;
+.water-usage-chart {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
+.chart-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.chart-item {
+  width: 100%;
+  height: auto;
 }
 </style>

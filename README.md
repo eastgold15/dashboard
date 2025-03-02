@@ -22,29 +22,29 @@ pnpm install
 
 ## 启动项目
 
-Start the development server on `http://localhost:3000`
+启动开发服务 `http://localhost:3000`
 
 ```bash
 pnpm dev
 ```
 
-More info about [nuxt deployment](https://nuxt.com/docs/getting-started/deployment#presets).
+更多关于[nuxt部署](https://nuxt.com/docs/getting-started/deployment#presets)的信息。
 
-Run `npm run generate` to generate static html in `.output/public`.
+运行`npm run generate`生成静态html在`.output/public`。
 
 ## Production生产环境
 
-Build the application for production:
+构建应用程序以供生产使用：
 
 ```bash
 pnpm build
 ```
 
-Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment).
+查看[部署文档](https://nuxt.com/docs/getting-started/deployment)。
 
 ## Deploy
 
-You need set `NITRO_PRESET=vercel-edge`, see [Nuxt on Vercel](https://vercel.com/docs/frameworks/nuxt#edge-functions).
+需要设置`NITRO_PRESET=vercel-edge`，参见[Nuxt on Vercel](https://vercel.com/docs/frameworks/nuxt#edge-functions)。
 
 ## 技术栈
 

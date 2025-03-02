@@ -9,6 +9,7 @@ export interface Route {
   parentPath: string | null
 }
 
+// 获取当前路径下的所有子路由
 export function useRouteChildren(currentPath: string) {
   const appStore = useMyAppStore()
 

@@ -7,7 +7,7 @@ definePageMeta({
 <template>
   <div class="page-index">
     <div class="grid-container">
-      <div class="grid-item ">
+      <div class="grid-item">
         <EchartsUseWater />
       </div>
       <div class="grid-item">
@@ -17,7 +17,7 @@ definePageMeta({
         表格 3
       </div>
       <div class="grid-item">
-        表格 4
+        <EchartsHistoryWater />
       </div>
       <div class="grid-item">
         表格 5
@@ -36,8 +36,6 @@ definePageMeta({
 .page-index {
   width: 100%;
   text-align: center;
-  background: url("/bg.jpg") no-repeat center/cover;
-  background-color: yellow ;
 }
 
 .grid-container {

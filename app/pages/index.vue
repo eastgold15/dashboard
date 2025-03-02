@@ -17,7 +17,7 @@ definePageMeta({
         表格 3
       </div>
       <div class="grid-item">
-        表格 4
+        <EchartsHistoryWater />
       </div>
       <div class="grid-item">
         表格 5

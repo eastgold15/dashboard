@@ -32,6 +32,11 @@ const title = appStore.getTitle()
 
   .header-title {
     text-align: left;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border-left: 2px solid #0074d9;
+    border-bottom: 2px dashed #0074d9;
   }
 
   .header-nav {

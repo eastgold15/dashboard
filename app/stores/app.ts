@@ -5,7 +5,7 @@ export const useMyAppStore = defineStore({
   state: () => ({
 
     mobile: false, // 是否是移动端
-    title: '江西飞行学员', // 标题
+    title: '江西飞行学院水务管理系统', // 标题
     pageLoading: false, // 路由跳转loading
     breadcrumb: true, // 面包屑
     breadcrumbIcon: true, // 面包屑图标

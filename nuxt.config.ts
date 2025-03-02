@@ -1,6 +1,21 @@
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
-  modules: ['@vueuse/nuxt', '@unocss/nuxt', '@pinia/nuxt', '@element-plus/nuxt', '@nuxtjs/color-mode', '@nuxtjs/i18n'],
+  modules: [
+    '@vueuse/nuxt',
+    '@unocss/nuxt',
+    '@pinia/nuxt',
+    '@element-plus/nuxt',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/i18n',
+    'nuxt-echarts',
+  ],
+  echarts: {
+    // https://echarts.nuxt.dev/guides/usage
+    renderer: ['svg', 'canvas'],
+    charts: ['BarChart', 'LineChart', 'PieChart'],
+    components: ['DatasetComponent', 'GridComponent', 'TooltipComponent', 'LegendComponent', 'TitleComponent'],
+    features: ['LabelLayout', 'UniversalTransition'],
+  },
 
   devtools: {
     enabled: true,
@@ -9,7 +24,7 @@ export default defineNuxtConfig({
   app: {
     // head
     head: {
-      title: 'Element Plus + Nuxt 3',
+      title: '学生水务实践',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
@@ -64,8 +79,11 @@ export default defineNuxtConfig({
       ignore: ['/hi'],
     },
   },
-
+  build: { transpile: ['echarts-liquidfill'] },
   vite: {
+    resolve: {
+      alias: { 'echarts/lib/util/number': 'echarts/lib/util/number.js' },
+    },
     css: {
       preprocessorOptions: {
         scss: {
@@ -104,10 +122,13 @@ export default defineNuxtConfig({
     apiSecret: '', // 可以由 NUXT_API_SECRET 环境变量覆盖
     public: {
       // 可以由 NUXT_BASEURL_DEV 环境变量覆盖
+      // eslint-disable-next-line node/prefer-global/process
       apiBase: process.env.NODE_ENV === 'development' ? process.env.NUXT_BASEURL_DEV : process.env.NUXT_BASEURL_PROD,
+      // eslint-disable-next-line node/prefer-global/process
       apiBase_mock: process.env.NUXT_BASEURL_MOCK,
 
       // # 开发环境读取配置文件路径
+      // eslint-disable-next-line node/prefer-global/process
       VITE_PUBLIC_PATH: process.env.VITE_PUBLIC_PATH || '/',
     },
   },

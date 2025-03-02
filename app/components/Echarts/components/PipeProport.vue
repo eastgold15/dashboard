@@ -1,12 +1,4 @@
 <script lang="ts" setup>
-import { format } from 'echarts'
-import { PieChart } from 'echarts/charts'
-import { GridComponent, LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { ref } from 'vue'
-import VChart from 'vue-echarts'
-
 interface EchatsItem {
   category: string
   percentage: number
@@ -25,20 +17,17 @@ const props = withDefaults(defineProps<Prop>(), {
   ],
 })
 
-use([CanvasRenderer, PieChart, GridComponent, TooltipComponent, TitleComponent, LegendComponent])
-
-const pieChartOptions = ref({
+const pieChartOptions = ref<ECOption>({
   tooltip: {
     trigger: 'item',
     formatter: '{a} <br/>{b}: {c} ({d}%)',
   },
-  series: props.data.map((item: { category: any, value: number, quota: number }, index: number) => ({
+  series: props.data.map((item, index) => ({
     name: item.category,
     type: 'pie',
     top: '0',
     left: '0',
-
-    radius: ['50%', '80%'], // 调整圆环的大小
+    radius: ['50%', '75%'], // 调整圆环的大小
     center: [`${(index + 1) * 25 - 12.5}%`, '40%'],
     data: [
       { value: item.value, name: item.category },
@@ -48,7 +37,7 @@ const pieChartOptions = ref({
       show: true,
       position: 'center',
       color: 'inherit', // 继承饼图颜色
-      formatter: (params: { name: any, value: any, percent: any }) => {
+      formatter: (params) => {
         const { percent } = params
         if (params.name === '剩余定额') {
           return ``
@@ -77,22 +66,24 @@ const pieChartOptions = ref({
       },
     },
   })),
-  legend: props.data.map((item: { category: any }, index: number) => ({
+  legend: props.data.map((item, index) => ({
     data: [item.category],
-    left: `${(index) * 25 + 8.5}%`,
-    top: '65%',
-    align: 'left',
+    left: `${(index) * 25 + 6}%`,
+    top: '86%', // 调整到图表下方
     textStyle: {
-      fontSize: 18,
+      fontSize: 12, // 稍微调小字体
       color: '#333',
+      align: 'center',
     },
-
+    itemWidth: 0, // 移除图例标记
+    itemHeight: 0,
+    textAlign: 'center',
   })),
 })
 </script>
 
 <template>
-  <VChart :option="pieChartOptions" style="width: 100%; height: 120px;" />
+  <VChart :option="pieChartOptions" style="width: 100%; height: 140px;" />
 </template>
 
 <style scoped>

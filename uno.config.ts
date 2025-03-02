@@ -8,11 +8,11 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-import {atomicClasses } from "~/assets/styles/automic-classses"
+import { atomicClasses } from './app/assets/styles/automic-classes'
 
 export default defineConfig({
   shortcuts: {
-    ...atomicClasses
+    ...atomicClasses,
   },
   presets: [
     presetUno(),

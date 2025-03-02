@@ -1,11 +1,4 @@
 <script lang="ts" setup>
-import { BarChart, PieChart } from 'echarts/charts'
-import { GridComponent, LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { ref } from 'vue'
-import VChart from 'vue-echarts'
-
 interface EchatsItem {
   category: string
   percentage: number
@@ -24,73 +17,94 @@ const props = withDefaults(defineProps<Prop>(), {
   ],
 })
 
-use([CanvasRenderer, PieChart, BarChart, GridComponent, TooltipComponent, TitleComponent, LegendComponent])
-
-const barChartOptions = ref({
+const barChartOptions = ref<ECOption>({
   xAxis: {
     type: 'value',
-    show: false, // 隐藏 X 轴
+    show: false,
     max: Math.max(...props.data.map(item => item.quota)),
     min: 0,
   },
   yAxis: {
     type: 'category',
-    data: props.data.map(item => item.category), // 使用 category 字段
+    data: props.data.map(item => item.category),
     inverse: true,
-    animationDuration: 300,
-    animationDurationUpdate: 300,
-    max: props.data.length - 1,
     axisLabel: {
-      fontSize: 14, // 调整字体大小
-      color: '#333', // 调整字体颜色
+      fontSize: 12,
+      color: '#333',
+    },
+    axisLine: {
+      show: false,
+    },
+    axisTick: {
+      show: false,
     },
   },
   grid: {
-    left: '3%',
-    right: '10%',
-    bottom: '3%',
+    left: '4%',
+    top: '0%',
+    bottom: '0%',
+    right: '15%',
     containLabel: true,
   },
   series: [
     {
-      realtimeSort: true,
+      // 定额线（底部白色）
+      name: '定额',
+      type: 'bar',
+      data: props.data.map(item => item.quota),
+      barWidth: 12,
+      barGap: '-100%', // 确保两个bar完全重合
+      itemStyle: {
+        color: '#f0f0f0',
+        borderRadius: [4, 4, 4, 4],
+        borderWidth: 0,
+      },
+      z: 1,
+    },
+    {
+      // 实际用水量（上层蓝色）
       name: '用水量',
       type: 'bar',
       data: props.data.map(item => item.value),
+      barWidth: 12,
+      barGap: '-100%', // 确保两个bar完全重合
+      itemStyle: {
+        color: '#409EFF',
+        borderRadius: [4, 4, 4, 4],
+        borderWidth: 0,
+      },
       label: {
         show: true,
-        position: 'insideRight',
-        formatter: '{c}', // 显示 quota 值
-        valueAnimation: true,
+        position: 'right',
+        formatter: (params: any) => {
+          const item = props.data[params.dataIndex]
+          return `${item!.value}/${item!.quota}`
+        },
+        fontSize: 12,
       },
-      itemStyle: {
-        borderRadius: 5, // 设置圆角
-      },
+      z: 2,
     },
   ],
-  legend: {
-    show: false, // 隐藏图例
+  tooltip: {
+    show: true,
+    trigger: 'axis',
+    formatter: (params: any) => {
+      const item = props.data[params[0].dataIndex]
+      return `${item!.category}<br/>用水量：${item!.value}<br/>定额：${item!.quota}`
+    },
   },
-  animationDuration: 0,
-  animationDurationUpdate: 3000,
 })
 </script>
 
 <template>
   <div>
-    <VChart :option="barChartOptions" style="width: 100%; height: 150px;" />
+    <VChart :option="barChartOptions" style="width: 100%; height: 120px;" />
   </div>
 </template>
 
 <style scoped>
-/* 可以添加一些样式来调整图表的外观 */
 .v-chart {
   max-width: 100%;
   height: auto;
-  max-width: 200px;
 }
 </style>
-
-
-
-

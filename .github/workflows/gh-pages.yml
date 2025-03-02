@@ -1,54 +1,52 @@
-name: GitHub Pages
+# name: GitHub Pages
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:   # Allow manual triggering 允许手动触发工作流。
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:   # Allow manual triggering 允许手动触发工作流。
 
-permissions: # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#permissions
-  contents: read
-  pages: write
-  id-token: write
-  #设置工作流的权限，包括读取内容、写入页面和写入 ID 令牌。
+# permissions: # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#permissions
+#   contents: read
+#   pages: write
+#   id-token: write
+#   #设置工作流的权限，包括读取内容、写入页面和写入 ID 令牌。
 
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+# concurrency:
+#   group: 'pages'
+#   cancel-in-progress: true
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - name: Install Dependencies
-        uses: pnpm/action-setup@v2
-        with:
-          run_install: true
+#       - name: Install Dependencies
+#         uses: pnpm/action-setup@v2
+#         with:
+#           run_install: true
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
+#       - name: Setup Node
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: lts/*
 
-      - name: Build
-        run: npm run generate
+#       - name: Build
+#         run: npm run generate
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./dist
+#       - name: Upload artifact
+#         uses: actions/upload-pages-artifact@v1
+#         with:
+#           path: ./dist
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
-
-  
+#   deploy:
+#     environment:
+#       name: github-pages
+#       url: ${{ steps.deployment.outputs.page_url }}
+#     runs-on: ubuntu-latest
+#     needs: build
+#     steps:
+#       - name: Deploy to GitHub Pages
+#         id: deployment
+#         uses: actions/deploy-pages@v1

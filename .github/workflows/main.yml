@@ -1,48 +1,48 @@
-name: Publish And Deploy Demo
+# name: Publish And Deploy Demo
 
-on: # 触发工作流条件
-  push:
-    branches:
-      - main # 来自 main 分支的 push 事件
+# on: # 触发工作流条件
+#   push:
+#     branches:
+#       - main # 来自 main 分支的 push 事件
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, 'build-and-deploy')
-    # 触发条件: Commit 的描述中包含 build-and-deploy
-    steps:
-      - name: Checkout # 拉取仓库内容并打包
-        uses: actions/checkout@v2
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+#     if: contains(github.event.head_commit.message, 'build-and-deploy')
+#     # 触发条件: Commit 的描述中包含 build-and-deploy
+#     steps:
+#       - name: Checkout # 拉取仓库内容并打包
+#         uses: actions/checkout@v2
 
-      - name: Use Node.js v22.10.0
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.10.0' # Node 版本根据需求自行修改
-      - run: npm install  -g pnpm # 安装 pnpm
-      - run: pnpm install
-      - run: pnpm run build
-      - run: tar -zcvf nuxt.tar.gz .output
+#       - name: Use Node.js v22.10.0
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '22.10.0' # Node 版本根据需求自行修改
+#       - run: npm install  -g pnpm # 安装 pnpm
+#       - run: pnpm install
+#       - run: pnpm run build
+#       - run: tar -zcvf nuxt.tar.gz .output
 
-      - name: Copy files to server # 上传压缩包至服务器
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }} # 若使用密码则删除本行
-          password: ${{ secrets.PASSWORD }} # 若使用密钥则删除本行
-          port: ${{ secrets.PORT }}
-          source: "nuxt.tar.gz"
-          target: ${{ secrets.TARGET }}
+#       - name: Copy files to server # 上传压缩包至服务器
+#         uses: appleboy/scp-action@v0.1.4
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.USERNAME }}
+#           key: ${{ secrets.KEY }} # 若使用密码则删除本行
+#           password: ${{ secrets.PASSWORD }} # 若使用密钥则删除本行
+#           port: ${{ secrets.PORT }}
+#           source: "nuxt.tar.gz"
+#           target: ${{ secrets.TARGET }}
 
-      - name: Deploy Applications # 
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }} # 若使用密码则删除本行
-          port: ${{ secrets.PORT }} # 若使用密钥则删除本行
-          script: |
-            cd ${{ secrets.TARGET }}
-            tar -zxvf nuxt.tar.gz
-            docker compose down
-            docker compose up -d
+#       - name: Deploy Applications #
+#         uses: appleboy/ssh-action@v1.0.0
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.USERNAME }}
+#           key: ${{ secrets.KEY }} # 若使用密码则删除本行
+#           port: ${{ secrets.PORT }} # 若使用密钥则删除本行
+#           script: |
+#             cd ${{ secrets.TARGET }}
+#             tar -zxvf nuxt.tar.gz
+#             docker compose down
+#             docker compose up -d

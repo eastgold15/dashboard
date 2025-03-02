@@ -2,13 +2,7 @@
 const props = defineProps<Props>()
 const appStore = useMyAppStore()
 const title = appStore.getTitle()
-interface Route {
-  path: string
-  label: string
-  name: string
-  component: string
-  parentPath: string
-}
+
 interface Props {
   routes: Array<Route>
 }

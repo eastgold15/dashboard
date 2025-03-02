@@ -96,6 +96,8 @@ nuxt3的路由是约定式路由，名称是什么它的路径就是什么
 
 ## 前端目录结构
 
+```
+
 app
 ├── api 网络请求 不重要
 │ └── base
@@ -189,54 +191,66 @@ app
 └── stores
 ├── app.ts 应用持久化状态
 └── user.ts
+```
 
-### 翻译：
+### 路由翻译
 
+```
 统计报表 StatisticalReport -> sr
-统计看板 Statistics Kanban
-远程抄表 Remote meter reading
-用能排名 Ranking with energy
-统计查询 Statistical Query
+  统计看板 Statistics Kanban
+  远程抄表 Remote meter reading
+  用能排名 Ranking with energy
+  统计查询 Statistical Query
 用水分析 waterAnalysis -> wa
-动态分析 dynamic analysis
-供水分析 water supply analysis
-漏损分析 leakage analysis
+  动态分析 dynamic analysis
+  供水分析 water supply analysis
+  漏损分析 leakage analysis
 报警管理 AlarmManagement -> am
 定额管理 QuotaManagement -> qm
-定额看板 Quota Kanban
-定额配置 Quota Configuration
+  定额看板 Quota Kanban
+  定额配置 Quota Configuration
+```
 
-### layouts/
+```
+layouts/
+  ├── sr.vue    # 统计报表布局
+  ├── wa.vue    # 用水分析布局
+  ├── am.vue    # 报警管理布局
+  └── qm.vue    # 定额管理布局
+  |__ default.vue    # 默认布局
 
-├── sr.vue # 统计报表布局
-├── wa.vue # 用水分析布局
-├── am.vue # 报警管理布局
-└── qm.vue # 定额管理布局
+```
 
-### pags/
-
+```
 统计报表 (StatisticalReport)
 pages/
-├── sr/
-├── StatisticsKanban.vue # 统计看板 index
-├── RemoteMeterReading.vue # 远程抄表
-├── EnergyRanking.vue # 用能排名
-└── StatisticalQuery.vue # 统计查询
+  ├── sr/
+      ├── StatisticsKanban.vue     # 统计看板 index
+      ├── RemoteMeterReading.vue   # 远程抄表
+      ├── EnergyRanking.vue        # 用能排名
+      └── StatisticalQuery.vue     # 统计查询
 
 用水分析 (WaterAnalysis)
 pages/
-├── wa/
-├── DynamicAnalysis.vue # 动态分析    index
-├── WaterSupplyAnalysis.vue # 供水分析
-└── LeakageAnalysis.vue # 漏损分析
+  ├── wa/
+      ├── DynamicAnalysis.vue      # 动态分析 index
+      ├── WaterSupplyAnalysis.vue  # 供水分析
+      └── LeakageAnalysis.vue      # 漏损分析
 
 报警管理 (AlarmManagement)
 pages/
-├── am/
-└── AlarmMonitor.vue # 报警监控  index
+  ├── am/
+      └── AlarmMonitor.vue         # 报警监控 index
 
 定额管理 (QuotaManagement)
 pages/
-├── qm/
-├── QuotaKanban.vue # 定额看板  index
-└── QuotaSettings.vue # 定额配置
+  ├── qm/
+      ├── QuotaKanban.vue         # 定额看板 index
+      └── QuotaSettings.vue       # 定额配置
+
+```
+
+## 资料链接
+
+Echarts 饼图:`https://echarts.apache.org/zh/option.html#series-pie.type`
+Nuxt3 官网文档： `https://nuxt.com.cn/docs/api/nuxt-config#appconfig`

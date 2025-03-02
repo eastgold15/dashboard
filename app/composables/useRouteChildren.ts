@@ -1,6 +1,14 @@
 import { computed } from 'vue'
 import { useMyAppStore } from '../stores/app'
 
+export interface Route {
+  path: string
+  label: string
+  name: string
+  component: string
+  parentPath: string | null
+}
+
 export function useRouteChildren(currentPath: string) {
   const appStore = useMyAppStore()
 

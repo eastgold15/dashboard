@@ -4,7 +4,7 @@ const title = appStore.getTitle()
 </script>
 
 <template>
-  <div class="header">
+  <div class="header bgAlpha">
     <div class="header-title">
       <h1>{{ title }}</h1>
     </div>
@@ -25,7 +25,7 @@ const title = appStore.getTitle()
   height: 80px;
   grid-template-columns: 1fr 2fr 0.5fr; /* 定义网格列的比例 */
   align-items: center;
-  background-color: #2c8abf; /* 深蓝色背景 */
+
   color: white;
   font-size: 24px;
   padding: 10px;

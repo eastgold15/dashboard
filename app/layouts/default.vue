@@ -1,9 +1,12 @@
 <script setup lang="ts">
+const route = useRoute()
+console.log('route', route)
+const { rootRoutes } = useRouteChildren(route.path)
 </script>
 
 <template>
   <section class="layout-container">
-    <Header class="layout-header">
+    <Header class="layout-header" :routes="rootRoutes">
       <!-- 头部内容 -->
     </Header>
     <main class="layout-main">

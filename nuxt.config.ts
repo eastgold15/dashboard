@@ -151,7 +151,7 @@ export default defineNuxtConfig({
     },
   },
   srcDir: 'app/',
-  build: {
-    transpile: [/echarts/],
-  },
+  // build: {
+  //   transpile: [/echarts/],
+  // },
 })

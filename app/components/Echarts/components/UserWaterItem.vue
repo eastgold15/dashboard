@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
       <div class="text-item item-title">
         {{ props.title }}
       </div>
-      <div class="text-item item-content">
+      <div class="text-item  bgAlpha">
         {{ props.content }}
         <span class="unit">{{ props.unit }}</span>
       </div>
@@ -57,7 +57,5 @@ const props = withDefaults(defineProps<Props>(), {
 .item-title {
   font-size: large;
 }
-.item-content {
-  color: #35d6ef;
-}
+
 </style>

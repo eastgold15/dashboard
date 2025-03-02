@@ -7,7 +7,7 @@ definePageMeta({
 <template>
   <div class="page-index">
     <div class="grid-container">
-      <div class="grid-item h-220px">
+      <div class="grid-item ">
         <EchartsUseWater />
       </div>
       <div class="grid-item">
@@ -36,7 +36,8 @@ definePageMeta({
 .page-index {
   width: 100%;
   text-align: center;
-  background-color: #4dd;
+  background: url("/bg.jpg") no-repeat center/cover;
+  background-color: yellow ;
 }
 
 .grid-container {
@@ -49,8 +50,9 @@ definePageMeta({
 }
 
 .grid-item {
-  background-color: #851f1f;
-  border: 1px solid #ccc;
+  background-color: rgba(0, 0, 0, 0.3); /* 设置半透明背景 */
+  backdrop-filter: blur(1px); /* 添加模糊效果 */
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 500px;
 }

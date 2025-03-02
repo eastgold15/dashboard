@@ -10,43 +10,20 @@ const chartData = ref([
 <template>
   <ClientOnly>
     <div class="water-usage-chart">
-      <div class="chart-title">
-        <div class="name">
-          用水数据
-        </div>
-        <div class="unit">
-          单位：m
-        </div>
-      </div>
+
+      <EchartsComponentsEchartsTitle title="用水占比" unit="m"></EchartsComponentsEchartsTitle>
       <div class="chart-container">
-        <EchartsComponentsLineProport />
         <EchartsComponentsPipeProport />
+        <EchartsComponentsLineProport />
+     
       </div>
     </div>
   </ClientOnly>
 </template>
 
 <style scoped>
-.water-usage-chart {
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
-.chart-title {
-  height: 25px;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
-  flex-shrink: 1;
-  display: flex;
-  text-align: left;
-  .name {
-    flex: 1;
-  }
-  .unit {
-    width: 80px;
-  }
-}
-
 .chart-container {
   margin-top: 20px;
+
 }
 </style>

@@ -49,5 +49,6 @@
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
+  "commentTranslate.source": "intellsmi.comment-translate-ali.cloud"
 }

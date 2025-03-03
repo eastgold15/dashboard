@@ -2,7 +2,6 @@
 interface Props {
   title: string
   content: number
-
   unit: string // 单位
 }
 const props = withDefaults(defineProps<Props>(), {
@@ -15,7 +14,6 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <div class="container">
     <div class="img">
-      <!-- 这里可以放置动画，例如一个 SVG 动画 -->
       <svg width="50" height="50" viewBox="0 0 50 50">
         <circle cx="25" cy="25" r="20" stroke="blue" stroke-width="5" fill="none" />
         <circle cx="25" cy="25" r="20" stroke="lightblue" stroke-width="5" fill="none" stroke-dasharray="125.6" stroke-dashoffset="125.6">
@@ -27,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
       <div class="text-item item-title">
         {{ props.title }}
       </div>
-      <div class="text-item  bgAlpha">
+      <div class="text-item bgAlpha">
         {{ props.content }}
         <span class="unit">{{ props.unit }}</span>
       </div>
@@ -37,25 +35,38 @@ const props = withDefaults(defineProps<Props>(), {
 
 <style scoped>
 .container {
-  display: flex;
-  align-items: center;
-  height: 80px;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  place-items: center;
 }
 
 .img {
-  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .text-container {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .text-item {
   margin-bottom: 5px;
 }
+
 .item-title {
-  font-size: large;
+  font-size: 16px;
+  font-weight: bold;
 }
 
+.unit {
+  font-size: 14px;
+  margin-left: 4px;
+}
 </style>

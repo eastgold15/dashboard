@@ -5,6 +5,7 @@ html[data-theme='dark'] {
 }
 
 :root {
+  box-sizing: border-box;
   --bg-color: #1c222a;
   --table-header-bg-color: #217282;
   --table-header-text-color: #fff;
@@ -14,6 +15,7 @@ html[data-theme='dark'] {
 
   --header-button-color: #217282;
   --header-button-active-color: rgb(102, 183, 199);
+  --echart-title-color: #cfcfd0;
   /* left menu start */
   --left-menu-border-color: '#eee';
 

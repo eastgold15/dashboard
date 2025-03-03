@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Header } from '#components'
-
 definePageMeta({
   layout: 'default',
 })

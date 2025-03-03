@@ -25,33 +25,39 @@ const data = ref([
 
 <template>
   <div class="water">
-    
-
-    <EchartsComponentsEchartsTitle title="用水数据" unit="m"></EchartsComponentsEchartsTitle>
+    <EchartsComponentsEchartsTitle title="用水数据" unit="m" />
     <div class="water-content">
-      <EchartsComponentsUserWaterItem v-for="(item, index) in data" :key="index" :title="item.name" :content="item.content" :unit="item.unit" class="water-item" />
+      <EchartsComponentsUserWaterItem
+        v-for="(item, index) in data"
+        :key="index"
+        :title="item.name"
+        :content="item.content"
+        :unit="item.unit"
+        class="water-item"
+      />
     </div>
-
   </div>
 </template>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .water {
   width: 100%;
-  height: 120px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  color: #cfcfd0;
+  color: var(--echart-title-color);
+
   .water-content {
-    padding: 10px 20px;
-    display: grid; /* 确保使用 grid 布局 */
-    flex-grow: 1;
-    grid-template-columns: repeat(2, 1fr); /* 两列布局 */
-    grid-template-rows: repeat(2, 1fr); /* 两行布局 */
-    gap: 10px; /* 网格间距 */
-    
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+
+    .water-item {
+      min-height: 0;
+      height: 100%;
+    }
   }
-
-
 }
 </style>

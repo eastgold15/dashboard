@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ExampleTest } from '#components'
+import { Header } from '#components'
 
 definePageMeta({
   layout: 'default',
@@ -7,9 +7,9 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="page-index">
+  <div class="page-container">
     <div class="grid-container">
-      <div class="grid-item">
+      <div class="grid-item bgAlpha">
         <EchartsUseWater />
       </div>
       <div class="grid-item">
@@ -28,41 +28,37 @@ definePageMeta({
         <EchartsYearoveryearMonthlyWater />
       </div>
       <div class="grid-item grid-item-bottom">
-        <!-- <EchartsWaterAlarmInfo></EchartsWaterAlarmInfo> -->
-        <ExampleTest title="iiii">
-          <template #center>
-            sssss
-          </template>
-          <template #right>
-            sssss
-          </template>
-        </ExampleTest>
+        <EchartsWaterAlarmInfo />
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.page-index {
+.page-container {
+  height: 100%;
   width: 100%;
-  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* 左中右三列布局 */
-  grid-template-rows: auto auto auto; /* 三行布局，高度根据内容自动调整 */
-  gap: 10px; /* 网格间距 */
-  padding-top: 15px;
-  height: calc(100vh - 60px); /* 减去顶部 padding */
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1.2fr 1fr;
+  gap: 10px;
+  padding: 15px;
+  height: 100%;
+  overflow: hidden;
 }
 
 .grid-item {
-  background-color: rgba(0, 0, 0, 0.3); /* 设置半透明背景 */
-  backdrop-filter: blur(1px); /* 添加模糊效果 */
-
+  backdrop-filter: blur(1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 500px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .grid-item:nth-child(1) {
@@ -100,7 +96,6 @@ definePageMeta({
   grid-row: 3;
   background-color: #fff;
   border: 1px solid #ccc;
-
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>

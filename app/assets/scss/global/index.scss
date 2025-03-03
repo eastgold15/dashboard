@@ -1,0 +1,10 @@
+// 导入全局变量
+@use './variable.scss' as *;
+
+// 导入全局混入
+@use './mixiin.scss' as *;
+
+// 导入全局通用样式
+@use './common.scss' as *;
+
+//都是空的，以后在学theme  scss 主题

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const route = useRoute()
-console.log('route', route)
-const { rootRoutes } = useRouteChildren(route.path)
+const { rootRoutes } = useRouteChildren()
 </script>
 
 <template>
@@ -19,19 +17,20 @@ const { rootRoutes } = useRouteChildren(route.path)
 .layout-container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* 确保 section 占满整个视口高度 */
+  height: 100vh;
   width: 100%;
-  // background-color: var(--app-content-bg-color);
   background: url('/bg.jpg') no-repeat center/cover;
+  overflow: hidden; /* 防止整体滚动 */
 }
 
 .layout-header {
   flex-shrink: 0;
-  height: 60px; /* 你可以根据需要调整头部的高度 */
+  height: 80px; /* 调整header高度为80px */
 }
 
 .layout-main {
-  flex-grow: 1; /* 使 main 占据剩余的空间 */
-  overflow: auto;
+  flex-grow: 1;
+  overflow: hidden; /* 禁止内容区域滚动 */
+  position: relative; /* 为内部定位提供参考 */
 }
 </style>

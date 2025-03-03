@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { EchartsAnnualTrends, EchartsWaterAlarmInfo, EchartsYearoveryearMonthlyWater } from '#components';
+import { ExampleTest } from '#components';
+
 
 definePageMeta({
   layout: 'default',
@@ -28,7 +29,19 @@ definePageMeta({
         <EchartsYearoveryearMonthlyWater />
       </div>
       <div class="grid-item grid-item-bottom">
-        <EchartsWaterAlarmInfo></EchartsWaterAlarmInfo>
+        <!-- <EchartsWaterAlarmInfo></EchartsWaterAlarmInfo> -->
+        <ExampleTest title="iiii"  >
+          <template #center>
+          sssss
+          </template>
+          <template #right>
+          sssss
+          </template>
+          <template #left>
+          
+          </template>
+        </ExampleTest>
+      
       </div>
     </div>
   </div>

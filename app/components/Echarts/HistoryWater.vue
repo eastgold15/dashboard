@@ -1,96 +1,80 @@
 <template>
-
-<ClientOnly>
- <VChart :option="option" style="width: 100%; height: 140px;" />
-</ClientOnly>
- 
+  <div class="history-water">
+    <EchartsComponentsEchartsTitle title="历年用水量数据" unit="万吨" />
+    <div class="hexagon-container">
+      <div v-for="(item, index) in waterData" :key="index" class="hexagon-item">
+        <div class="hexagon">
+          <div class="value">{{ item.value }}</div>
+          <div class="unit">亿</div>
+          <div class="year">{{ item.year }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-
-
-const waterData = [
+const waterData = ref([
   { year: '2019年', value: 187 },
   { year: '2020年', value: 192 },
   { year: '2021年', value: 196 },
   { year: '2022年', value: 208 },
-  { year: '2023年', value: 201 }
-]
-const option = ref<ECOption>({
-  title: {
-    text: '历年用水量数据',
-    textStyle: {
-      color: '#fff',
-      fontSize: 16
-    },
-    left: 10,
-    top: 10
-  },
-  grid: {
-    top: '20%',
-    containLabel: true
-  },
-  xAxis: {
-    type: 'category',
-    data: waterData.map(item => item.year),
-    axisLine: {
-      lineStyle: {
-        color: '#4DCEF8'
-      }
-    },
-    axisLabel: {
-      color: '#fff'
-    }
-  },
-  yAxis: {
-    type: 'value',
-    name: '单位：万吨',
-    nameTextStyle: {
-      color: '#fff'
-    },
-    axisLine: {
-      lineStyle: {
-        color: '#4DCEF8'
-      }
-    },
-    axisLabel: {
-      color: '#fff'
-    },
-    splitLine: {
-      show: false
-    }
-  },
-  series: [
-    {
-      data: waterData.map(item => ({
-        value: item.value,
-        label: {
-          show: true,
-          position: 'top',
-          formatter: '{c}',
-          color: '#4DCEF8',
-          fontSize: 16
-        }
-      })),
-      type: 'scatter',
-      symbolSize: 60,
-      symbol: 'path://M50,0 L100,25 L100,75 L50,100 L0,75 L0,25 Z',
-      itemStyle: {
-        color: 'rgba(0, 147, 233, 0.1)',
-        borderColor: '#4DCEF8',
-        borderWidth: 2
-      }
-    }
-  ]
-})
-
+  { year: '2023年', value: 201 },
+])
 </script>
 
-<style scoped>
-div {
+<style lang="scss" scoped>
+.history-water {
   width: 100%;
-  height: 100%;
+  padding: 20px;
+}
+
+.hexagon-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.hexagon-item {
+  position: relative;
+}
+
+.hexagon {
+  width: 100px;
+  height: 115px;
+  background: rgba(24, 144, 255, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: transform 0.3s, background 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+    background: rgba(24, 144, 255, 0.2);
+  }
+
+  .value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1890ff;
+  }
+
+  .unit {
+    font-size: 14px;
+    color: #1890ff;
+    margin-top: -5px;
+  }
+
+  .year {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+  }
 }
 </style>

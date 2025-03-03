@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { EchartsAnnualTrends, EchartsWaterAlarmInfo, EchartsYearoveryearMonthlyWater } from '#components';
+
 definePageMeta({
   layout: 'default',
 })
@@ -14,19 +16,19 @@ definePageMeta({
         <EchartsWaterProportion />
       </div>
       <div class="grid-item">
-        表格 3
+        <EchartsAnnualTrends></EchartsAnnualTrends>
       </div>
       <div class="grid-item">
         <EchartsHistoryWater />
       </div>
       <div class="grid-item">
-        表格 5
+        <EchartsLastMonth />
       </div>
       <div class="grid-item">
-        表格 6
+        <EchartsYearoveryearMonthlyWater />
       </div>
       <div class="grid-item grid-item-bottom">
-        底部表格
+        <EchartsWaterAlarmInfo></EchartsWaterAlarmInfo>
       </div>
     </div>
   </div>

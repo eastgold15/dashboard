@@ -1,117 +1,12 @@
 import { defineStore } from 'pinia'
+import routerConstans from '~/constants/router.constans'
 
 export const useMyAppStore = defineStore({
   id: 'myAppStore',
   state: () => ({
     mobile: false, // 是否是移动端
     title: '江西飞行学员', // 标题
-    routes: [
-      {
-        path: '/',
-        name: 'basic',
-        label: '基础信息',
-        component: 'basic',
-        parentPath: null,
-      },
-      {
-        path: '/basic/overview',
-        name: 'basicOverview',
-        label: '概览',
-        component: 'basic/overview',
-        parentPath: '/basic',
-      },
-      {
-        path: '/basic/detail',
-        name: 'basicDetail',
-        label: '详情',
-        component: 'basic/detail',
-        parentPath: '/basic',
-      },
-      {
-        path: '/sr',
-        name: 'sr',
-        label: '统计报表',
-        component: 'sr',
-        parentPath: null,
-      },
-      {
-        path: '/sr/daily',
-        name: 'srDaily',
-        label: '日报表',
-        component: 'sr/daily',
-        parentPath: '/sr',
-      },
-      {
-        path: '/sr/monthly',
-        name: 'srMonthly',
-        label: '月报表',
-        component: 'sr/monthly',
-        parentPath: '/sr',
-      },
-      {
-        path: '/wa',
-        name: 'wa',
-        label: '用水分析',
-        component: 'wa',
-        parentPath: null,
-      },
-      {
-        path: '/wa/trend',
-        name: 'waTrend',
-        label: '用水趋势',
-        component: 'wa/trend',
-        parentPath: '/wa',
-      },
-      {
-        path: '/wa/compare',
-        name: 'waCompare',
-        label: '对比分析',
-        component: 'wa/compare',
-        parentPath: '/wa',
-      },
-      {
-        path: '/am',
-        name: 'am',
-        label: '报警管理',
-        component: 'am',
-        parentPath: null,
-      },
-      {
-        path: '/am/current',
-        name: 'amCurrent',
-        label: '当前报警',
-        component: 'am/current',
-        parentPath: '/am',
-      },
-      {
-        path: '/am/history',
-        name: 'amHistory',
-        label: '历史报警',
-        component: 'am/history',
-        parentPath: '/am',
-      },
-      {
-        path: '/qm',
-        name: 'qm',
-        label: '定额管理',
-        component: 'qm',
-        parentPath: null,
-      },
-      {
-        path: '/qm/setting',
-        name: 'qmSetting',
-        label: '定额设置',
-        component: 'qm/setting',
-        parentPath: '/qm',
-      },
-      {
-        path: '/qm/analysis',
-        name: 'qmAnalysis',
-        label: '定额分析',
-        component: 'qm/analysis',
-        parentPath: '/qm',
-      },
-    ],
+    routes: routerConstans,
     pageLoading: false, // 路由跳转loading
     breadcrumb: true, // 面包屑
     breadcrumbIcon: true, // 面包屑图标

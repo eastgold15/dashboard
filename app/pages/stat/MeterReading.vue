@@ -1,10 +1,18 @@
+<script setup lang="ts">
+definePageMeta({
+  layout: 'stat',
+})
+</script>
+
 <template>
   <div class="remote-meter-reading">
     <el-card class="meter-card">
       <template #header>
         <div class="card-header">
           <h2>远程抄表</h2>
-          <el-button type="primary">刷新数据</el-button>
+          <el-button type="primary">
+            刷新数据
+          </el-button>
         </div>
       </template>
       <div class="meter-content">
@@ -19,12 +27,6 @@
     </el-card>
   </div>
 </template>
-
-<script setup lang="ts">
-definePageMeta({
-  layout: 'sr'
-})
-</script>
 
 <style scoped>
 .remote-meter-reading {

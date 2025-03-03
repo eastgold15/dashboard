@@ -2,7 +2,8 @@
 import { ref } from 'vue'
 
 definePageMeta({
-  layout: 'wa',
+  layout: 'anal',
+  alias: ['/anal'],
 })
 
 const timeRange = ref('today')

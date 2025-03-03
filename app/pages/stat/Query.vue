@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+definePageMeta({
+  layout: 'stat',
+})
+
+const dateRange = ref([])
+</script>
+
 <template>
   <div class="statistical-query">
     <el-card class="query-card">
@@ -12,7 +22,9 @@
               start-placeholder="开始日期"
               end-placeholder="结束日期"
             />
-            <el-button type="primary" class="ml-4">查询</el-button>
+            <el-button type="primary" class="ml-4">
+              查询
+            </el-button>
           </div>
         </div>
       </template>
@@ -24,7 +36,9 @@
           <el-table-column prop="cost" label="费用" />
           <el-table-column label="操作">
             <template #default>
-              <el-button type="primary" link>详情</el-button>
+              <el-button type="primary" link>
+                详情
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -32,16 +46,6 @@
     </el-card>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-definePageMeta({
-  layout: 'sr'
-})
-
-const dateRange = ref([])
-</script>
 
 <style scoped>
 .statistical-query {

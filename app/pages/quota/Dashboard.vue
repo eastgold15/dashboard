@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 definePageMeta({
-  layout: 'am',
+  layout: 'quota',
+  alias: ['/quota'],
 })
 </script>
 

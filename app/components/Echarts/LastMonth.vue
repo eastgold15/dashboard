@@ -1,39 +1,53 @@
-<template>
-  <EchartsComponentsEchartsTitle title="上月节水量" unit="m"></EchartsComponentsEchartsTitle>
-  <div class="last-month-water">
+<script lang="ts" setup>
 
+</script>
+
+<template>
+  <div class="last-month-water">
     <div class="wave-progress">
       <div class="wave-container">
         <div class="wave-circle">
           <div class="wave-water" :style="{ height: '45%' }">
-            <div class="wave wave1"></div>
-            <div class="wave wave2"></div>
+            <div class="wave wave1" />
+            <div class="wave wave2" />
           </div>
-          <div class="wave-text">45%</div>
-          <div class="wave-label">节水率</div>
+          <div class="wave-text">
+            45%
+          </div>
+          <div class="wave-label">
+            节水率
+          </div>
         </div>
       </div>
     </div>
     <div class="water-data">
       <div class="data-item">
-        <div class="label">月基准水量</div>
-        <div class="value">116253<span class="unit">m³</span></div>
+        <div class="label">
+          月基准水量
+        </div>
+        <div class="value">
+          116253<span class="unit">m³</span>
+        </div>
       </div>
       <div class="data-item">
-        <div class="label">上月用水量</div>
-        <div class="value">62362<span class="unit">m³</span></div>
+        <div class="label">
+          上月用水量
+        </div>
+        <div class="value">
+          62362<span class="unit">m³</span>
+        </div>
       </div>
       <div class="data-item">
-        <div class="label">上月节水量</div>
-        <div class="value">53891<span class="unit">m³</span></div>
+        <div class="label">
+          上月节水量
+        </div>
+        <div class="value">
+          53891<span class="unit">m³</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-
-</script>
 
 <style scoped>
 .last-month-water {
@@ -97,7 +111,6 @@
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }

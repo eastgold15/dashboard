@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 布局组件逻辑
-const route = useRoute()
-const { childrenRoutes } = useRouteChildren(route.path)
+
+const { childrenRoutes } = useRouteChildren()
 </script>
 
 <template>

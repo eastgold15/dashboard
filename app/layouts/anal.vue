@@ -1,6 +1,5 @@
 <script setup lang="ts">
-const route = useRoute()
-const { childrenRoutes } = useRouteChildren(route.path)
+const { childrenRoutes } = useRouteChildren()
 </script>
 
 <template>

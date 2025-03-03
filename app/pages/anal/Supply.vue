@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+definePageMeta({
+  layout: 'anal',
+})
+
+const analysisDate = ref([])
+</script>
+
 <template>
   <div class="water-supply-analysis">
     <el-card class="supply-card">
@@ -12,7 +22,9 @@
               start-placeholder="开始日期"
               end-placeholder="结束日期"
             />
-            <el-button type="primary" class="ml-4">分析</el-button>
+            <el-button type="primary" class="ml-4">
+              分析
+            </el-button>
           </div>
         </div>
       </template>
@@ -20,34 +32,34 @@
         <el-row :gutter="20">
           <el-col :span="12">
             <el-card shadow="hover" class="stat-card">
-              <template #header>供水总量</template>
-              <div class="stat-value">0 m³</div>
+              <template #header>
+                供水总量
+              </template>
+              <div class="stat-value">
+                0 m³
+              </div>
             </el-card>
           </el-col>
           <el-col :span="12">
             <el-card shadow="hover" class="stat-card">
-              <template #header>供水压力</template>
-              <div class="stat-value">0 MPa</div>
+              <template #header>
+                供水压力
+              </template>
+              <div class="stat-value">
+                0 MPa
+              </div>
             </el-card>
           </el-col>
         </el-row>
         <div class="chart-container">
-          <p class="text-center">供水趋势图表区域</p>
+          <p class="text-center">
+            供水趋势图表区域
+          </p>
         </div>
       </div>
     </el-card>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-definePageMeta({
-  layout: 'wa'
-})
-
-const analysisDate = ref([])
-</script>
 
 <style scoped>
 .water-supply-analysis {

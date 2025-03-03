@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+definePageMeta({
+  layout: 'stat',
+})
+
+const date = ref(new Date())
+</script>
+
 <template>
   <div class="energy-ranking">
     <el-card class="ranking-card">
@@ -29,16 +39,6 @@
     </el-card>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-definePageMeta({
-  layout: 'sr'
-})
-
-const date = ref(new Date())
-</script>
 
 <style scoped>
 .energy-ranking {

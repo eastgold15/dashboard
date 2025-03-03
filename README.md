@@ -2,9 +2,6 @@
 
 四川大学锦江学院
 
-- SSR Preview:
-- SSG Preview:
-
 We recommend to look at the [Nuxt 3 Docs](https://nuxt.com/) and [Element Plus Docs](https://element-plus.org/).
 
 > If you are looking for a Vite + Vue + Element Plus starter, check out [element-plus-vite-starter](https://github.com/element-plus/element-plus-vite-starter/).
@@ -51,6 +48,7 @@ pnpm build
 > nuxt3 +element-plus + Echarts+ unocss + vite + typescript + pinia + Fetch + vue-i18n + vueuse + vue-tsc + vue-types
 
 ## 目录结构
+
 ```
 
 dashboard
@@ -96,6 +94,7 @@ nuxt3他是先看这个layout文件然后一个pages/index它会自动的选择�
 nuxt3的路由是约定式路由，名称是什么它的路径就是什么
 
 ```
+
 ## 前端目录结构
 
 ```
@@ -215,10 +214,10 @@ app
 
 ```
 layouts/
-  ├── sr.vue    # 统计报表布局
-  ├── wa.vue    # 用水分析布局
-  ├── am.vue    # 报警管理布局
-  └── qm.vue    # 定额管理布局
+  ├── stat.vue    # 统计报表布局
+  ├── anal.vue    # 用水分析布局
+  ├── alarm.vue    # 报警管理布局
+  └── quota.vue    # 定额管理布局
   |__ default.vue    # 默认布局
 
 ```
@@ -227,28 +226,28 @@ layouts/
 统计报表 (StatisticalReport)
 pages/
   ├── sr/
-      ├── StatisticsKanban.vue     # 统计看板 index
-      ├── RemoteMeterReading.vue   # 远程抄表
-      ├── EnergyRanking.vue        # 用能排名
-      └── StatisticalQuery.vue     # 统计查询
+      ├── Dashboard.vue          # 统计看板 index
+      ├── MeterReading.vue       # 远程抄表
+      ├── EnergyRank.vue         # 用能排名
+      └── Query.vue              # 统计查询
 
 用水分析 (WaterAnalysis)
 pages/
   ├── wa/
-      ├── DynamicAnalysis.vue      # 动态分析 index
-      ├── WaterSupplyAnalysis.vue  # 供水分析
-      └── LeakageAnalysis.vue      # 漏损分析
+      ├── Dynamic.vue            # 动态分析 index
+      ├── Supply.vue             # 供水分析
+      └── Leakage.vue            # 漏损分析
 
 报警管理 (AlarmManagement)
 pages/
   ├── am/
-      └── AlarmMonitor.vue         # 报警监控 index
+      └── Monitor.vue            # 报警监控 index
 
 定额管理 (QuotaManagement)
 pages/
   ├── qm/
-      ├── QuotaKanban.vue         # 定额看板 index
-      └── QuotaSettings.vue       # 定额配置
+      ├── Dashboard.vue          # 定额看板 index
+      └── Settings.vue           # 定额配置
 
 ```
 

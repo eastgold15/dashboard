@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'sr',
+  layout: 'stat',
+  alias: ['/stat'],
 })
 </script>
 

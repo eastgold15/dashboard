@@ -37,9 +37,7 @@ definePageMeta({
           <template #right>
           sssss
           </template>
-          <template #left>
-          
-          </template>
+        
         </ExampleTest>
       
       </div>

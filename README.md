@@ -256,3 +256,4 @@ pages/
 
 Echarts 饼图:`https://echarts.apache.org/zh/option.html#series-pie.type`
 Nuxt3 官网文档： `https://nuxt.com.cn/docs/api/nuxt-config#appconfig`
+unocss 地址: `https://unocss.nodejs.cn/guide/`

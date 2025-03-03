@@ -1,8 +1,9 @@
 <script lang="ts" setup>
+import logo from '/logo.png'
+
 const props = defineProps<Props>()
 const appStore = useMyAppStore()
-const title = appStore.getTitle()
-
+const title = appStore.getTitle() // 确保路径正确
 interface Props {
   routes: Array<Route>
 }
@@ -11,6 +12,9 @@ interface Props {
 <template>
   <div class="header bgAlpha">
     <div class="header-title">
+      <NuxtLink to="/">
+        <img :src="logo" alt="logo" class="mr-2 h-24px w-24px">
+      </NuxtLink>
       <h1>{{ title }}</h1>
     </div>
     <nav class="header-nav">
@@ -36,8 +40,12 @@ interface Props {
     display: flex;
     align-items: center;
     padding-left: 20px;
-    border-left: 2px solid #0074d9;
-    border-bottom: 2px dashed #0074d9;
+    background: linear-gradient(to right, #387e98, white);
+    font-size: 28px;
+    font-weight: bold;
+
+    background-clip: text;
+    color: transparent;
   }
 
   .header-nav {

@@ -51,6 +51,7 @@ pnpm build
 > nuxt3 +element-plus + Echarts+ unocss + vite + typescript + pinia + Fetch + vue-i18n + vueuse + vue-tsc + vue-types
 
 ## 目录结构
+```
 
 dashboard
 ├── app # 主应用目录
@@ -94,6 +95,7 @@ dashboard
 nuxt3他是先看这个layout文件然后一个pages/index它会自动的选择一个默认布局，然后根据这个布局去渲染页面
 nuxt3的路由是约定式路由，名称是什么它的路径就是什么
 
+```
 ## 前端目录结构
 
 ```

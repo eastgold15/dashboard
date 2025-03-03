@@ -87,10 +87,5 @@ const pieChartOptions = ref<ECOption>({
 </template>
 
 <style scoped>
-/* 添加一些全局样式以确保图表在不同设备上都能良好显示 */
-.v-chart {
-  max-width: 100%;
-  height: auto;
-  max-width: 200px;
-}
+
 </style>

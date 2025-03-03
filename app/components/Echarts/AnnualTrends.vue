@@ -1,19 +1,20 @@
-<template>
-   <EchartsComponentsEchartsTitle title="本年月度用水量走势" unit="m"></EchartsComponentsEchartsTitle>
-  <div class="h-full w-full">
-    <v-chart class="max-h-140px w-full" :option="option" autoresize />
-  </div>
-</template>
-
 <script lang="ts" setup>
-
-import VChart from 'vue-echarts'
 import { ref } from 'vue'
-
-
+import VChart from 'vue-echarts'
 
 const data = [
-  29.3, 23.4, 33.2, 45.5, 56.3, 31.3, 47.2, 34.2, 56.5, 74.3, 66.5, 61.3,
+  29.3,
+  23.4,
+  33.2,
+  45.5,
+  56.3,
+  31.3,
+  47.2,
+  34.2,
+  56.5,
+  74.3,
+  66.5,
+  61.3,
 ]
 
 const option = ref<ECOption>({
@@ -88,9 +89,27 @@ const option = ref<ECOption>({
 })
 </script>
 
+<template>
+  <div class="echart-layout">
+    <EchartsComponentsEchartsTitle title="本年月度用水量走势" unit="m" />
+    <div class="echart">
+      <ClientOnly>
+        <VChart :option="option" autoresize style="width: 100%; height: 140px;" />
+      </ClientOnly>
+    </div>
+  </div>
+</template>
+
 <style>
-.echarts {
+.echart-layout {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .echart {
+    flex: 1;
+    justify-content: center;
+  }
 }
 </style>

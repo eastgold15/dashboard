@@ -3,46 +3,45 @@
 </script>
 
 <template>
-  <div class="last-month-water">
-    <div class="wave-progress">
-      <div class="wave-container">
-        <div class="wave-circle">
-          <div class="wave-water" :style="{ height: '45%' }">
-            <div class="wave wave1" />
-            <div class="wave wave2" />
-          </div>
-          <div class="wave-text">
-            45%
-          </div>
-          <div class="wave-label">
-            节水率
-          </div>
+  <div class="echart-layout">
+    <EchartsComponentsEchartsTitle title="历年用水量数据" unit="万吨" />
+    <div class="last-month-water echart">
+      <div class="wave-circle">
+        <div class="wave-water" :style="{ height: '45%' }">
+          <div class="wave wave1" />
+          <div class="wave wave2" />
+        </div>
+        <div class="wave-text">
+          45%
+        </div>
+        <div class="wave-label">
+          节水率
         </div>
       </div>
-    </div>
-    <div class="water-data">
-      <div class="data-item">
-        <div class="label">
-          月基准水量
+      <div class="water-data">
+        <div class="data-item">
+          <div class="label">
+            月基准水量
+          </div>
+          <div class="value">
+            116253<span class="unit">m³</span>
+          </div>
         </div>
-        <div class="value">
-          116253<span class="unit">m³</span>
+        <div class="data-item">
+          <div class="label">
+            上月用水量
+          </div>
+          <div class="value">
+            62362<span class="unit">m³</span>
+          </div>
         </div>
-      </div>
-      <div class="data-item">
-        <div class="label">
-          上月用水量
-        </div>
-        <div class="value">
-          62362<span class="unit">m³</span>
-        </div>
-      </div>
-      <div class="data-item">
-        <div class="label">
-          上月节水量
-        </div>
-        <div class="value">
-          53891<span class="unit">m³</span>
+        <div class="data-item">
+          <div class="label">
+            上月节水量
+          </div>
+          <div class="value">
+            53891<span class="unit">m³</span>
+          </div>
         </div>
       </div>
     </div>
@@ -51,30 +50,17 @@
 
 <style scoped>
 .last-month-water {
-  display: flex;
-  align-items: center;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  place-items: center;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  color: #fff;
-}
-
-.wave-progress {
-  position: relative;
-  width: 200px;
-  height: 200px;
-}
-
-.wave-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
 }
 
 .wave-circle {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.3);
   overflow: hidden;
@@ -111,6 +97,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -136,12 +123,9 @@
 }
 
 .water-data {
-  flex: 1;
-  margin-left: 30px;
-}
-
-.data-item {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
 .data-item .label {

@@ -97,14 +97,16 @@ const barChartOptions = ref<ECOption>({
 </script>
 
 <template>
-  <div>
-    <VChart :option="barChartOptions" style="width: 100%; height: 120px;" />
+  <div class="chart-container">
+    <!-- 这里有一个细节，使用Div盖者VChart将再加一个类来扩展它的宽度和高度，否则VChar无法设置宽度和高度 -->
+
+    <VChart :option="barChartOptions" style="width: 100%; height: 140px;" />
   </div>
 </template>
 
 <style scoped>
-.v-chart {
-  max-width: 100%;
-  height: auto;
+.chart-container {
+  width: 100%;
+  height: 140px;
 }
 </style>

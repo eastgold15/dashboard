@@ -1,18 +1,3 @@
-<template>
-  <div class="history-water">
-    <EchartsComponentsEchartsTitle title="历年用水量数据" unit="万吨" />
-    <div class="hexagon-container">
-      <div v-for="(item, index) in waterData" :key="index" class="hexagon-item">
-        <div class="hexagon">
-          <div class="value">{{ item.value }}</div>
-          <div class="unit">亿</div>
-          <div class="year">{{ item.year }}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 const waterData = ref([
   { year: '2019年', value: 187 },
@@ -23,22 +8,51 @@ const waterData = ref([
 ])
 </script>
 
+<template>
+  <div class="history-water">
+    <EchartsComponentsEchartsTitle title="历年用水量数据" unit="万吨" />
+    <div class="hexagon-container">
+      <div v-for="(item, index) in waterData" :key="index" class="hexagon-item">
+        <div class="hexagon">
+          <div class="value">
+            {{ item.value }}
+          </div>
+          <div class="unit">
+            亿
+          </div>
+          <div class="year">
+            {{ item.year }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .history-water {
   width: 100%;
-  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .hexagon-container {
+  flex: 1;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+
   gap: 20px;
-  margin-top: 20px;
+  margin-top: -60px;
 }
 
 .hexagon-item {
   position: relative;
+}
+
+.hexagon-item:nth-child(even) {
+  margin-top: 120px;
 }
 
 .hexagon {
@@ -51,7 +65,9 @@ const waterData = ref([
   align-items: center;
   justify-content: center;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  transition: transform 0.3s, background 0.3s;
+  transition:
+    transform 0.3s,
+    background 0.3s;
   cursor: pointer;
 
   &:hover {

@@ -1,3 +1,4 @@
+
 import { defineStore } from 'pinia'
 import routerConstans from '~/constants/router.constans'
 
@@ -27,6 +28,38 @@ export const useMyAppStore = defineStore('myAppStore', () => {
   const layout = ref('classic') // layout布局
   const isDark = ref(false) // 是否是暗黑模式
   const currentSize = ref('default') // 组件尺寸
+  const theme = ref({
+    // 主题色
+    elColorPrimary: '#409eff',
+    // 左侧菜单边框颜色
+    leftMenuBorderColor: 'inherit',
+    // 左侧菜单背景颜色
+    leftMenuBgColor: '#001529',
+    // 左侧菜单浅色背景颜色
+    leftMenuBgLightColor: '#0f2438',
+    // 左侧菜单选中背景颜色
+    leftMenuBgActiveColor: 'var(--el-color-primary)',
+    // 左侧菜单收起选中背景颜色
+    leftMenuCollapseBgActiveColor: 'var(--el-color-primary)',
+    // 左侧菜单字体颜色
+    leftMenuTextColor: '#bfcbd9',
+    // 左侧菜单选中字体颜色
+    leftMenuTextActiveColor: '#fff',
+    // logo字体颜色
+    logoTitleTextColor: '#fff',
+    // logo边框颜色
+    logoBorderColor: 'inherit',
+    // 头部背景颜色
+    topHeaderBgColor: '#fff',
+    // 头部字体颜色
+    topHeaderTextColor: 'inherit',
+    // 头部悬停颜色
+    topHeaderHoverColor: '#f6f6f6',
+    // 头部边框颜色
+    topToolBorderColor: '#eee'
+  }
+
+  )
   // actions
   function getLayout() {
     return layout.value
@@ -58,6 +91,9 @@ export const useMyAppStore = defineStore('myAppStore', () => {
   function getTitle() {
     return title.value
   }
+  function getTheme() {
+    return theme.value
+  }
   function setLayout(newLayout: string) {
     layout.value = newLayout
   }
@@ -87,6 +123,7 @@ export const useMyAppStore = defineStore('myAppStore', () => {
     layout,
     isDark,
     currentSize,
+    
     // actions
     getLayout,
     getRouters,
@@ -99,5 +136,6 @@ export const useMyAppStore = defineStore('myAppStore', () => {
     getFixedMenu,
     getTitle,
     setLayout,
+    getTheme,
   }
 })

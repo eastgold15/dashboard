@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxtjs/i18n',
     'nuxt-echarts',
+   
   ],
   echarts: {
     // https://echarts.nuxt.dev/guides/usage

@@ -26,7 +26,9 @@ definePageMeta({
         <EchartsYearoveryearMonthlyWater />
       </div>
       <div class="grid-item grid-item-bottom">
-        <EchartsWaterAlarmInfo />
+        <!-- <EchartsWaterAlarmInfo /> -->
+        <El2BaseButton></El2BaseButton>
+        <BaseButton>sssss</BaseButton>
       </div>
     </div>
   </div>

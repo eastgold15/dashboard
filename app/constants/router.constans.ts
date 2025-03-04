@@ -29,22 +29,22 @@ export default [{
   component: 'stat/dashboard',
   parentPath: '/stat',
 }, {
-  path: '/stat/meter-reading',
+  path: '/stat/MeterReading',
   name: 'statMeterReading',
   label: '远程抄表',
-  component: 'stat/meter-reading',
+  component: 'stat/MeterReading',
   parentPath: '/stat',
 }, {
-  path: '/stat/energy-rank',
+  path: '/stat/EnergyRank',
   name: 'statEnergyRank',
   label: '用能排名',
-  component: 'stat/energy-rank',
+  component: 'stat/EnergyRank',
   parentPath: '/stat',
 }, {
-  path: '/stat/query',
+  path: '/stat/Query',
   name: 'statQuery',
   label: '统计查询',
-  component: 'stat/query',
+component: 'stat/Query',
   parentPath: '/stat',
 }, {
   path: '/anal',

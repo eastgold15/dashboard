@@ -4,13 +4,12 @@ const { childrenRoutes } = useRouteChildren()
 
 <template>
   <div class="sr-layout">
-    <Header class="layout-header" :routes="childrenRoutes">
+    <Header class="sr-header" :routes="childrenRoutes">
       <!-- 头部内容 -->
     </Header>
     <main class="sr-main">
       <slot />
     </main>
- 
   </div>
 </template>
 
@@ -25,7 +24,7 @@ const { childrenRoutes } = useRouteChildren()
 .sr-header {
   height: 80px;
   flex-shrink: 0;
-  background-color: var(--el-color-primary);
+  background-color: #1f1f1f;
   color: white;
 }
 

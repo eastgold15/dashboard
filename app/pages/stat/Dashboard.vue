@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
-import { ref } from 'vue';
+definePageMeta({
+  layout: 'stat',
+  alias: ['/stat']
+})
 
-
-
+import { ref } from "vue";
 const year = ref('2025');
 const monthlyData = ref([
   { month: '1月', value: 29.3 },
@@ -77,24 +79,43 @@ const chartOption = ref({
 
 <template>
   <div class="statistics-kanban">
-    <StatTitle title="全校月用水量统计看板" />
-    <el-card class="kanban-card">
-      <div class="year-selector">
-        <el-input v-model="year" placeholder="年份" class="year-input">
-          <template #append>
-            <el-button>确定</el-button>
-          </template>
-        </el-input>
-      </div>
 
-      <div class="chart-container">
-        <ClientOnly>
-          <VChart :option="chartOption" autoresize class="water-chart" />
-        </ClientOnly>
-      </div>
+    <ElCard class="kanban-card" body-style="height: 90%;">
+      <StatSRTitle title="全校月用水量统计看板">
+        <template #right>
+          <div class="year-selector">
+            <el-input v-model="year" placeholder="年份" class="year-input">
+              <template #append>
+                <el-button>确定</el-button>
+              </template>
+            </el-input>
+          </div>
+        </template>
+      </StatSRTitle>
+      <ClientOnly>
+        <div class="kanban-content">
 
+          <VChart :option="chartOption" autoresize style="width: 100%; height: 100%;" />
+
+        </div>
+      </ClientOnly>
+
+
+    </ElCard>
+    <ElCard class="kanban-card">
+      <StatSRTitle title="全校月用水量统计看板">
+        <template #right>
+          <div class="year-selector">
+            <el-input v-model="year" placeholder="年份" class="year-input">
+              <template #append>
+                <el-button>确定</el-button>
+              </template>
+            </el-input>
+          </div>
+        </template>
+      </StatSRTitle>
       <div class="kanban-content">
-        <StatTitle title="江西飞行学院2025年用水数据看板" />
+        <SRTitle title="江西飞行学院2025年用水数据看板" />
         <div class="table-container">
           <el-table :data="tableData" style="width: 100%" border stripe>
             <el-table-column prop="id" label="序号" width="70" />
@@ -106,29 +127,44 @@ const chartOption = ref({
           </el-table>
         </div>
       </div>
-    </el-card>
+    </ElCard>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .statistics-kanban {
-  padding: 20px;
-}
-
-.kanban-card {
-  margin-bottom: 50px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
   background-color: #1a1a1a;
-  color: #cdcdcd;
-}
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .kanban-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #1a1a1a;
 
-.kanban-content {
-  min-height: 200px;
+    .kanban-content {
+      background-color: #1a1a1a;
+      flex: 1;
+      height: 100%;
+
+    }
+
+    .year-selector {
+      display: flex;
+      justify-content: flex-end;
+      align-items: left;
+
+      .year-input {
+        height: 100%;
+        width: 200px;
+      }
+    }
+
+  }
 }
 
 .year-selector {

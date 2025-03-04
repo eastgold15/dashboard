@@ -27,16 +27,19 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="justify- flex gap-1 color-#387e98">
-    <div class="clipped-square">
-      {{ time }}
+  <ClientOnly>
+    <div class="justify- flex gap-1 color-#387e98">
+      <div class="clipped-square">
+        {{ time }}
+      </div>
+      |
+      <div class="disClipped-square">
+        <div>{{ dayOfWeek }}</div>
+        <div>{{ date }}</div>
+      </div>
     </div>
-    |
-    <div class="disClipped-square">
-      <div>{{ dayOfWeek }}</div>
-      <div>{{ date }}</div>
-    </div>
-  </div>
+  </ClientOnly>
+
 </template>
 
 <style>
@@ -47,7 +50,8 @@ onUnmounted(() => {
   /* 设置颜色 */
   /* 使用 clip-path 属性切去一个角 */
   clip-path: polygon(10% 0, 100% 1%, 100% 100%, 10% 100%, 0 50%);
-  background: linear-gradient(to right, #387e98, #000000); /* 渐变颜色 */
+  background: linear-gradient(to right, #387e98, #000000);
+  /* 渐变颜色 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +71,8 @@ onUnmounted(() => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #000000, #387e98); /* 渐变颜色 */
+  background: linear-gradient(to right, #000000, #387e98);
+  /* 渐变颜色 */
   color: white;
   font-size: 10px;
   font-weight: 500;

@@ -19,7 +19,7 @@ const { rootRoutes } = useRouteChildren()
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background: url('/bg.jpg') no-repeat center/cover;
+  background: url('/bg.png') no-repeat center/cover;
   overflow: hidden; /* 防止整体滚动 */
 }
 

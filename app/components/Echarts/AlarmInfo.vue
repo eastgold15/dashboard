@@ -1,6 +1,8 @@
 <template>
   <div class="water-alarm-info">
-    <el-table :data="tableData" style="width: 100%" :header-cell-style="headerStyle" :row-class-name="tableRowClassName">
+    <EchartsComponentsEchartsTitle title="本年月度用水量走势" unit="m" />
+    <el-table :data="tableData" style="width: 100%" :header-cell-style="headerStyle"
+      :row-class-name="tableRowClassName">
       <el-table-column prop="type" label="报警类型" />
       <el-table-column prop="area" label="报警区域" />
       <el-table-column prop="time" label="报警时间" />
@@ -80,7 +82,10 @@ const tableData = [
 
 <style>
 .water-alarm-info {
-  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .water-alarm-info .el-table {

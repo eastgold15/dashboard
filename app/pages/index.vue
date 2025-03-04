@@ -10,25 +10,24 @@ definePageMeta({
       <div class="grid-item bgAlpha">
         <EchartsUseWater />
       </div>
-      <div class="grid-item">
+      <div class="grid-item bgAlpha">
         <EchartsWaterProportion />
       </div>
-      <div class="grid-item">
+      <div class="grid-item bgAlpha">
         <EchartsAnnualTrends />
       </div>
-      <div class="grid-item">
-        <EchartsHistoryWater />
+      <div class="grid-item bgAlpha">
+        <EchartsHistoryWater  />
       </div>
-      <div class="grid-item">
+      <div class="grid-item bgAlpha ">
         <EchartsLastMonth />
       </div>
-      <div class="grid-item">
+      <div class="grid-item bgAlpha">
         <EchartsYearoveryearMonthlyWater />
       </div>
-      <div class="grid-item grid-item-bottom">
-        <!-- <EchartsWaterAlarmInfo /> -->
-        <El2BaseButton></El2BaseButton>
-        <BaseButton>sssss</BaseButton>
+      <div class="grid-item grid-item-bottom bgAlpha">
+        <EchartsAlarmInfo />
+      
       </div>
     </div>
   </div>
@@ -94,8 +93,7 @@ definePageMeta({
 .grid-item-bottom {
   grid-column: 2;
   grid-row: 3;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ 
+
 }
 </style>

@@ -12,8 +12,8 @@ export const atomicClasses = {
   'container': 'max-w-7xl mx-auto px-4',
   'flex-center': 'flex justify-center items-center',
   'titileFont': 'text-xl font-bold ',
-  'bgAlpha': ' bg-black bg-opacity-30 backdrop-blur-sm shadow-md ',
-  'Echart-WH': 'w-full h-150px',
+  'bgAlpha': ' bg-black bg-opacity-50 backdrop-blur-sm shadow-md ',
+
   'echart-layout': 'w-full h-full  flex  flex-col ',
   'echart': 'flex-1 justify-center',
 }

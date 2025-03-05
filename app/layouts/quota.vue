@@ -19,6 +19,7 @@ const { childrenRoutes } = useRouteChildren()
 <style scoped>
 .layout-container {
   display: flex;
+  
   flex-direction: column;
   height: 100vh;
   width: 100%;

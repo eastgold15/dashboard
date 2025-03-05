@@ -4,6 +4,7 @@ import { StatSRTitle } from '#components'
 
 definePageMeta({
   layout: 'stat',
+  alias: ['/stat']
 })
 
 const date = ref(new Date())
@@ -85,7 +86,6 @@ const chainData = ref([
 
 <style scoped>
 .energy-ranking {
-  padding: 20px;
   height: 100%;
   background-color: #1a1a1a;
 }

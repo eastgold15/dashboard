@@ -22,6 +22,7 @@ const { childrenRoutes } = useRouteChildren()
 .qm-layout {
   min-height: 100vh;
   display: flex;
+  
   flex-direction: column;
 }
 

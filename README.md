@@ -47,6 +47,15 @@ pnpm build
 
 > nuxt3 +element-plus + Echarts+ unocss + vite + typescript + pinia + Fetch + vue-i18n + vueuse + vue-tsc + vue-types
 
+## git 操作
+
+```
+git pull 拉取代码
+git  push  向远程仓库提交代码
+
+
+```
+
 ## 目录结构
 
 ```

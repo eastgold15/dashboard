@@ -3,87 +3,82 @@ import { ref } from 'vue'
 
 definePageMeta({
   layout: 'anal',
-  alias: ['/anal'],
+  alias: ['/anal/dynamic', '/anal'],
 })
 
-const timeRange = ref('today')
+
 </script>
 
 <template>
   <div class="dynamic-analysis">
-    <el-card class="analysis-card">
-      <template #header>
-        <div class="card-header">
-          <h2>动态分析</h2>
-          <el-select v-model="timeRange" placeholder="选择时间范围">
-            <el-option label="今日" value="today" />
-            <el-option label="本周" value="week" />
-            <el-option label="本月" value="month" />
-          </el-select>
-        </div>
-      </template>
-      <div class="analysis-content">
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <el-card shadow="hover">
-              <template #header>
-                总用水量
-              </template>
-              <div class="stat-value">
-                0 m³
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="8">
-            <el-card shadow="hover">
-              <template #header>
-                平均用水量
-              </template>
-              <div class="stat-value">
-                0 m³/天
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="8">
-            <el-card shadow="hover">
-              <template #header>
-                用水趋势
-              </template>
-              <div class="stat-value">
-                持平
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
+    <div class="left-section ">
+      <div class="chart1 ">
+        <AnalEchartsDynamicDashboard></AnalEchartsDynamicDashboard>
       </div>
-    </el-card>
+      <div class="chart2">
+        <AnalEchartsWaterAnalogyAnaly></AnalEchartsWaterAnalogyAnaly>
+      </div>
+    </div>
+    <!-- 右侧自适应区域 -->
+    <div class="right-section">
+      <div class="w-full h-full">
+        <AnalEchartsBalanceDynamic></AnalEchartsBalanceDynamic>
+      </div>
+      <div class="w-full h-full">
+        <AnalEchartsMiddleLine></AnalEchartsMiddleLine>
+      </div>
+        <div class="w-full h-full">
+        <AnalEchartsMonthlyWaterSavings></AnalEchartsMonthlyWaterSavings>
+      </div>
+    </div>
+
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .dynamic-analysis {
-  padding: 20px;
-}
 
-.analysis-card {
-  margin-bottom: 20px;
-}
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  /* 左侧固定400px，右侧自适应 */
+  gap: 20px;
 
-.card-header {
+  .left-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+.left-section .chart1 {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left-section .chart2{
+  width: 100%;
+  height: 50%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.analysis-content {
-  margin-top: 20px;
-}
-
-.stat-value {
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--el-color-primary);
-  text-align: center;
-  margin-top: 10px;
+  .right-section {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 20px;
+   
+    align-items: center;
+  }
 }
 </style>
+
+
+

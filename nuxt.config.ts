@@ -1,3 +1,4 @@
+import Aura from '@primeuix/themes/aura'
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
   modules: [
@@ -8,7 +9,8 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxtjs/i18n',
     'nuxt-echarts',
-   
+    'dayjs-nuxt',
+    '@primevue/nuxt-module',
   ],
   echarts: {
     // https://echarts.nuxt.dev/guides/usage
@@ -20,6 +22,16 @@ export default defineNuxtConfig({
 
   devtools: {
     enabled: true,
+  },
+  primevue: {
+    usePrimeVue: false,
+    importTheme: { from: '@/assets/themes/mytheme.js' },
+
+    options: {
+      ripple: true,
+      inputVariant: 'filled',
+    },
+
   },
 
   app: {

@@ -17,17 +17,17 @@ definePageMeta({
         <EchartsAnnualTrends />
       </div>
       <div class="grid-item bgAlpha">
-        <EchartsHistoryWater  />
+        <EchartsHistoryWater />
       </div>
-      <div class="grid-item bgAlpha ">
+      <div class="grid-item bgAlpha">
         <EchartsLastMonth />
       </div>
       <div class="grid-item bgAlpha">
         <EchartsYearoveryearMonthlyWater />
       </div>
       <div class="grid-item grid-item-bottom bgAlpha">
-        <EchartsAlarmInfo />
-      
+        <!-- <EchartsAlarmInfo /> -->
+        <Button label="Verify" />
       </div>
     </div>
   </div>
@@ -93,7 +93,5 @@ definePageMeta({
 .grid-item-bottom {
   grid-column: 2;
   grid-row: 3;
- 
-
 }
 </style>

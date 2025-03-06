@@ -7,36 +7,36 @@ const { childrenRoutes } = useRouteChildren()
     <Header class="layout-header" :routes="childrenRoutes">
       <!-- 头部内容 -->
     </Header>
+
+
     <main class="wa-main">
       <slot />
     </main>
-    <footer class="wa-footer">
-      <p>&copy; 2024 水务管理系统</p>
-    </footer>
+  
   </div>
 </template>
 
 <style scoped>
 .wa-layout {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  background: url('/bg.png') no-repeat center/cover;
 }
 
-.wa-header {
-  padding: 1rem;
-  background-color: var(--el-color-primary);
+.layout-header {
+
+
   color: white;
+  flex-shrink: 0;
 }
 
 .wa-main {
-  flex: 1;
-  padding: 1rem;
+  flex-grow: 1;
+  padding-top: 10px;
+
+
 }
 
-.wa-footer {
-  padding: 1rem;
-  background-color: #f5f5f5;
-  text-align: center;
-}
+
 </style>

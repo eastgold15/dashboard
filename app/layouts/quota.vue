@@ -5,40 +5,35 @@ const { childrenRoutes } = useRouteChildren()
 </script>
 
 <template>
-  <div class="qm-layout">
+  <div class="layout-container">
     <Header class="layout-header" :routes="childrenRoutes">
       <!-- 头部内容 -->
     </Header>
-    <main class="qm-main">
+    <main class="layout-main">
       <slot />
     </main>
-    <footer class="qm-footer">
-      <p>&copy; 2024 水务管理系统</p>
-    </footer>
+
   </div>
 </template>
 
 <style scoped>
-.qm-layout {
-  min-height: 100vh;
+.layout-container {
   display: flex;
+  
   flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden; /* 防止整体滚动 */
 }
 
-.qm-header {
-  padding: 1rem;
-  background-color: var(--el-color-primary);
-  color: white;
+.layout-header {
+  flex-shrink: 0;
+  height: 80px; /* 调整header高度为80px */
 }
 
-.qm-main {
-  flex: 1;
-  padding: 1rem;
-}
-
-.qm-footer {
-  padding: 1rem;
-  background-color: #f5f5f5;
-  text-align: center;
+.layout-main {
+  flex-grow: 1;
+  overflow: hidden; /* 禁止内容区域滚动 */
+  position: relative; /* 为内部定位提供参考 */
 }
 </style>

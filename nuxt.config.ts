@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   echarts: {
     // https://echarts.nuxt.dev/guides/usage
     renderer: ['svg', 'canvas'],
-    charts: ['BarChart', 'LineChart', 'PieChart'],
+    charts: ['BarChart', 'LineChart', 'PieChart', 'GaugeChart'],
     components: ['DatasetComponent', 'GridComponent', 'TooltipComponent', 'LegendComponent', 'TitleComponent'],
     features: ['LabelLayout', 'UniversalTransition'],
   },

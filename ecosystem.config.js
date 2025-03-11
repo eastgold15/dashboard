@@ -15,8 +15,10 @@ module.exports = {
       max_memory_restart: '512M', // 当内存使用超过这个值时重启应用
       env_production: {
         PORT: 3000,
+        HOST: '0.0.0.0', // 确保绑定到所有网络接口
         NODE_ENV: 'production',
         NITRO_PRESET: 'node',
+        NITRO_HOST: '0.0.0.0', // 确保绑定到所有网络接口
       },
     },
   ],

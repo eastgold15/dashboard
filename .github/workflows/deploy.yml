@@ -43,6 +43,14 @@ jobs:
           NODE_ENV: production
           NITRO_PRESET: node
 
+      # 添加检查构建产物的步骤
+      - name: 检查构建产物
+        run: |
+          echo "检查构建产物..."
+          ls -la .output/
+          ls -la .output/server/
+          test -f .output/server/index.mjs || echo "警告：入口文件不存在！"
+
       - name: 设置 Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -83,13 +91,15 @@ jobs:
             docker stop water-app || true
             docker rm water-app || true
 
-            # 使用更多环境变量启动容器
+            # 使用更多环境变量启动容器，特别注意 HOST 设置
             docker run -d --name water-app \
               -p 3000:3000 \
               -e NODE_ENV=production \
               -e NITRO_PRESET=node \
               -e NITRO_HOST=0.0.0.0 \
+              -e HOST=0.0.0.0 \
               -e NITRO_PORT=3000 \
+              -e PORT=3000 \
               -e NUXT_PUBLIC_BASEURL_DEV=http://localhost:3000 \
               -e NUXT_PUBLIC_BASEURL_PROD=http://localhost:3000 \
               -e NUXT_PUBLIC_BASEURL_MOCK=http://127.0.0.1:4523/m1/5830454-5516037-default \
@@ -98,7 +108,7 @@ jobs:
               water-dashboard:${{ github.ref_name }}
 
             # 等待容器启动
-            sleep 5
+            sleep 10
 
             # 检查容器状态和日志
             echo "容器状态:"
@@ -106,8 +116,23 @@ jobs:
             echo "容器日志:"
             docker logs water-app
 
-            # 检查网络连接
-            echo "测试应用连接:"
-            docker exec water-app curl -v http://localhost:3000 || echo "无法连接到应用"
+            # 检查网络配置
+            echo "网络配置:"
+            docker exec water-app ip addr
+            docker exec water-app netstat -tulpn || echo "netstat 不可用"
+
+            # 使用不同方式测试连接
+            echo "测试应用连接 (localhost):"
+            docker exec water-app curl -v http://localhost:3000 || echo "无法连接到 localhost"
+
+            echo "测试应用连接 (127.0.0.1):"
+            docker exec water-app curl -v http://127.0.0.1:3000 || echo "无法连接到 127.0.0.1"
+
+            echo "测试应用连接 (0.0.0.0):"
+            docker exec water-app curl -v http://0.0.0.0:3000 || echo "无法连接到 0.0.0.0"
+
+            # 检查容器内进程
+            echo "容器内进程:"
+            docker exec water-app ps aux
 
             rm water-dashboard.tar

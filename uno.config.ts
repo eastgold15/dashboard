@@ -1,3 +1,4 @@
+import { atomicClasses } from '@/assets/styles/automic-classes'
 import {
   defineConfig,
   presetAttributify,
@@ -8,7 +9,6 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-import { atomicClasses } from './app/assets/styles/automic-classes'
 
 export default defineConfig({
   shortcuts: {

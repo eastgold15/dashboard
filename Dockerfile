@@ -7,15 +7,22 @@ WORKDIR /app
 # 复制构建产物
 COPY .output ./.output
 
+# 验证构建产物完整性
+RUN ls -la .output/server/ && \
+    test -f .output/server/index.mjs || echo "构建产物不完整"
+
 # 设置环境变量
 ENV NODE_ENV=production \
     NITRO_PRESET=node \
-    TZ=Asia/Shanghai
+    TZ=Asia/Shanghai \
+    DEBUG=nuxt:*,nitro:*
+
 
 # 设置非 root 用户
 RUN addgroup -S appgroup && \
     adduser -S appuser -G appgroup && \
-    apk add --no-cache tzdata
+    apk add --no-cache tzdata curl && \
+    chown -R appuser:appgroup .output
 
 USER appuser
 
@@ -23,4 +30,6 @@ USER appuser
 EXPOSE 3000
 
 # 启动命令
-CMD ["node", ".output/server/index.mjs"]
+# CMD ["node", ".output/server/index.mjs"]
+# 启动命令 - 使用更详细的日志
+CMD ["node", "--trace-warnings", ".output/server/index.mjs"]

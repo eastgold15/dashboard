@@ -1,0 +1,86 @@
+name: 构建与部署
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.15.0
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23.9.0
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install
+
+      - name: 代码检查
+        run: pnpm lint
+
+      - name: 类型检查
+        run: pnpm typecheck
+
+      - name: 构建项目
+        run: pnpm build
+        env:
+          NODE_ENV: production
+          NITRO_PRESET: node
+
+      - name: 设置 Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 构建并推送 Docker 镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: water-dashboard:${{ github.ref_name }}
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: 保存 Docker 镜像
+        run: |
+          docker save water-dashboard:${{ github.ref_name }} > water-dashboard.tar
+
+      - name: 部署到服务器
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          source: water-dashboard.tar
+          target: /tmp
+
+      - name: 在服务器上启动容器
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            cd /tmp
+            docker load < water-dashboard.tar
+            docker stop water-app || true
+            docker rm water-app || true
+            docker run -d --name water-app -p 3000:3000 --restart always water-dashboard:${{ github.ref_name }}
+            rm water-dashboard.tar

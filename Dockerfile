@@ -1,22 +1,26 @@
-FROM node:20-alpine as build-stage
+# 使用与项目匹配的 Node 版本
+FROM node:23.9.0-alpine
 
-WORKDIR /app
-RUN corepack enable
-
-COPY .npmrc package.json pnpm-lock.yaml ./
-RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
-    pnpm install --frozen-lockfile
-
-COPY . .
-RUN pnpm build
-
-# SSR
-FROM node:20-alpine as production-stage
-
+# 设置工作目录
 WORKDIR /app
 
-COPY --from=build-stage /app/.output ./.output
+# 复制构建产物
+COPY .output ./.output
 
+# 设置环境变量
+ENV NODE_ENV=production \
+    NITRO_PRESET=node \
+    TZ=Asia/Shanghai
+
+# 设置非 root 用户
+RUN addgroup -S appgroup && \
+    adduser -S appuser -G appgroup && \
+    apk add --no-cache tzdata
+
+USER appuser
+
+# 暴露端口
 EXPOSE 3000
 
+# 启动命令
 CMD ["node", ".output/server/index.mjs"]

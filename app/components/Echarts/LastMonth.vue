@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="echart-layout">
+  <div class="h-full w-full flex flex-col">
     <EchartsComponentsEchartsTitle title="历年用水量数据" unit="万吨" />
     <div class="last-month-water echart">
       <div class="wave-circle">

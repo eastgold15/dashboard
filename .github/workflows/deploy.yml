@@ -82,5 +82,32 @@ jobs:
             docker load < water-dashboard.tar
             docker stop water-app || true
             docker rm water-app || true
-            docker run -d --name water-app -p 3000:3000 --restart always water-dashboard:${{ github.ref_name }}
+
+            # 使用更多环境变量启动容器
+            docker run -d --name water-app \
+              -p 3000:3000 \
+              -e NODE_ENV=production \
+              -e NITRO_PRESET=node \
+              -e NITRO_HOST=0.0.0.0 \
+              -e NITRO_PORT=3000 \
+              -e NUXT_PUBLIC_BASEURL_DEV=http://localhost:3000 \
+              -e NUXT_PUBLIC_BASEURL_PROD=http://localhost:3000 \
+              -e NUXT_PUBLIC_BASEURL_MOCK=http://127.0.0.1:4523/m1/5830454-5516037-default \
+              -e NUXT_APP_TITLE="水务Nuxt App" \
+              --restart always \
+              water-dashboard:${{ github.ref_name }}
+
+            # 等待容器启动
+            sleep 5
+
+            # 检查容器状态和日志
+            echo "容器状态:"
+            docker ps -a | grep water-app
+            echo "容器日志:"
+            docker logs water-app
+
+            # 检查网络连接
+            echo "测试应用连接:"
+            docker exec water-app curl -v http://localhost:3000 || echo "无法连接到应用"
+
             rm water-dashboard.tar

@@ -6,11 +6,9 @@ module.exports = {
   apps: [
     {
       name: 'water', // 应用名称
-      script: 'nuxt.ts', // 启动脚本，对于 Nuxt.js 通常是 nuxt.js 或 nuxt-ts (如果使用 TypeScript)
-      args: 'start', // 传递给脚本的参数，通常是启动命令
-      instances: 1, // 启动的实例数量
-      exec_mode: 'fork',
-      // fork模式，适合单服务器
+      script: './.output/server/index.mjs', // 直接使用构建后的入口文件
+      instances: 'max', // 根据可用CPU核心自动调整实例数
+      exec_mode: 'cluster', // 使用集群模式提高性能
       autorestart: true,
 
       watch: false, // 是否监视文件变化并自动重启应用（通常在开发模式下使用）
@@ -22,25 +20,6 @@ module.exports = {
       },
     },
   ],
-
-  /**
-   * Deployment section
-   * https://pm2.keymetrics.io/docs/usage/deployment/
-   */
-  deploy: {
-    production: {
-      'user': 'root', // SSH 用户名
-      'host': '47.109.24.194', // SSH 主机名或 IP 地址
-      'ref': 'origin/main', // Git 仓库的分支
-      'repo': 'git@github.com:eastgold15/dashboard.git', // Git 仓库的 URL
-      'path': '/nuxt3/water-dashboard', // 远程服务器上的部署路径
-      'pre-deploy': 'git pull',
-      'post-deploy':
-        'pnpm install && '
-        + 'pnpm build && '
-        + 'pm2 reload ecosystem.config.js --env production', // 部署后执行的命令
-    },
-  },
 }
 
 // pm2 start ecosystem.config.js --env production    PM2 使用 ecosystem.config.js 文件中的配置来启动应用。您还可以通过添加 --env 参数来指定环境

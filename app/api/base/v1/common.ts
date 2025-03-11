@@ -1,6 +1,6 @@
-import { endHttp } from '../../axios'
 import type { IDataResponse } from '../index.type'
-import type { FeedbackQuery, IUploadResponse } from './common.type'
+import type { IUploadResponse } from './common.type'
+import { endHttp } from '../../axios'
 
 export default {
   status(): Promise<IDataResponse<any>> {
@@ -15,6 +15,5 @@ export default {
   uploadCustom(formData: FormData): Promise<IUploadResponse> {
     return endHttp.post('tools/upload', formData)
   },
-
 
 }

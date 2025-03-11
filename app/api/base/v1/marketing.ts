@@ -1,8 +1,8 @@
 // 营销管理
 
-import { endHttp } from '../../axios'
 import type { IDataResponse, IPageResponse, IStandardResponse } from '../index.type'
 import type { IBannerGroup } from './marketing.type'
+import { endHttp } from '../../axios'
 
 export default {
   banner: {

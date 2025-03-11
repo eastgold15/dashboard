@@ -1,21 +1,20 @@
 <script setup lang="ts">
+const hello = () => ElMessage.info('hello world')
+const helloSuccess = () => ElMessage.success('hello world')
 
-const hello = () => ElMessage.info("hello world");
-const helloSuccess = () => ElMessage.success("hello world");
-
-const color = useColorMode();
+const color = useColorMode()
 const colorMode = computed({
   get: () => color.value === 'dark',
   set: () => (color.preference = (color.value === 'dark' ? 'light' : 'dark')),
-});
+})
 </script>
 
 <template>
   <ClientOnly>
-    <el-switch v-model="colorMode" inline-prompt active-text="dark" inactive-text="light" size="large"/>
+    <el-switch v-model="colorMode" inline-prompt active-text="dark" inactive-text="light" size="large" />
   </ClientOnly>
 
-  <br >
+  <br>
 
   <el-dropdown class="m-4" type="primary">
     <el-button type="primary">
@@ -35,17 +34,23 @@ const colorMode = computed({
     </template>
   </el-dropdown>
 
-  <br >
+  <br>
 
-  <el-button :icon="ElIconView" class="m-4" @click="hello">Hello</el-button>
-  <el-button class="m-4" type="primary" @click="hello">Hello</el-button>
-  <el-button class="m-4" type="success" @click="helloSuccess">Hello</el-button>
+  <el-button :icon="ElIconView" class="m-4" @click="hello">
+    Hello
+  </el-button>
+  <el-button class="m-4" type="primary" @click="hello">
+    Hello
+  </el-button>
+  <el-button class="m-4" type="success" @click="helloSuccess">
+    Hello
+  </el-button>
 
-  <br >
+  <br>
 
   <TheCounter class="m-4" />
 
-  <div class="flex flex-col gap-2 items-center justify-center">
+  <div class="flex flex-col items-center justify-center gap-2">
     <ExampleDatePickers />
     <ExampleIcons />
     <ExampleButtons />

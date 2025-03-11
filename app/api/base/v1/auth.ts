@@ -1,4 +1,3 @@
-
 import type { ILoginToken } from './auth.type'
 
 export default {

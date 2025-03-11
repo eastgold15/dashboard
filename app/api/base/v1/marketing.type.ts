@@ -1,7 +1,5 @@
 import type { SubscribeType } from '../index.type'
 
-
-
 /**
  * 分组黑名单或白名单
  */
@@ -9,8 +7,6 @@ export enum BannerMode {
   WHITELIST,
   BLACKLIST,
 }
-
-
 
 export interface IBannerGroup extends Record<string, any> {
   id?: number
@@ -35,13 +31,9 @@ export interface IBannerGroupQuery extends IBannerGroup {
   pageSize?: number
 }
 
-
-
-
 export interface IUpdateBannerGroupDto extends IBannerGroup {
   /**
    * 横幅图片
    */
   posters: string[]
 }
-

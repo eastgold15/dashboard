@@ -21,7 +21,7 @@ const tableData = ref([
     baseReading: 1800,
     location: '学生宿舍2栋',
     time: '22:21',
-    date: '2/20/25'
+    date: '2/20/25',
   },
   // ... 其他数据
   {
@@ -37,7 +37,7 @@ const tableData = ref([
     baseReading: 1800,
     location: '学生宿舍3栋',
     time: '22:21',
-    date: '2/20/25'
+    date: '2/20/25',
   },
 
   {
@@ -53,7 +53,7 @@ const tableData = ref([
     baseReading: 1800,
     location: '学生宿舍5栋',
     time: '22:21',
-    date: '2/20/25'
+    date: '2/20/25',
   },
 
   {
@@ -69,24 +69,7 @@ const tableData = ref([
     baseReading: 1800,
     location: '学生宿舍5栋',
     time: '22:21',
-    date: '2/20/25'
-  },
-
-
-  {
-    id: 3,
-    area: '学生宿舍4栋',
-    type: '超声波水表',
-    model: '/',
-    diameter: 'DN100',
-    meterNo: 'L1-2-2',
-    pressure: 5.3,
-    reading: 6543,
-    status: '在线',
-    baseReading: 1800,
-    location: '学生宿舍5栋',
-    time: '22:21',
-    date: '2/20/25'
+    date: '2/20/25',
   },
 
   {
@@ -102,9 +85,25 @@ const tableData = ref([
     baseReading: 1800,
     location: '学生宿舍5栋',
     time: '22:21',
-    date: '2/20/25'
+    date: '2/20/25',
   },
-  
+
+  {
+    id: 3,
+    area: '学生宿舍4栋',
+    type: '超声波水表',
+    model: '/',
+    diameter: 'DN100',
+    meterNo: 'L1-2-2',
+    pressure: 5.3,
+    reading: 6543,
+    status: '在线',
+    baseReading: 1800,
+    location: '学生宿舍5栋',
+    time: '22:21',
+    date: '2/20/25',
+  },
+
 ])
 
 const chartOption1 = ref({
@@ -112,19 +111,19 @@ const chartOption1 = ref({
     top: 30,
     right: 20,
     bottom: 30,
-    left: 50
+    left: 50,
   },
   xAxis: {
     type: 'category',
     data: ['21:10', '21:12', '21:14', '21:16', '21:18', '21:20', '21:22', '21:24', '21:26', '21:28', '21:30'],
     axisLine: { lineStyle: { color: '#666' } },
-    axisLabel: { color: '#666' }
+    axisLabel: { color: '#666' },
   },
   yAxis: {
     type: 'value',
     axisLine: { lineStyle: { color: '#666' } },
     axisLabel: { color: '#666' },
-    splitLine: { lineStyle: { color: '#333' } }
+    splitLine: { lineStyle: { color: '#333' } },
   },
   series: [{
     data: [4, 5, 3, 4, 5, 6, 4, 3, 4, 5, 4],
@@ -134,15 +133,20 @@ const chartOption1 = ref({
     areaStyle: {
       color: {
         type: 'linear',
-        x: 0, y: 0, x2: 0, y2: 1,
+        x: 0,
+        y: 0,
+        x2: 0,
+        y2: 1,
         colorStops: [{
-          offset: 0, color: 'rgba(103, 194, 58, 0.2)'
+          offset: 0,
+          color: 'rgba(103, 194, 58, 0.2)',
         }, {
-          offset: 1, color: 'rgba(103, 194, 58, 0)'
-        }]
-      }
-    }
-  }]
+          offset: 1,
+          color: 'rgba(103, 194, 58, 0)',
+        }],
+      },
+    },
+  }],
 })
 
 const chartOption2 = ref({
@@ -150,19 +154,19 @@ const chartOption2 = ref({
     top: 30,
     right: 20,
     bottom: 30,
-    left: 50
+    left: 50,
   },
   xAxis: {
     type: 'category',
     data: ['21:10', '21:12', '21:14', '21:16', '21:18', '21:20', '21:22', '21:24', '21:26', '21:28', '21:30'],
     axisLine: { lineStyle: { color: '#666' } },
-    axisLabel: { color: '#666' }
+    axisLabel: { color: '#666' },
   },
   yAxis: {
     type: 'value',
     axisLine: { lineStyle: { color: '#666' } },
     axisLabel: { color: '#666' },
-    splitLine: { lineStyle: { color: '#333' } }
+    splitLine: { lineStyle: { color: '#333' } },
   },
   series: [{
     data: [4, 3, 4, 3, 5, 4, 3, 4, 5, 4, 3],
@@ -172,15 +176,20 @@ const chartOption2 = ref({
     areaStyle: {
       color: {
         type: 'linear',
-        x: 0, y: 0, x2: 0, y2: 1,
+        x: 0,
+        y: 0,
+        x2: 0,
+        y2: 1,
         colorStops: [{
-          offset: 0, color: 'rgba(64, 158, 255, 0.2)'
+          offset: 0,
+          color: 'rgba(64, 158, 255, 0.2)',
         }, {
-          offset: 1, color: 'rgba(64, 158, 255, 0)'
-        }]
-      }
-    }
-  }]
+          offset: 1,
+          color: 'rgba(64, 158, 255, 0)',
+        }],
+      },
+    },
+  }],
 })
 </script>
 
@@ -219,13 +228,17 @@ const chartOption2 = ref({
     </el-card>
     <div class="charts-container">
       <el-card class="chart-card" style="height: 100%">
-        <div class="chart-title">自来水泵房出水表瞬时流量</div>
+        <div class="chart-title">
+          自来水泵房出水表瞬时流量
+        </div>
         <ClientOnly>
           <VChart :option="chartOption1" autoresize />
         </ClientOnly>
       </el-card>
       <el-card class="chart-card" style="height: 100%">
-        <div class="chart-title">各计量表瞬时流量</div>
+        <div class="chart-title">
+          各计量表瞬时流量
+        </div>
         <ClientOnly>
           <VChart :option="chartOption2" autoresize />
         </ClientOnly>
@@ -286,7 +299,6 @@ const chartOption2 = ref({
 
 .search-input {
   width: 200px;
-  
 }
 
 .meter-content {

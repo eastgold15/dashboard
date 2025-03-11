@@ -1,9 +1,7 @@
-import { server } from "typescript";
-
 export default {
   server: {
-    about: "关于",
-    advanced: "高级"
+    about: '关于',
+    advanced: '高级',
   },
   common: {
     inputText: '请输入',
@@ -50,7 +48,7 @@ export default {
     refresh: '刷新',
     fullscreen: '全屏',
     size: '尺寸',
-    columnSetting: '列设置'
+    columnSetting: '列设置',
   },
   lock: {
     lockScreen: '锁定屏幕',
@@ -60,13 +58,13 @@ export default {
     backToLogin: '返回登录',
     entrySystem: '进入系统',
     placeholder: '请输入锁屏密码',
-    message: '锁屏密码错误'
+    message: '锁屏密码错误',
   },
   error: {
     noPermission: `抱歉，您无权访问此页面。`,
     pageError: '抱歉，您访问的页面不存在。',
     networkError: '抱歉，服务器报告错误。',
-    returnToHome: '返回首页'
+    returnToHome: '返回首页',
   },
   setting: {
     projectSetting: '项目配置',
@@ -98,12 +96,12 @@ export default {
     dynamicRouter: '动态路由',
     reExperienced: '请重新退出登录体验',
     fixedMenu: '固定菜单',
-    serverDynamicRouter: '服务端动态路由'
+    serverDynamicRouter: '服务端动态路由',
   },
   size: {
     default: '默认',
     large: '大',
-    small: '小'
+    small: '小',
   },
   login: {
     welcome: '欢迎使用本系统',
@@ -120,7 +118,7 @@ export default {
     usernamePlaceholder: '请输入用户名',
     passwordPlaceholder: '请输入密码',
     code: '验证码',
-    codePlaceholder: '请输入验证码'
+    codePlaceholder: '请输入验证码',
   },
   router: {
     login: '登录',
@@ -169,10 +167,10 @@ export default {
     treeTable: '树形表格',
     PicturePreview: '表格图片预览',
     department: '部门管理',
-    menuManagement: '菜单管理'
+    menuManagement: '菜单管理',
   },
   permission: {
-    hasPermission: '请设置操作权限值'
+    hasPermission: '请设置操作权限值',
   },
   analysis: {
     newUser: '新增用户',
@@ -208,7 +206,7 @@ export default {
     thursday: '周四',
     friday: '周五',
     saturday: '周六',
-    sunday: '周日'
+    sunday: '周日',
   },
   workplace: {
     goodMorning: '早安',
@@ -231,7 +229,7 @@ export default {
     dynamic: '动态',
     push: '推送',
     pushCode: 'Archer 推送 代码到 Github',
-    follow: '关注'
+    follow: '关注',
   },
   formDemo: {
     input: '输入框',
@@ -310,13 +308,13 @@ export default {
     customContent: '自定义内容',
     lazyLoad: '懒加载',
     upload: '上传',
-    userAvatar: '用户头像'
+    userAvatar: '用户头像',
   },
   guideDemo: {
     guide: '引导页',
     start: '开始',
     message:
-      '引导页对于一些第一次进入项目的人很有用，你可以简单介绍下项目的功能。引导页基于 intro.js'
+      '引导页对于一些第一次进入项目的人很有用，你可以简单介绍下项目的功能。引导页基于 intro.js',
   },
   iconDemo: {
     icon: '图标',
@@ -325,12 +323,12 @@ export default {
     recommendedUse: '推荐使用',
     recommendeDes:
       'Iconify组件基本包含所有的图标，你可以查询到你想要的任何图标。并且打包只会打包所用到的图标。',
-    accessAddress: '访问地址'
+    accessAddress: '访问地址',
   },
   echartDemo: {
     echart: '图表',
     echartDes:
-      '基于 echarts 二次封装组件，自适应宽度，只需传入 options 与 height 属性即可展示对应的图表。'
+      '基于 echarts 二次封装组件，自适应宽度，只需传入 options 与 height 属性即可展示对应的图表。',
   },
   countToDemo: {
     countTo: '数字动画',
@@ -343,13 +341,13 @@ export default {
     startVal: '开始值',
     start: '开始',
     pause: '暂停',
-    resume: '继续'
+    resume: '继续',
   },
   watermarkDemo: {
     watermark: '水印',
     createdWatermark: '创建水印',
     clearWatermark: '清除水印',
-    resetWatermark: '重置水印'
+    resetWatermark: '重置水印',
   },
   qrcodeDemo: {
     qrcode: '二维码',
@@ -362,21 +360,21 @@ export default {
     invalid: '失效',
     logoConfig: 'logo配置',
     logoStyle: 'logo样式',
-    size: '大小配置'
+    size: '大小配置',
   },
   highlightDemo: {
     highlight: '高亮',
     message: '种一棵树最好的时间是十年前，其次就是现在。',
     keys1: '十年前',
-    keys2: '现在'
+    keys2: '现在',
   },
   infotipDemo: {
     infotip: '信息提示',
     infotipDes: '基于 Highlight 组件二次封装',
-    title: '注意事项'
+    title: '注意事项',
   },
   levelDemo: {
-    menu: '多级菜单缓存'
+    menu: '多级菜单缓存',
   },
   searchDemo: {
     search: '查询',
@@ -398,10 +396,10 @@ export default {
     // 还原单选框
     restoreRadio: '还原单选框',
     loading: '加载中',
-    reset: '重置'
+    reset: '重置',
   },
   stickyDemo: {
-    sticky: '黏性'
+    sticky: '黏性',
   },
   tableDemo: {
     table: '表格',
@@ -436,11 +434,11 @@ export default {
     fixedHeaderOrAuto: '固定头部/自动',
     getSelections: '获取多选数据',
     preview: '封面',
-    showOrHiddenSortable: '显示/隐藏排序'
+    showOrHiddenSortable: '显示/隐藏排序',
   },
   richText: {
     richText: '富文本',
-    richTextDes: '基于 wangeditor 二次封装'
+    richTextDes: '基于 wangeditor 二次封装',
   },
   dialogDemo: {
     dialog: '弹窗',
@@ -448,12 +446,12 @@ export default {
     open: '打开',
     close: '关闭',
     combineWithForm: '与表单结合',
-    submit: '提交'
+    submit: '提交',
   },
   imageViewerDemo: {
     open: '打开',
     imageViewer: '图片预览',
-    imageViewerDes: '基于 ElementPlus 的 ImageViewer 组件二次封装'
+    imageViewerDes: '基于 ElementPlus 的 ImageViewer 组件二次封装',
   },
   descriptionsDemo: {
     descriptions: '描述',
@@ -463,7 +461,7 @@ export default {
     phone: '联系电话',
     email: '邮箱',
     addr: '地址',
-    form: '与 Form 组件组合'
+    form: '与 Form 组件组合',
   },
   exampleDemo: {
     title: '标题',
@@ -477,7 +475,7 @@ export default {
     important: '重要',
     content: '内容',
     save: '保存',
-    detail: '详情'
+    detail: '详情',
   },
   userDemo: {
     title: '用户管理',
@@ -505,7 +503,7 @@ export default {
     // 禁用
     disable: '禁用',
     // 上级部门
-    superiorDepartment: '上级部门'
+    superiorDepartment: '上级部门',
   },
   menu: {
     menuName: '菜单名称',
@@ -522,10 +520,10 @@ export default {
     noTagsView: '是否隐藏标签页',
     activeMenu: '高亮菜单',
     canTo: '是否可跳转',
-    name: '组件名称'
+    name: '组件名称',
   },
   inputPasswordDemo: {
     title: '密码输入框',
-    inputPasswordDes: '基于 ElementPlus 的 Input 组件二次封装'
-  }
+    inputPasswordDes: '基于 ElementPlus 的 Input 组件二次封装',
+  },
 }

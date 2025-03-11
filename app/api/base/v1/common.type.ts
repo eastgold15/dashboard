@@ -5,4 +5,3 @@ export interface IUploadResponse extends IStandardResponse {
     filename: string
   }
 }
-

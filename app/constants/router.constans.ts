@@ -44,7 +44,7 @@ export default [{
   path: '/stat/Query',
   name: 'statQuery',
   label: '统计查询',
-component: 'stat/Query',
+  component: 'stat/Query',
   parentPath: '/stat',
 }, {
   path: '/anal',

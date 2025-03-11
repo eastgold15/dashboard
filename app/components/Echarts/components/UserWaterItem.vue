@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
       </svg>
     </div>
     <div class="text-container">
-      <div class="text-item item-title">
+      <div class="item-title text-item">
         {{ props.title }}
       </div>
       <div class="text-item bgAlpha">

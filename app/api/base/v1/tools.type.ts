@@ -1,5 +1,3 @@
-import type { extend } from 'dayjs'
-
 export interface IStorageModel extends IStorage {}
 
 interface IStorage {

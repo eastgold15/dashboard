@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { StatSRTitle } from '#components'
 import { ref } from 'vue'
 
 definePageMeta({

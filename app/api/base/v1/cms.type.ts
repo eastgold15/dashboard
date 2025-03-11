@@ -1,5 +1,3 @@
-
-
 export interface IUserModel extends Record<string, any> {
   /**
    * 头像
@@ -676,7 +674,7 @@ export interface IFeedbackModel {
   feedID?: string
   feedSuggestion?: null | string
   feedType?: string
-  user?:any
+  user?: any
 
   id?: number
   updatedAt?: string

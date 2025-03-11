@@ -1,42 +1,35 @@
 <script setup lang='ts'>
-interface Props{
-    monthData:string
+import { InputNumber } from 'primevue'
+
+interface Props {
+  monthData: string
 }
-    const props=defineProps<Props>()
-    const input = defineModel<number | null>('count')
+const props = defineProps<Props>()
+const input = defineModel<number | null>('count')
 </script>
 
 <template>
-    <div class="month-container"  w-100% h-20% flex  >
-        <div class="month-andimg" >
-            <span class="month">{{ props.monthData }}</span>
-            <div class="bg-img"></div>
-        </div>
-        <el-input v-model="input" style="width: 200px; height: 70px; padding-top:20px ; " placeholder="请输入数值" />
+  <div class="h-full w-full flex">
+    <div class="w-20% flex flex-col items-center justify-center">
+      <div class="month text-size-4xl">
+        {{ props.monthData }}
+      </div>
+      <div class="bg-img h-20px w-80%" />
     </div>
+
+    <div class="flex-1">
+      <div class="w-50%">
+        <InputGroup>
+          <InputNumber v-model="input" placeholder="月份" />
+        </InputGroup>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-.month{
-    font-size: 35px;
+.bg-img {
+  background: linear-gradient(0.25turn, #4a67ea, #fc0000);
+  border-radius: 30px;
 }
-
-.month-container{
-    justify-content: space-around;
-}
-
-.month-andimg{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.bg-img{
-    width: 130%;
-    height: 20%;
-    background: linear-gradient(.25turn, #4a67ea, #fc0000);
-    border-radius: 30px;
-}
-
 </style>

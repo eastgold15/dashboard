@@ -1,36 +1,31 @@
+<script lang="ts" setup>
+interface Propr {
+  title: string
+  unit?: string
+}
+const props = withDefaults(defineProps<Propr>(), {
+  title: '用水数据',
+})
+</script>
+
 <template>
   <div class="Echart-title">
-    <div class="name titileFont ">
+    <div class="name titileFont">
       {{ props.title }}
-
     </div>
-    <div class="unit text-sm text-right p-4">
+    <div v-if="props.unit" class="unit p-4 text-right text-sm">
       单位:{{ props.unit }}
     </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-interface Propr {
-  title: string
-  unit: string
-}
-const props = withDefaults(defineProps<Propr>(), {
-  title: '用水数据',
-  unit: 'm'
-})
-
-</script>
-
 <style lang="scss" scope>
-
-
 .Echart-title {
   display: flex;
   width: 100%;
   height: 40px;
   line-height: 40px;
-  color: #CDCDCD;
+  color: #cdcdcd;
   background-color: rgba(0, 0, 0, 0.3); /* 设置半透明背景 */
   backdrop-filter: blur(1px); /* 添加模糊效果 */
   border-top: 2px solid #bdc3c7;
@@ -44,13 +39,10 @@ const props = withDefaults(defineProps<Propr>(), {
     flex: 1;
     text-align: left;
     padding-left: 40px;
-   
-
   }
 
   .unit {
     width: 80px;
   }
-
 }
 </style>

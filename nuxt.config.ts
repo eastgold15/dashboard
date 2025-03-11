@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     'nuxt-echarts',
     'dayjs-nuxt',
     '@primevue/nuxt-module',
+
   ],
   echarts: {
     // https://echarts.nuxt.dev/guides/usage
@@ -24,12 +25,15 @@ export default defineNuxtConfig({
     enabled: true,
   },
   primevue: {
-    usePrimeVue: false,
+
     importTheme: { from: '@/assets/themes/mytheme.js' },
 
     options: {
       ripple: true,
       inputVariant: 'filled',
+    },
+    components: {
+      exclude: [],
     },
 
   },

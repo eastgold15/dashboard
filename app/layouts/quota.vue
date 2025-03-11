@@ -12,17 +12,16 @@ const { childrenRoutes } = useRouteChildren()
     <main class="layout-main">
       <slot />
     </main>
-
   </div>
 </template>
 
 <style scoped>
 .layout-container {
   display: flex;
-  
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  background: url('/bg.png') no-repeat center/cover;
   overflow: hidden; /* 防止整体滚动 */
 }
 

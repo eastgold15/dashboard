@@ -6,19 +6,21 @@ module.exports = {
   apps: [
     {
       name: 'water', // 应用名称
-      script: 'nuxt.ts',   // 启动脚本，对于 Nuxt.js 通常是 nuxt.js 或 nuxt-ts (如果使用 TypeScript)
-      args: 'start',       // 传递给脚本的参数，通常是启动命令
-      instances: 1,        // 启动的实例数量
-      autorestart: true,   // 当应用崩溃时自动重启
-      watch: false,        // 是否监视文件变化并自动重启应用（通常在开发模式下使用）
-      max_memory_restart: '1G', // 当内存使用超过这个值时重启应用
-      env: {
-        NODE_ENV: 'production' // 设置环境变量
-      },
+      script: 'nuxt.ts', // 启动脚本，对于 Nuxt.js 通常是 nuxt.js 或 nuxt-ts (如果使用 TypeScript)
+      args: 'start', // 传递给脚本的参数，通常是启动命令
+      instances: 1, // 启动的实例数量
+      exec_mode: 'fork',
+      // fork模式，适合单服务器
+      autorestart: true,
+
+      watch: false, // 是否监视文件变化并自动重启应用（通常在开发模式下使用）
+      max_memory_restart: '512M', // 当内存使用超过这个值时重启应用
       env_production: {
-        NODE_ENV: 'production'
-      }
-    }
+        PORT: 3000,
+        NODE_ENV: 'production',
+        NITRO_PRESET: 'node',
+      },
+    },
   ],
 
   /**
@@ -27,15 +29,18 @@ module.exports = {
    */
   deploy: {
     production: {
-      user: 'username',      // SSH 用户名
-      host: 'hostname',      // SSH 主机名或 IP 地址
-      ref: 'origin/master',  // Git 仓库的分支
-      repo: 'repo_url',      // Git 仓库的 URL
-      path: '/var/www/app',  // 远程服务器上的部署路径
-      'post-deploy': 'npm install && pm2 startOrReload ecosystem.config.js --env production' // 部署后执行的命令
-    }
-  }
-};
-
+      'user': 'root', // SSH 用户名
+      'host': '47.109.24.194', // SSH 主机名或 IP 地址
+      'ref': 'origin/main', // Git 仓库的分支
+      'repo': 'git@github.com:eastgold15/dashboard.git', // Git 仓库的 URL
+      'path': '/nuxt3/water-dashboard', // 远程服务器上的部署路径
+      'pre-deploy': 'git pull',
+      'post-deploy':
+        'pnpm install && '
+        + 'pnpm build && '
+        + 'pm2 reload ecosystem.config.js --env production', // 部署后执行的命令
+    },
+  },
+}
 
 // pm2 start ecosystem.config.js --env production    PM2 使用 ecosystem.config.js 文件中的配置来启动应用。您还可以通过添加 --env 参数来指定环境

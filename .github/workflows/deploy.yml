@@ -26,7 +26,7 @@ jobs:
       - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version:  "22.14.0"
+          node-version:  22.14.0
           cache: pnpm
 
         
@@ -45,9 +45,7 @@ jobs:
 
       - name: 构建项目
         run: pnpm build
-        env:
-          NODE_ENV: production
-          NITRO_PRESET: node
+      
 
       # 添加检查构建产物的步骤
       - name: 检查构建产物

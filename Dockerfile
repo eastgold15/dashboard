@@ -1,5 +1,5 @@
 # 使用与项目匹配的 Node 版本
-FROM node:23.9.0-alpine
+FROM node:22.14.0-alpine
 
 # 设置工作目录
 WORKDIR /app

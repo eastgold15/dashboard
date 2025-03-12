@@ -2,8 +2,6 @@ name: 构建与部署
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*'
 
@@ -72,7 +70,7 @@ jobs:
       - name: 保存 Docker 镜像和配置文件
         run: |
           docker save water-dashboard:${{ github.ref_name }} > water-dashboard.tar
-          cp docker-compose.yml docker-compose.yml.deploy
+       
           echo "TAG=${{ github.ref_name }}" > .env
 
       - name: 部署到服务器
@@ -82,7 +80,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
-          source: water-dashboard.tar,docker-compose.yml.deploy,.env
+          source: water-dashboard.tar,docker-compose.yml,.env
           target: /tmp
 
       - name: 在服务器上启动容器
@@ -95,7 +93,7 @@ jobs:
           script: |
             cd /tmp
             docker load < water-dashboard.tar
-            mv docker-compose.yml.deploy docker-compose.yml
+       
             
             # 使用 Docker Compose 启动应用
             docker-compose down

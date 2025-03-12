@@ -17,6 +17,10 @@ export default defineConfig({
     'space-md': 'm-4 p-4', // 16px
     'space-lg': 'm-6 p-6', // 24px
     'space-xl': 'm-8 p-8', // 32px
+    // 按钮样式
+    'btn': 'bg-[#407E8A] text-white p-2 px-8 rounded-md text-center text-sm hover:bg-[#366a74] active:bg-[#2a525c] focus:ring-2 focus:ring-[#407E8A] focus:ring-opacity-50 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95',
+    'btn-active': 'bg-[#2a525c] ring-2 ring-[#407E8A] ring-opacity-50',
+    'bg-primary': 'bg-[#1C222A]', // 背景色
 
     // 菜单间距
     'menu-space': 'm-4 p-4', // 菜单之间的间距
@@ -35,6 +39,9 @@ export default defineConfig({
     'text-warning': 'text-yellow-500 dark:text-yellow-400', // 警告文字
     'text-info': 'text-blue-500 dark:text-blue-400', // 信息文字
 
+    // 水务特色文本
+    'water-title': 'text-xl font-bold text-water-blue text-[#387e98]',
+    'water-subtitle': 'text-lg font-medium text-water-blue',
     // 布局规范
     'flex-row': 'flex flex-row', // 水平排列
     'flex-col': 'flex flex-col', // 垂直排列
@@ -59,14 +66,6 @@ export default defineConfig({
     'text-sm': 'text-sm sm:text-base md:text-lg lg:text-xl', // 响应式文字大小
     'text-md': 'text-base sm:text-lg md:text-xl lg:text-2xl', // 响应式文字大小
     'text-lg': 'text-lg sm:text-xl md:text-2xl lg:text-3xl', // 响应式文字大小
-
-    // 水务特色文本
-    'water-title': 'text-xl font-bold text-water-blue',
-    'water-subtitle': 'text-lg font-medium text-water-blue',
-    // 按钮样式
-    'btn': 'bg-blue-500 text-white p-2 rounded-md text-sm hover:bg-blue-600',
-    'btn-primary': 'bg-blue-500 text-white p-2 rounded-md text-sm hover:bg-blue-600',
-    'btn-secondary': 'bg-gray-500 text-white p-2 rounded-md text-sm hover:bg-gray-600',
 
     // 卡片样式
     'card': 'bg-white p-4 rounded-lg shadow-md',

@@ -6,6 +6,7 @@ html[data-theme='dark'] {
 
 :root {
   box-sizing: border-box;
+  color: #fff;
   /* 主色调 - 蓝色系，适合水务管理 */
   --primary-color: #409eff;
   --primary-light: #66b1ff;

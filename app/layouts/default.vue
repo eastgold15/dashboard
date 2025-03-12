@@ -3,7 +3,7 @@ const { rootRoutes } = useRouteChildren()
 </script>
 
 <template>
-  <section class="layout-container">
+  <section class="layout-container flex-col">
     <Header class="layout-header" :routes="rootRoutes">
       <!-- 头部内容 -->
     </Header>

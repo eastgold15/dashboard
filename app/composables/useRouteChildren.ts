@@ -25,10 +25,25 @@ export function useRouteChildren() {
     { immediate: true },
   )
 
-  // 使用computed获取当前路径下的所有子路由
+  // 使用computed获取当前路径下的子路由或平级路由
   const childrenRoutes = computed(() => {
-    console.log('childrenRoutes', appStore.routes.filter(route => route.parentPath === currentPath.value))
-    return appStore.routes.filter(route => route.parentPath === currentPath.value)
+    const currentRoute = appStore.routes.find(route => route.path === currentPath.value)
+    if (!currentRoute)
+      return []
+
+    // 如果当前路由有子路由，返回子路由
+    const childRoutes = appStore.routes.filter(route => route.parentPath === currentRoute.path)
+    if (childRoutes.length > 0) {
+      return childRoutes
+    }
+
+    // 如果当前路由有父路由，返回平级路由
+    if (currentRoute.parentPath) {
+      return appStore.routes.filter(route => route.parentPath === currentRoute.parentPath)
+    }
+
+    // 如果当前路由是顶级路由，返回所有顶级路由
+    return appStore.routes.filter(route => route.parentPath === null)
   })
 
   // 获取当前路由信息

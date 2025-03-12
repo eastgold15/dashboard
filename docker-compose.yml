@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   water-app:
-    build: .
+    image: water-dashboard:${TAG:-latest}
     container_name: water-app
     restart: always
     ports:

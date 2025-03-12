@@ -40,6 +40,12 @@ export default defineConfig({
     'titileFont': 'text-xl font-bold', // 移除末尾多余空格
     'bgAlpha': 'bg-black bg-opacity-50 backdrop-blur-sm shadow-md', // 移除首尾多余空格
 
+    'sm': 'max-w-screen-sm mx-auto px-4',  // 640px
+    'md': 'max-w-screen-md mx-auto px-4',  // 768px
+    'lg': 'max-w-screen-lg mx-auto px-4',  // 1024px
+    'xl': 'max-w-screen-xl mx-auto px-4',  // 1280px
+    
+
   },
   presets: [
     presetUno(),

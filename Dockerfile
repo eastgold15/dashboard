@@ -9,7 +9,7 @@ RUN npm install -g pm2
 
 # 复制构建产物和配置文件
 COPY .output ./.output
-COPY ecosystem.config.js ./
+COPY ecosystem.config.cjs ./
 
 # 设置环境变量
 ENV NODE_ENV=production \

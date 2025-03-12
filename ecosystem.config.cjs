@@ -8,7 +8,6 @@ module.exports = {
   apps: [
     {
       name: 'water', // 应用名称
-
       script: path.resolve(__dirname, './.output/server/index.mjs'), // 直接使用构建后的入口文件
       instances: 'max', // 根据可用CPU核心自动调整实例数
       exec_mode: 'cluster', // 使用集群模式提高性能
@@ -27,4 +26,4 @@ module.exports = {
   ],
 }
 
-// pm2 start ecosystem.config.js --env production    PM2 使用 ecosystem.config.js 文件中的配置来启动应用。您还可以通过添加 --env 参数来指定环境
+// pm2 start ecosystem.config.cjs --env production    PM2 使用 ecosystem.config.cjs 文件中的配置来启动应用。您还可以通过添加 --env 参数来指定环境

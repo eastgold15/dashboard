@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  water-app:
+    image: water-dashboard:${TAG:-latest}
+    container_name: water-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NITRO_PRESET=node
+      - NITRO_HOST=0.0.0.0
+      - HOST=0.0.0.0
+      - PORT=3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - water-network
+
+networks:
+  water-network:
+    driver: bridge

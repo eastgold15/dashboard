@@ -26,7 +26,7 @@ jobs:
       - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version:  22.14.0
+          node-version: 'lts/20'  # 使用 LTS 版本
           cache: pnpm
 
         

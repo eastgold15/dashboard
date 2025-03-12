@@ -1,3 +1,5 @@
+const path = require('node:path')
+
 module.exports = {
   /**
    * Application configuration section
@@ -6,7 +8,8 @@ module.exports = {
   apps: [
     {
       name: 'water', // 应用名称
-      script: './.output/server/index.mjs', // 直接使用构建后的入口文件
+
+      script: path.resolve(__dirname, './.output/server/index.mjs'), // 直接使用构建后的入口文件
       instances: 'max', // 根据可用CPU核心自动调整实例数
       exec_mode: 'cluster', // 使用集群模式提高性能
       autorestart: true,

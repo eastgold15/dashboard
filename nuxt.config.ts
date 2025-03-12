@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     '@primevue/nuxt-module',
 
   ],
+
   echarts: {
     // https://echarts.nuxt.dev/guides/usage
     renderer: ['svg', 'canvas'],

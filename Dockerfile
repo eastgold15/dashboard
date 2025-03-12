@@ -29,4 +29,4 @@ EXPOSE 3000
 
 # 使用 PM2 启动应用
 # 启动命令
-CMD ["pm2-runtime", "ecosystem.config.js", "--env", "production"]
+CMD ["pm2-runtime", "ecosystem.config.cjs", "--env", "production"]

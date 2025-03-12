@@ -96,14 +96,8 @@ jobs:
               -p 3000:3000 \
               -e NODE_ENV=production \
               -e NITRO_PRESET=node \
-              -e NITRO_HOST=0.0.0.0 \
               -e HOST=0.0.0.0 \
-              -e NITRO_PORT=3000 \
               -e PORT=3000 \
-              -e NUXT_PUBLIC_BASEURL_DEV=http://localhost:3000 \
-              -e NUXT_PUBLIC_BASEURL_PROD=http://localhost:3000 \
-              -e NUXT_PUBLIC_BASEURL_MOCK=http://127.0.0.1:4523/m1/5830454-5516037-default \
-              -e NUXT_APP_TITLE="水务Nuxt App" \
               --restart always \
               water-dashboard:${{ github.ref_name }}
 

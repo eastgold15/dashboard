@@ -26,7 +26,8 @@
     "docker:run": "docker run -d -p 3000:4000 --name water-app water-dashboard:local",
     "docker:logs": "docker logs water-app",
     "docker:stop": "docker stop water-app && docker rm water-app",
-    "docker:deploy": "pnpm run docker:build && pnpm run docker:run && pnpm run docker:logs"
+    "docker:deploy": "pnpm run docker:build && pnpm run docker:run && pnpm run docker:logs",
+    "check-env": "node -v && pnpm -v && echo 'Node.js 版本检查'"
   },
   "peerDependencies": {
     "pinia": "^2.1.6"

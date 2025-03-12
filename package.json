@@ -23,7 +23,7 @@
     "typecheck": "vue-tsc --noEmit",
     "clean": "rimraf ./node_modules ",
     "docker:build": "docker build -t water-dashboard:local .",
-    "docker:run": "docker run -d -p 3000:3000 --name water-app water-dashboard:local",
+    "docker:run": "docker run -d -p 3000:4000 --name water-app water-dashboard:local",
     "docker:logs": "docker logs water-app",
     "docker:stop": "docker stop water-app && docker rm water-app",
     "docker:deploy": "pnpm run docker:build && pnpm run docker:run && pnpm run docker:logs"

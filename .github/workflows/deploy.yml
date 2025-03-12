@@ -21,12 +21,12 @@ jobs:
       - name: 设置 PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 9.15.0
+          version: 9.13.0
 
       - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 23.9.0
+          node-version: 22.10.0
           cache: pnpm
 
       - name: 安装依赖
@@ -109,7 +109,7 @@ jobs:
             
             # 检查应用是否正常启动
             echo "检查外部访问:"
-            curl -I http://localhost:3000 || echo "外部访问失败"
+            curl -I http://localhost:4000 || echo "外部访问失败"
             
             # 检查容器日志
             docker-compose logs

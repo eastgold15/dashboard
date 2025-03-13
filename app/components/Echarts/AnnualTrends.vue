@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import VChart from 'vue-echarts'
-
 const data = [
   29.3,
   23.4,
@@ -90,26 +87,12 @@ const option = ref<ECOption>({
 </script>
 
 <template>
-  <div class="echart-layout">
+  <div class="h-full w-full flex flex-col">
     <EchartsComponentsEchartsTitle title="本年月度用水量走势" unit="m" />
-    <div class="echart">
+    <div class="flex-1 justify-center">
       <ClientOnly>
-        <VChart :option="option" autoresize style="width: 100%; height: 140px;" />
+        <VChart :option="option" autoresize class="h-full w-full" />
       </ClientOnly>
     </div>
   </div>
 </template>
-
-<style>
-.echart-layout {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .echart {
-    flex: 1;
-    justify-content: center;
-  }
-}
-</style>

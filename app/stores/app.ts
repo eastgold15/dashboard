@@ -1,4 +1,3 @@
-
 import { defineStore } from 'pinia'
 import routerConstans from '~/constants/router.constans'
 
@@ -56,8 +55,8 @@ export const useMyAppStore = defineStore('myAppStore', () => {
     // 头部悬停颜色
     topHeaderHoverColor: '#f6f6f6',
     // 头部边框颜色
-    topToolBorderColor: '#eee'
-  }
+    topToolBorderColor: '#eee',
+  },
 
   )
   // actions
@@ -123,7 +122,7 @@ export const useMyAppStore = defineStore('myAppStore', () => {
     layout,
     isDark,
     currentSize,
-    
+
     // actions
     getLayout,
     getRouters,

@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { StatSRTitle } from '#components'
 
 definePageMeta({
   layout: 'stat',
-  alias: ['/stat']
+  alias: ['/stat'],
 })
 
 const date = ref(new Date())
@@ -37,19 +36,20 @@ const chainData = ref([
   <div class="energy-ranking">
     <div class="ranking-grid">
       <el-card class="ranking-card" body-style="background-color: #1a1a1a;">
-        <StatSRTitle title="建筑用水量排名">
-          <template #right>
+        <CommonTitle title="建筑用水量排名">
+          <template #extra>
             <el-date-picker
-              v-model="date"
-              type="date"
-              placeholder="选择日期"
-              format="YYYY-MM-DD"
+              v-model="date" type="date" placeholder="选择日期" format="YYYY-MM-DD"
               value-format="YYYY-MM-DD"
             />
           </template>
-        </StatSRTitle>
+        </CommonTitle>
+
         <div class="ranking-content">
-          <div v-for="item in rankData" :key="item.id" class="rank-item" :style="{'--percent': (parseFloat(item.value) / 35) * 100}">
+          <div
+            v-for="item in rankData" :key="item.id" class="rank-item"
+            :style="{ '--percent': (parseFloat(item.value) / 35) * 100 }"
+          >
             <span class="rank-number">{{ item.id }}</span>
             <span class="rank-name">{{ item.name }}</span>
             <span class="rank-value">{{ item.value }}<span class="unit">{{ item.unit }}</span></span>
@@ -58,9 +58,13 @@ const chainData = ref([
       </el-card>
 
       <el-card class="ranking-card" body-style="background-color: #1a1a1a;">
-        <StatSRTitle title="建筑用水同比排名" />
+        <CommonTitle title="建筑用水同比排名" />
+
         <div class="ranking-content">
-          <div v-for="item in compareData" :key="item.id" class="rank-item" :style="{'--percent': (parseFloat(item.value) / 35) * 100}">
+          <div
+            v-for="item in compareData" :key="item.id" class="rank-item"
+            :style="{ '--percent': (parseFloat(item.value) / 35) * 100 }"
+          >
             <span class="rank-number">{{ item.id }}</span>
             <span class="rank-name">{{ item.name }}</span>
             <span class="rank-value">{{ item.value }}<span class="unit">m³</span></span>
@@ -70,9 +74,13 @@ const chainData = ref([
       </el-card>
 
       <el-card class="ranking-card" body-style="background-color: #1a1a1a;">
-        <StatSRTitle title="建筑用水环比排名" />
+        <CommonTitle title="建筑用水环比排名" />
+
         <div class="ranking-content">
-          <div v-for="item in chainData" :key="item.id" class="rank-item" :style="{'--percent': (parseFloat(item.value) / 35) * 100}">
+          <div
+            v-for="item in chainData" :key="item.id" class="rank-item"
+            :style="{ '--percent': (parseFloat(item.value) / 35) * 100 }"
+          >
             <span class="rank-number">{{ item.id }}</span>
             <span class="rank-name">{{ item.name }}</span>
             <span class="rank-value">{{ item.value }}<span class="unit">m³</span></span>
@@ -134,7 +142,7 @@ const chainData = ref([
   height: 24px;
   line-height: 24px;
   text-align: center;
-  background: linear-gradient(180deg, #1890FF 0%, #096DD9 100%);
+  background: linear-gradient(180deg, #1890ff 0%, #096dd9 100%);
   border-radius: 4px;
   margin-right: 12px;
 }
@@ -146,12 +154,12 @@ const chainData = ref([
 
 .rank-value {
   font-weight: bold;
-  color: #1890FF;
+  color: #1890ff;
 }
 
 .rank-percent {
   margin-left: 12px;
-  color: #52C41A;
+  color: #52c41a;
 }
 
 .unit {
@@ -164,6 +172,7 @@ const chainData = ref([
   0% {
     transform: translateY(0);
   }
+
   100% {
     transform: translateY(-100%);
   }

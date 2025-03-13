@@ -17,7 +17,7 @@ interface Props {
       </NuxtLink>
       <h1>{{ title }}</h1>
     </div>
-    <nav class="header-nav">
+    <nav class="header-nav flex-row">
       <HeaderNavItem v-for="route in props.routes" :key="route.path" :path="route.path" :label="route.label" />
     </nav>
     <HeaderTimeShow class="header-time" />
@@ -50,8 +50,10 @@ interface Props {
 
   .header-nav {
     width: 80%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    display: flex;
+    gap: 20px;
+    // display: grid;
+    // grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     /* 定义网格列的比例 */
   }
 

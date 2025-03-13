@@ -1,3 +1,14 @@
+<script lang="ts" setup>
+interface Props {
+  title: string
+  aligns: 'left' | 'center' | 'right'
+}
+withDefaults(defineProps<Props>(), {
+  title: '标题',
+  aligns: 'center',
+})
+</script>
+
 <template>
   <div class="title-container">
     <div class="left-slot">
@@ -5,27 +16,17 @@
         <span class="title-text">{{ title }}</span>
       </slot>
     </div>
-    <div class="center-slot" :class="{ 'text-left': aligns === 'left', 'text-center': aligns === 'center', 'text-right': aligns === 'right' }">
-      <slot name="center"></slot>
+    <div
+      class="center-slot"
+      :class="{ 'text-left': aligns === 'left', 'text-center': aligns === 'center', 'text-right': aligns === 'right' }"
+    >
+      <slot name="center" />
     </div>
     <div class="right-slot">
-      <slot name="right"></slot>
+      <slot name="right" />
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-
-interface Props {
-  title: string
-  aligns: 'left' | 'center' | 'right'
-}
-const props = withDefaults(defineProps<Props>(), {
-  title: '标题',
-  aligns: 'center'
-})
-
-</script>
 
 <style lang="scss" scoped>
 .title-container {

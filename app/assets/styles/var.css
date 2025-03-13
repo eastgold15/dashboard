@@ -6,116 +6,103 @@ html[data-theme='dark'] {
 
 :root {
   box-sizing: border-box;
-  --bg-color: #1c222a;
-  --table-header-bg-color: #217282;
-  --table-header-text-color: #fff;
-  --table-header-border-color: #217282;
-  --table-header-hover-bg-color: #1369ad;
-  --title-color: rgba(95, 209, 232);
+  color: #fff;
+  /* 主色调 - 蓝色系，适合水务管理 */
+  --primary-color: #409eff;
+  --primary-light: #66b1ff;
+  --primary-dark: #337ecc;
 
-  --header-button-color: #217282;
-  --header-button-active-color: rgb(102, 183, 199);
-  --echart-title-color: #cfcfd0;
-  /* left menu start */
-  --left-menu-border-color: '#eee';
-
-  --left-menu-max-width: 200px;
-
-  --left-menu-min-width: 64px;
-
-  --left-menu-bg-color: #001529;
-
-  --left-menu-bg-light-color: #0f2438;
-
-  --left-menu-bg-active-color: var(--el-color-primary);
-
-  --left-menu-text-color: #bfcbd9;
-
-  --left-menu-text-active-color: #fff;
-
-  --left-menu-collapse-bg-active-color: var(--el-color-primary);
-  /* left menu end */
-
-  /* logo start */
-  --logo-height: 50px;
-
-  --logo-title-text-color: #fff;
-
-  --logo-border-color: 'inherit';
-  /* logo end */
-
-  /* header start */
-  --top-header-bg-color: '#fff';
-
-  --top-header-text-color: 'inherit';
-
-  --top-header-hover-color: #f6f6f6;
-
-  --top-tool-height: var(--logo-height);
-
-  --top-tool-p-x: 0;
-
-  --top-tool-border-color: #eee;
-
-  --tags-view-height: 35px;
-
-  --tags-view-border-color: #eee;
-  /* header start */
-
-  /* tab menu start */
-  --tab-menu-max-width: 80px;
-
-  --tab-menu-min-width: 30px;
-
-  --tab-menu-collapse-height: 36px;
-
-  --tab-menu-border-color: #eee;
-  /* tab menu end */
-
-  --app-content-padding: 20px;
-
-  --app-content-bg-color: #f5f7f9;
-
-  --app-footer-height: 0px;
-
-  --transition-time-02: 0.2s;
-
-  /* 主色调 */
-  --primary-color: #409eff; /* Element Plus 默认主色 */
-  --success-color: #67c23a; /* 成功色 */
-  --warning-color: #e6a23c; /* 警告色 */
-  --danger-color: #f56c6c; /* 危险色 */
-  --info-color: #909399; /* 信息色 */
+  /* 辅助色 */
+  --success-color: #67c23a;
+  --warning-color: #e6a23c;
+  --danger-color: #f56c6c;
+  --info-color: #909399;
 
   /* 中性色 */
-  --text-color: #303133; /* 主要文字颜色 */
-  --text-color-secondary: #606266; /* 次要文字颜色 */
-  --border-color: #dcdfe6; /* 边框颜色 */
-  --background-color: #f5f7fa; /* 背景颜色 */
+  --text-primary: #303133;
+  --text-regular: #606266;
+  --text-secondary: #909399;
+  --text-placeholder: #c0c4cc;
 
-  --font-size-base: 14px; /* 基础字体大小 */
-  --font-size-small: 12px; /* 小字体大小 */
-  --font-size-large: 16px; /* 大字体大小 */
-  --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 字体族 */
+  /* 边框颜色 */
+  --border-color: #dcdfe6;
+  --border-light: #e4e7ed;
 
-  --spacing-xs: 4px; /* 超小间距 */
-  --spacing-sm: 8px; /* 小间距 */
-  --spacing-md: 16px; /* 中间距 */
-  --spacing-lg: 24px; /* 大间距 */
-  --spacing-xl: 32px; /* 超大间距 */
+  /* 背景色 */
+  --bg-color: #f5f7fa;
+  --bg-light: #ffffff;
+  --bg-dark: #001529;
 
-  --border-radius-sm: 2px; /* 小圆角 */
-  --border-radius-md: 4px; /* 中圆角 */
-  --border-radius-lg: 8px; /* 大圆角 */
+  /* 水务特色色 */
+  --water-blue: #1e88e5;
+  --water-light-blue: #bbdefb;
 
-  --card-padding: var(--spacing-md); /* 卡片内边距 */
-  --card-border-radius: var(--border-radius-md); /* 卡片圆角 */
-  --card-background: #fff; /* 卡片背景色 */
-  --card-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); /* 卡片阴影 */
+  /* 主色调 */
+  --primary-color: #409eff;
+  /* Element Plus 默认主色 */
+  --success-color: #67c23a;
+  /* 成功色 */
+  --warning-color: #e6a23c;
+  /* 警告色 */
+  --danger-color: #f56c6c;
+  /* 危险色 */
+  --info-color: #909399;
+  /* 信息色 */
 
-  --button-padding: var(--spacing-sm) var(--spacing-md); /* 按钮内边距 */
-  --button-border-radius: var(--border-radius-md); /* 按钮圆角 */
-  --button-font-size: var(--font-size-base); /* 按钮字体大小 */
-  --button-primary-bg: var(--primary-color); /* 主按钮背景色 */
-  --button-primary-text: #fff; /* 主按钮文字颜色 */
+  /* 中性色 */
+  --text-color: #303133;
+  /* 主要文字颜色 */
+  --text-color-secondary: #606266;
+  /* 次要文字颜色 */
+  --border-color: #dcdfe6;
+  /* 边框颜色 */
+  --background-color: #f5f7fa;
+  /* 背景颜色 */
+
+  --font-size-base: 14px;
+  /* 基础字体大小 */
+  --font-size-small: 12px;
+  /* 小字体大小 */
+  --font-size-large: 16px;
+  /* 大字体大小 */
+  --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* 字体族 */
+
+  --spacing-xs: 4px;
+  /* 超小间距 */
+  --spacing-sm: 8px;
+  /* 小间距 */
+  --spacing-md: 16px;
+  /* 中间距 */
+  --spacing-lg: 24px;
+  /* 大间距 */
+  --spacing-xl: 32px;
+  /* 超大间距 */
+
+  --border-radius-sm: 2px;
+  /* 小圆角 */
+  --border-radius-md: 4px;
+  /* 中圆角 */
+  --border-radius-lg: 8px;
+  /* 大圆角 */
+
+  --card-padding: var(--spacing-md);
+  /* 卡片内边距 */
+  --card-border-radius: var(--border-radius-md);
+  /* 卡片圆角 */
+  --card-background: #fff;
+  /* 卡片背景色 */
+  --card-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  /* 卡片阴影 */
+
+  --button-padding: var(--spacing-sm) var(--spacing-md);
+  /* 按钮内边距 */
+  --button-border-radius: var(--border-radius-md);
+  /* 按钮圆角 */
+  --button-font-size: var(--font-size-base);
+  /* 按钮字体大小 */
+  --button-primary-bg: var(--primary-color);
+  /* 主按钮背景色 */
+  --button-primary-text: #fff;
+  /* 主按钮文字颜色 */
 }

@@ -53,7 +53,6 @@ pnpm build
 git pull 拉取代码
 git  push  向远程仓库提交代码
 
-
 ```
 
 ## 目录结构
@@ -265,3 +264,4 @@ pages/
 Echarts 饼图:`https://echarts.apache.org/zh/option.html#series-pie.type`
 Nuxt3 官网文档： `https://nuxt.com.cn/docs/api/nuxt-config#appconfig`
 unocss 地址: `https://unocss.nodejs.cn/guide/`
+prevue 文档地址:`https://primevue.org/nuxt`

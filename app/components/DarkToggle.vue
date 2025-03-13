@@ -15,7 +15,7 @@ function toggleDark() {
 </script>
 
 <template>
-  <button class="inline-flex justify-center items-center" @click="toggleDark">
+  <button class="inline-flex items-center justify-center" @click="toggleDark">
     <div class="i-ri-sun-line dark:i-ri-moon-line" />
   </button>
 </template>

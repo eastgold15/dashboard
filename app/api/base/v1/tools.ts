@@ -1,6 +1,6 @@
-import { endHttp } from '../../axios'
 import type { IPageResponse } from '../index.type'
 import type { IStorageModel, IStorageModelQuery } from './tools.type'
+import { endHttp } from '../../axios'
 
 export default {
   storage: {

@@ -1,18 +1,18 @@
+<script lang="ts" setup>
+
+</script>
+
 <template>
   <div class="footer">
     <div class="footer-icon">
       <div> connection</div>
-      <div class="i-ep:phone"></div>
+      <div class="i-ep:phone" />
     </div>
     <div>1</div>
     <div>2</div>
     <div>4</div>
   </div>
 </template>
-
-<script lang="ts" setup>
-
-</script>
 
 <style lang="scss">
 .footer {

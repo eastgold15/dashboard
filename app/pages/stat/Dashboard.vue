@@ -1,26 +1,25 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 
 definePageMeta({
   layout: 'stat',
-  alias: ['/stat']
+  alias: ['/stat'],
 })
-
-import { ref } from "vue";
-const year = ref('2025');
-const monthlyData = ref([
-  { month: '1月', value: 29.3 },
-  { month: '2月', value: 23.4 },
-  { month: '3月', value: 33.2 },
-  { month: '4月', value: 44.5 },
-  { month: '5月', value: 56.1 },
-  { month: '6月', value: 47.2 },
-  { month: '7月', value: 42.2 },
-  { month: '8月', value: 34.2 },
-  { month: '9月', value: 56.6 },
-  { month: '10月', value: 74.3 },
-  { month: '11月', value: 66.5 },
-  { month: '12月', value: 61.3 },
-]);
+const year = ref('2025')
+// const monthlyData = ref([
+//   { month: '1月', value: 29.3 },
+//   { month: '2月', value: 23.4 },
+//   { month: '3月', value: 33.2 },
+//   { month: '4月', value: 44.5 },
+//   { month: '5月', value: 56.1 },
+//   { month: '6月', value: 47.2 },
+//   { month: '7月', value: 42.2 },
+//   { month: '8月', value: 34.2 },
+//   { month: '9月', value: 56.6 },
+//   { month: '10月', value: 74.3 },
+//   { month: '11月', value: 66.5 },
+//   { month: '12月', value: 61.3 },
+// ])
 
 const tableData = ref([
   { id: 7, department: '学生宿舍楼', month1: 2147, month2: 2843, month3: 3125, month4: 3887 },
@@ -29,7 +28,7 @@ const tableData = ref([
   { id: 10, department: '学生教学楼', month1: 2735, month2: 8228, month3: 3125, month4: 2623 },
   { id: 11, department: '学生宿舍楼', month1: 24523, month2: 7289, month3: 3125, month4: 3511 },
   { id: 12, department: '学生宿舍楼', month1: 5731, month2: 7863, month3: 3125, month4: 2399 },
-]);
+])
 
 const chartOption = ref({
   tooltip: {
@@ -69,55 +68,45 @@ const chartOption = ref({
       markPoint: {
         data: [
           { type: 'max', name: '最大值' },
-          { type: 'min', name: '最小值' }
-        ]
+          { type: 'min', name: '最小值' },
+        ],
       },
     },
   ],
-});
+})
 </script>
 
 <template>
   <div class="statistics-kanban">
-
     <ElCard class="kanban-card" body-style="height: 90%;">
-      <StatSRTitle title="全校月用水量统计看板">
-        <template #right>
-          <div class="year-selector">
-            <el-input v-model="year" placeholder="年份" class="year-input">
-              <template #append>
-                <el-button>确定</el-button>
-              </template>
-            </el-input>
-          </div>
+      <CommonTitle title="全校月用水量统计看板">
+        <template #extra>
+          <InputGroup>
+            <InputText v-model="year" placeholder="Price" />
+            <InputGroupAddon>.确定</InputGroupAddon>
+          </InputGroup>
         </template>
-      </StatSRTitle>
+      </CommonTitle>
       <ClientOnly>
         <div class="kanban-content">
-
           <VChart :option="chartOption" autoresize style="width: 100%; height: 100%;" />
-
         </div>
       </ClientOnly>
-
-
     </ElCard>
     <ElCard class="kanban-card">
-      <StatSRTitle title="全校月用水量统计看板">
-        <template #right>
-          <div class="year-selector">
-            <el-input v-model="year" placeholder="年份" class="year-input">
-              <template #append>
-                <el-button>确定</el-button>
-              </template>
-            </el-input>
-          </div>
+      <CommonTitle title="全校月用水量统计看板">
+        <template #extra>
+          <InputGroup>
+            <InputText v-model="year" placeholder="Price" />
+            <InputGroupAddon>.确定</InputGroupAddon>
+          </InputGroup>
         </template>
-      </StatSRTitle>
+      </CommonTitle>
+
       <div class="kanban-content">
         <SRTitle title="江西飞行学院2025年用水数据看板" />
         <div class="table-container">
-          <el-table :data="tableData" style="width: 100%" border stripe>
+          <el-table :data="tableData" style="width: 100%" stripe border>
             <el-table-column prop="id" label="序号" width="70" />
             <el-table-column prop="department" label="部门名称" />
             <el-table-column prop="month1" label="1月水量" />
@@ -150,7 +139,6 @@ const chartOption = ref({
       background-color: #1a1a1a;
       flex: 1;
       height: 100%;
-
     }
 
     .year-selector {
@@ -163,7 +151,6 @@ const chartOption = ref({
         width: 200px;
       }
     }
-
   }
 }
 

@@ -1,12 +1,12 @@
+<script lang="ts" setup>
+
+</script>
+
 <template>
   <div>
     toolheader
   </div>
 </template>
-
-<script lang="ts" setup>
-
-</script>
 
 <style>
 

@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="display-logo" flex="~" gap-2 items-center>
+  <div class="display-logo" flex="~" items-center gap-2>
     <img
       class="logo"
       src="https://element-plus.org/images/element-plus-logo.svg"

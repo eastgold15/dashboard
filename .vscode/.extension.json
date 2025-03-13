@@ -7,7 +7,7 @@
     "nuxt.mdc",
     "yuyinws.nuxt-module-intellisense",
     "yutengjing.package-manager-enhancer",
-    "antfu.unocss"
-
+    "antfu.unocss",
+    "simonhe.to-unocss"
   ]
 }

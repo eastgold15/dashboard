@@ -14,10 +14,10 @@ definePageMeta({
 
 Learn more on https://nuxt.com/docs/guide/directory-structure/layouts
 
-
 ### layouts/
+
 |———default.vue # 默认布局
-├── sr.vue # 统计报表布局
-├── wa.vue # 用水分析布局
-├── am.vue # 报警管理布局
-└── qm.vue # 定额管理布局
+├── stat.vue # 统计报表布局
+├── anal.vue # 用水分析布局
+├── alarm.vue # 报警管理布局
+└── quata.vue # 定额管理布局

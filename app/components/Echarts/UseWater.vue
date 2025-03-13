@@ -26,6 +26,7 @@ const data = ref([
 <template>
   <div class="water">
     <EchartsComponentsEchartsTitle title="用水数据" unit="m" />
+
     <div class="water-content">
       <EchartsComponentsUserWaterItem
         v-for="(item, index) in data"

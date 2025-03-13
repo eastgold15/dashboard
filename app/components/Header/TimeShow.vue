@@ -5,14 +5,11 @@ import 'dayjs/locale/zh-cn'
 // 设置 dayjs 使用中文语言环境
 dayjs.locale('zh-cn')
 
-const time = ref(dayjs().format('HH:mm:ss'))
-const dayOfWeek = ref(dayjs().format('dddd'))
-const date = ref(dayjs().format('YYYY-MM-DD'))
+const time = ref()
 
 function updateTime() {
-  time.value = dayjs().format('HH:mm:ss')
-  dayOfWeek.value = dayjs().format('dddd')
-  date.value = dayjs().format('YYYY-MM-DD')
+  const timeNow = new Date()
+  time.value = timeNow
 }
 
 let intervalId: NodeJS.Timeout
@@ -30,16 +27,16 @@ onUnmounted(() => {
   <ClientOnly>
     <div class="justify- flex gap-1 color-#387e98">
       <div class="clipped-square">
-        {{ time }}
+        <!-- {{ time }} -->
+        {{ $dayjs(time).format('HH:mm:ss') }}
       </div>
       |
       <div class="disClipped-square">
-        <div>{{ dayOfWeek }}</div>
-        <div>{{ date }}</div>
+        <div>{{ $dayjs(time).format('dddd') }}</div>
+        <div>{{ $dayjs(time).format('YYYY-MM-DD') }}</div>
       </div>
     </div>
   </ClientOnly>
-
 </template>
 
 <style>

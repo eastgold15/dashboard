@@ -1,7 +1,7 @@
 export default {
   server: {
-    about: "about",
-    advanced: "advanced"
+    about: 'about',
+    advanced: 'advanced',
   },
   common: {
     inputText: 'Please input',
@@ -48,7 +48,7 @@ export default {
     refresh: 'Refresh',
     fullscreen: 'Fullscreen',
     size: 'Size',
-    columnSetting: 'Column setting'
+    columnSetting: 'Column setting',
   },
   lock: {
     lockScreen: 'Lock screen',
@@ -58,13 +58,13 @@ export default {
     backToLogin: 'Back to login',
     entrySystem: 'Entry the system',
     placeholder: 'Please enter the lock screen password',
-    message: 'Lock screen password error'
+    message: 'Lock screen password error',
   },
   error: {
     noPermission: `Sorry, you don't have permission to access this page.`,
     pageError: 'Sorry, the page you visited does not exist.',
     networkError: 'Sorry, the server reported an error.',
-    returnToHome: 'Return to home'
+    returnToHome: 'Return to home',
   },
   setting: {
     projectSetting: 'Project setting',
@@ -96,12 +96,12 @@ export default {
     dynamicRouter: 'Dynamic router',
     reExperienced: 'Please exit the login experience again',
     fixedMenu: 'Fixed menu',
-    serverDynamicRouter: 'Server dynamic router'
+    serverDynamicRouter: 'Server dynamic router',
   },
   size: {
     default: 'Default',
     large: 'Large',
-    small: 'Small'
+    small: 'Small',
   },
   login: {
     welcome: 'Welcome to the system',
@@ -118,7 +118,7 @@ export default {
     usernamePlaceholder: 'Please input username',
     passwordPlaceholder: 'Please input password',
     code: 'Verification code',
-    codePlaceholder: 'Please input verification code'
+    codePlaceholder: 'Please input verification code',
   },
   router: {
     login: 'Login',
@@ -167,10 +167,10 @@ export default {
     treeTable: 'Tree table',
     PicturePreview: 'Table Image Preview',
     department: 'Department management',
-    menuManagement: 'Menu management'
+    menuManagement: 'Menu management',
   },
   permission: {
-    hasPermission: 'Please set the operation permission value'
+    hasPermission: 'Please set the operation permission value',
   },
   analysis: {
     newUser: 'New user',
@@ -206,7 +206,7 @@ export default {
     thursday: 'Thursday',
     friday: 'Friday',
     saturday: 'Saturday',
-    sunday: 'Sunday'
+    sunday: 'Sunday',
   },
   workplace: {
     goodMorning: 'Good morning',
@@ -229,7 +229,7 @@ export default {
     dynamic: 'Dynamic',
     push: 'push',
     pushCode: 'Archer push code to Github',
-    follow: 'Follow'
+    follow: 'Follow',
   },
   formDemo: {
     input: 'Input',
@@ -312,13 +312,13 @@ export default {
     lazyLoad: 'Lazy load',
     upload: 'Upload',
     // 用户头像
-    userAvatar: 'User avatar'
+    userAvatar: 'User avatar',
   },
   guideDemo: {
     guide: 'Guide',
     start: 'Start',
     message:
-      'The guide page is very useful for some people who enter the project for the first time. You can briefly introduce the functions of the project. The boot page is based on intro js'
+      'The guide page is very useful for some people who enter the project for the first time. You can briefly introduce the functions of the project. The boot page is based on intro js',
   },
   iconDemo: {
     icon: 'Icon',
@@ -327,12 +327,12 @@ export default {
     recommendedUse: 'Recommended use',
     recommendeDes:
       'Iconify component basically contains all icons. You can query any icon you want. And packaging will only package the icons used.',
-    accessAddress: 'Access address'
+    accessAddress: 'Access address',
   },
   echartDemo: {
     echart: 'Echart',
     echartDes:
-      'Based on the secondary packaging components of eckarts, the width is adaptive. The corresponding chart can be displayed by passing in the options and height attributes.'
+      'Based on the secondary packaging components of eckarts, the width is adaptive. The corresponding chart can be displayed by passing in the options and height attributes.',
   },
   countToDemo: {
     countTo: 'CountTo',
@@ -346,13 +346,13 @@ export default {
     startVal: 'Start val',
     start: 'Start',
     pause: 'Pause',
-    resume: 'Resume'
+    resume: 'Resume',
   },
   watermarkDemo: {
     watermark: 'Watermark',
     createdWatermark: 'Created watermark',
     clearWatermark: 'Clear watermark',
-    resetWatermark: 'Reset watermark'
+    resetWatermark: 'Reset watermark',
   },
   qrcodeDemo: {
     qrcode: 'Qrcode',
@@ -365,21 +365,21 @@ export default {
     invalid: 'Invalid',
     logoConfig: 'Logo config',
     logoStyle: 'Logo style',
-    size: 'size config'
+    size: 'size config',
   },
   highlightDemo: {
     highlight: 'Highlight',
     message: 'The best time to plant a tree is ten years ago, followed by now.',
     keys1: 'ten years ago',
-    keys2: 'now'
+    keys2: 'now',
   },
   infotipDemo: {
     infotip: 'Infotip',
     infotipDes: 'Secondary packaging of components based on Highlight',
-    title: 'matters needing attention'
+    title: 'matters needing attention',
   },
   levelDemo: {
-    menu: 'Multi level menu cache'
+    menu: 'Multi level menu cache',
   },
   searchDemo: {
     search: 'Search',
@@ -402,10 +402,10 @@ export default {
     // 还原单选框
     restoreRadio: 'Restore radio',
     loading: 'Loading',
-    reset: 'Reset'
+    reset: 'Reset',
   },
   stickyDemo: {
-    sticky: 'Sticky'
+    sticky: 'Sticky',
   },
   tableDemo: {
     table: 'Table',
@@ -440,11 +440,11 @@ export default {
     fixedHeaderOrAuto: 'Fixed header or auto',
     getSelections: 'Get selections',
     preview: 'Preview',
-    showOrHiddenSortable: 'Show or hidden sortable'
+    showOrHiddenSortable: 'Show or hidden sortable',
   },
   richText: {
     richText: 'Rich text',
-    richTextDes: 'Secondary packaging based on wangeditor'
+    richTextDes: 'Secondary packaging based on wangeditor',
   },
   dialogDemo: {
     dialog: 'Dialog',
@@ -452,12 +452,12 @@ export default {
     open: 'Open',
     close: 'Close',
     combineWithForm: 'Combine with form',
-    submit: 'Submit'
+    submit: 'Submit',
   },
   imageViewerDemo: {
     open: 'Open',
     imageViewer: 'Image viewer',
-    imageViewerDes: 'Secondary packaging of ImageViewer components based on ElementPlus'
+    imageViewerDes: 'Secondary packaging of ImageViewer components based on ElementPlus',
   },
   descriptionsDemo: {
     descriptions: 'Descriptions',
@@ -467,7 +467,7 @@ export default {
     phone: 'Phone',
     email: 'Email',
     addr: 'Address',
-    form: 'Combined with Form component'
+    form: 'Combined with Form component',
   },
   exampleDemo: {
     title: 'Title',
@@ -481,7 +481,7 @@ export default {
     important: 'Important',
     content: 'Content',
     save: 'Save',
-    detail: 'Detail'
+    detail: 'Detail',
   },
   userDemo: {
     title: 'User management',
@@ -508,7 +508,7 @@ export default {
     status: 'Status',
     enable: 'Enable',
     disable: 'Disable',
-    superiorDepartment: 'Superior department'
+    superiorDepartment: 'Superior department',
   },
   menu: {
     menuName: 'Menu name',
@@ -526,10 +526,10 @@ export default {
     noTagsView: 'No tags view',
     activeMenu: 'Active menu',
     canTo: 'Can to',
-    name: 'Name'
+    name: 'Name',
   },
   inputPasswordDemo: {
     title: 'InputPassword',
-    inputPasswordDes: 'Secondary packaging of Input components based on ElementPlus'
-  }
+    inputPasswordDes: 'Secondary packaging of Input components based on ElementPlus',
+  },
 }

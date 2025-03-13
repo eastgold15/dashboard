@@ -6,7 +6,7 @@ export default antfu({
   vue: true,
   rules: {
     'no-console': 'off',
-     "@typescript-eslint/ban-ts-comment": "off"
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
 
 })

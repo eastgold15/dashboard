@@ -1,8 +1,70 @@
+<script lang="ts" setup>
+const headerStyle = {
+  backgroundColor: '#1a253b',
+  color: '#fff',
+  fontWeight: 'bold',
+}
+
+function tableRowClassName({ rowIndex }: { rowIndex: number }) {
+  return rowIndex % 2 === 0 ? 'even-row' : 'odd-row'
+}
+
+const tableData = [
+  {
+    type: '设备故障',
+    area: '一教1',
+    time: '1/8/25',
+    content: '设备离线',
+    reporter: '系统',
+    status: '待处理',
+    maintainer: '',
+  },
+  {
+    type: '流量超标',
+    area: '一教2',
+    time: '1/8/25',
+    content: '流量超预定值',
+    reporter: '系统',
+    status: '待处理',
+    maintainer: '',
+  },
+  {
+    type: '设备故障',
+    area: '一教3',
+    time: '1/8/25',
+    content: '设备离线',
+    reporter: '系统',
+    status: '待处理',
+    maintainer: '',
+  },
+  {
+    type: '设备故障',
+    area: '图书馆1',
+    time: '1/8/25',
+    content: '设备离线',
+    reporter: '系统',
+    status: '待处理',
+    maintainer: '',
+  },
+  {
+    type: '流量超标',
+    area: '图书馆2',
+    time: '1/8/25',
+    content: '流量超预定值',
+    reporter: '系统',
+    status: '待处理',
+    maintainer: '',
+  },
+]
+</script>
+
 <template>
   <div class="water-alarm-info">
     <EchartsComponentsEchartsTitle title="本年月度用水量走势" unit="m" />
-    <el-table :data="tableData" style="width: 100%" :header-cell-style="headerStyle"
-      :row-class-name="tableRowClassName">
+    <el-table
+      :data="tableData" style="width: 100%" :header-cell-style="headerStyle"
+      :row-class-name="tableRowClassName"
+    >
       <el-table-column prop="type" label="报警类型" />
       <el-table-column prop="area" label="报警区域" />
       <el-table-column prop="time" label="报警时间" />
@@ -19,66 +81,6 @@
     </el-table>
   </div>
 </template>
-
-<script lang="ts" setup>
-const headerStyle = {
-  backgroundColor: '#1a253b',
-  color: '#fff',
-  fontWeight: 'bold'
-}
-
-const tableRowClassName = ({ rowIndex }: { rowIndex: number }) => {
-  return rowIndex % 2 === 0 ? 'even-row' : 'odd-row'
-}
-
-const tableData = [
-  {
-    type: '设备故障',
-    area: '一教1',
-    time: '1/8/25',
-    content: '设备离线',
-    reporter: '系统',
-    status: '待处理',
-    maintainer: ''
-  },
-  {
-    type: '流量超标',
-    area: '一教2',
-    time: '1/8/25',
-    content: '流量超预定值',
-    reporter: '系统',
-    status: '待处理',
-    maintainer: ''
-  },
-  {
-    type: '设备故障',
-    area: '一教3',
-    time: '1/8/25',
-    content: '设备离线',
-    reporter: '系统',
-    status: '待处理',
-    maintainer: ''
-  },
-  {
-    type: '设备故障',
-    area: '图书馆1',
-    time: '1/8/25',
-    content: '设备离线',
-    reporter: '系统',
-    status: '待处理',
-    maintainer: ''
-  },
-  {
-    type: '流量超标',
-    area: '图书馆2',
-    time: '1/8/25',
-    content: '流量超预定值',
-    reporter: '系统',
-    status: '待处理',
-    maintainer: ''
-  }
-]
-</script>
 
 <style>
 .water-alarm-info {

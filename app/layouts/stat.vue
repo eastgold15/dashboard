@@ -3,35 +3,35 @@ const { childrenRoutes } = useRouteChildren()
 </script>
 
 <template>
-  <div class="sr-layout">
-    <Header class="sr-header" :routes="childrenRoutes">
+  <div class="layout-container">
+    <Header class="layout-header" :routes="childrenRoutes">
       <!-- 头部内容 -->
     </Header>
-    <main class="sr-main">
+    <main class="layout-main">
       <slot />
     </main>
   </div>
 </template>
 
 <style scoped>
-.sr-layout {
+.layout-container {
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  
+  background: url('/bg.png') no-repeat center/cover;
+  overflow: hidden;
+  /* 防止整体滚动 */
 }
 
-.sr-header {
+.layout-header {
   height: 80px;
   flex-shrink: 0;
-  background-color: #1f1f1f;
-  color: white;
 }
 
-.sr-main {
+.layout-main {
   flex-grow: 1;
   overflow: hidden;
   position: relative;
 }
-
 </style>

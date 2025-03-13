@@ -2,8 +2,6 @@
 const { childrenRoutes } = useRouteChildren()
 </script>
 
-
-
 <template>
   <div class="layout-container">
     <Header class="layout-header" :routes="childrenRoutes">
@@ -12,7 +10,6 @@ const { childrenRoutes } = useRouteChildren()
     <main class="layout-main">
       <slot />
     </main>
-
   </div>
 </template>
 

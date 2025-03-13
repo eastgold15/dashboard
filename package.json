@@ -21,7 +21,15 @@
     "generate": "nuxi generate",
     "prepare": "nuxi prepare",
     "typecheck": "vue-tsc --noEmit",
-    "clean": "rimraf ./node_modules "
+    "clean": "rimraf ./node_modules ",
+    "docker:build:dev": "docker build -f docker/dev/Dockerfile -t myapp:dev .",
+    "docker:run:dev": "docker-compose -f docker/dev/docker-compose.yml up -d",
+    "docker:build:prod没使用": "docker build -f docker/prod/Dockerfile -t water-dashboard:prod .",
+    "docker:run:prod": "docker-compose -f docker/prod/docker-compose.yml up -d",
+    "docker:logs": "docker logs water-app",
+    "docker:stop": "docker stop water-app && docker rm water-app",
+    "docker:deploy": "pnpm run docker:build && pnpm run docker:run && pnpm run docker:logs",
+    "check-env": "node -v && pnpm -v && echo 'Node.js 版本检查'"
   },
   "peerDependencies": {
     "pinia": "^2.1.6"
@@ -30,10 +38,14 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@nuxt/kit": "^3.15.4",
     "@nuxtjs/i18n": "^9.2.1",
+    "@primeuix/themes": "^1.0.0",
     "dayjs": "^1.11.13",
+    "dayjs-nuxt": "^2.1.11",
     "echarts": "^5.6.0",
     "element-plus": "^2.9.0",
     "ioredis": "5.4.2",
+    "nuxt-primevue": "^3.0.0",
+    "primevue": "^4.3.1",
     "vue-echarts": "^7.0.3",
     "vue-types": "^6.0.0"
   },
@@ -44,6 +56,7 @@
     "@iconify/json": "^2.2.310",
     "@nuxtjs/color-mode": "^3.5.2",
     "@pinia/nuxt": "^0.9.0",
+    "@primevue/nuxt-module": "^4.3.1",
     "@unocss/eslint-plugin": "^65.5.0",
     "@unocss/nuxt": "^0.65.1",
     "@vueuse/nuxt": "^12.0.0",

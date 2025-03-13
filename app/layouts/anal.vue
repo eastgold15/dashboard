@@ -3,40 +3,36 @@ const { childrenRoutes } = useRouteChildren()
 </script>
 
 <template>
-  <div class="wa-layout">
+  <div class="layout-container">
     <Header class="layout-header" :routes="childrenRoutes">
       <!-- 头部内容 -->
     </Header>
 
-
-    <main class="wa-main">
+    <main class="layout-main">
       <slot />
     </main>
-  
   </div>
 </template>
 
 <style scoped>
-.wa-layout {
-  height: 100vh;
+.layout-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100vh;
   background: url('/bg.png') no-repeat center/cover;
+  overflow: hidden;
 }
 
 .layout-header {
-
-
-  color: white;
   flex-shrink: 0;
+  height: 80px;
 }
 
-.wa-main {
+.layout-main {
   flex-grow: 1;
-  padding-top: 10px;
-
-
+  overflow: hidden;
+  /* 禁止内容区域滚动 */
+  position: relative;
 }
-
-
 </style>

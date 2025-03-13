@@ -8,21 +8,28 @@ definePageMeta({
   <div class="page-container">
     <div class="grid-container">
       <div class="grid-item bgAlpha">
+        <!-- 用水数据 -->
         <EchartsUseWater />
       </div>
       <div class="grid-item bgAlpha">
+        <!-- 用水占比 -->
         <EchartsWaterProportion />
       </div>
       <div class="grid-item bgAlpha">
+        <!-- 用水趋势 -->
         <EchartsAnnualTrends />
       </div>
+
       <div class="grid-item bgAlpha">
+        <!-- 用水历史 -->
         <EchartsHistoryWater />
       </div>
       <div class="grid-item bgAlpha">
+        <!-- 本月水量 -->
         <EchartsLastMonth />
       </div>
       <div class="grid-item bgAlpha">
+        <!-- 年度用水量同比分析图 -->
         <EchartsYearoveryearMonthlyWater />
       </div>
       <div class="grid-item grid-item-bottom bgAlpha">

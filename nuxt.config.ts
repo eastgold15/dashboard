@@ -25,17 +25,18 @@ export default defineNuxtConfig({
     enabled: true,
   },
   primevue: {
-
     importTheme: { from: '@/assets/themes/mytheme.js' },
-
     options: {
       ripple: true,
       inputVariant: 'filled',
+      unstyled: false, // 添加此项以使用默认样式
     },
     components: {
-      exclude: [],
+      include: ['DataTable', 'Column', 'Button', 'Dialog'], // 明确指定需要的组件
     },
-
+    directives: {
+      include: ['Tooltip', 'Ripple'], // 添加需要的指令
+    },
   },
 
   app: {

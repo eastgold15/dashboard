@@ -87,9 +87,8 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <ClientOnly>
-    <DataTable :value="tableData" table-style="width: 100%; height: 100%;">
+    <DataTable :value="tableData" striped class="p-dark" :row-hover="true" table-style="width: 100%; height: 100%;">
       <Column v-for="col of tableColumn" :key="col.field" :field="col.field" :header="col.header" />
     </DataTable>
   </ClientOnly>
 </template>
-``

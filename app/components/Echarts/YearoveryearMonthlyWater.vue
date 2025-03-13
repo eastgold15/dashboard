@@ -53,7 +53,7 @@ const option = ref<ECOption>({
   <div class="h-full w-full flex flex-col">
     <EchartsComponentsEchartsTitle title="年度用水量同比分析图" unit="m" />
     <ClientOnly>
-      <VChart :option="option" style="width: 100%; height: 140px;" class="echart" />
+      <VChart :option="option" class="h-full w-full" />
     </ClientOnly>
   </div>
 </template>

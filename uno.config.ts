@@ -11,6 +11,9 @@ import {
 
 export default defineConfig({
   shortcuts: {
+    // 特殊原子
+    'btn-unit': 'text-14px text-[rgba(255,255,255,0.8)] bg-rgba(255, 255, 255, 0.1) px-8px py-4px border-rd-4px',
+
     // 间距规范
     'space-xs': 'm-1 p-1', // 4px
     'space-sm': 'm-2 p-2', // 8px
@@ -20,7 +23,9 @@ export default defineConfig({
     // 按钮样式
     'btn': 'bg-[#407E8A] text-white p-2 px-8 rounded-md text-center text-sm hover:bg-[#366a74] active:bg-[#2a525c] focus:ring-2 focus:ring-[#407E8A] focus:ring-opacity-50 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95',
     'btn-active': 'bg-[#2a525c] ring-2 ring-[#407E8A] ring-opacity-50',
+    // 背景色
     'bg-primary': 'bg-[#1C222A]', // 背景色
+    'bgAlpha': 'bg-black bg-opacity-50 backdrop-blur-sm shadow-md backdrop-blur-1px', // 移除首尾多余空格
 
     // 菜单间距
     'menu-space': 'm-4 p-4', // 菜单之间的间距
@@ -73,8 +78,6 @@ export default defineConfig({
 
     // 布局样式
     'container': 'max-w-7xl mx-auto px-4',
-
-    'bgAlpha': 'bg-black bg-opacity-50 backdrop-blur-sm shadow-md', // 移除首尾多余空格
 
   },
   presets: [

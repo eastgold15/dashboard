@@ -9,8 +9,9 @@ RUN npm install -g pm2 && \
     apk add --no-cache tzdata curl
 
 # 复制构建产物和配置文件
-COPY .output ./.output
-COPY ecosystem.config.cjs ./
+# 注意：这里的路径是相对于 docker build context 的
+COPY docker/prod/.output ./.output
+COPY docker/prod/ecosystem.config.cjs ./
 
 # 使用 PM2 启动应用
 CMD ["pm2-runtime", "ecosystem.config.cjs"]

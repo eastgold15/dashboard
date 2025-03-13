@@ -1,0 +1,54 @@
+name: 持续集成
+
+on:
+  # push:
+  #   branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.13.0
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: pnpm
+
+      - name: 代码环境检查
+        run: pnpm check-env    
+
+      - name: 安装依赖
+        run: pnpm install
+        env:
+          PNPM_CACHE_DIR: ~/.pnpm-store
+
+      - name: 构建项目
+        run: pnpm build
+
+      - name: 检查构建产物
+        run: |
+          echo "检查构建产物..."
+          ls -la .output/
+          ls -la .output/server/
+          ls -la .output/public/
+          test -f .output/server/index.mjs || echo "警告：入口文件不存在！"
+          test -d .output/public/ || echo "警告：静态文件目录不存在！"
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: .output
+          retention-days: 7

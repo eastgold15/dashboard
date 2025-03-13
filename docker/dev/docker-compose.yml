@@ -1,0 +1,17 @@
+services:
+  app:
+    build:
+      context: ../..
+      dockerfile: docker/dev/Dockerfile
+    container_name: water-dashboard-dev
+    env_file:
+      - .env.dev
+    volumes:
+      - ../../:/app
+      #./ 表示当前工作目录（即运行 docker-compose 命令时所在的目录）。
+      #如果你在项目根目录（例如 d:\1codespace\flutter\web\dashboard）运行 docker-compose，那么 ./ 就代表 d:\1codespace\flutter\web\dashboard。
+      - /app/node_modules
+    ports:
+      - "3500:3000"
+    environment:
+      - NODE_ENV=development

@@ -1,0 +1,35 @@
+{
+  "name": "Water Dashboard Dev",
+  "dockerComposeFile": [
+    "../docker/dev/docker-compose.yml"
+  ],
+  "service": "app",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vue.volar",
+        "vue.vscode-typescript-vue-plugin",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "always"
+        }
+      }
+    }
+  },
+  "forwardPorts": [
+    3000,
+    24678
+  ],
+  "postCreateCommand": "pnpm install",
+  "remoteUser": "node"
+}

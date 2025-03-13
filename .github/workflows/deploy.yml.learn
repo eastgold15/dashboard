@@ -1,0 +1,120 @@
+# name: 构建与部署
+
+# on:
+#   push:
+#     # branches:
+#     #   - 'main'
+#     tags:
+#       - 'v*'
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+#     # 移除条件限制，使本地也能运行
+#     # if: startsWith(github.ref, 'refs/tags/v')
+#     steps:
+#       - name: 检出代码
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
+
+#       - name: 设置 PNPM
+#         uses: pnpm/action-setup@v2
+#         with:
+#           version: 9.13.0
+
+#       - name: 设置 Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version:  22.14.0
+#           cache: pnpm
+
+        
+#       - name: 代码环境检查
+#         run: pnpm check-env    
+
+#       - name: 安装依赖
+#         run: pnpm install
+#         env:
+#           PNPM_CACHE_DIR: ~/.pnpm-store
+
+
+
+#       # - name: 类型检查
+#       #   run: pnpm typecheck
+
+#       - name: 构建项目
+#         run: pnpm build
+      
+
+#       # 添加检查构建产物的步骤
+#       - name: 检查构建产物
+#         run: |
+#            echo "检查构建产物..."
+#            ls -la .output/
+#            ls -la .output/server/
+#            ls -la .output/public/
+#            test -f .output/server/index.mjs || echo "警告：入口文件不存在！"
+#            test -d .output/public/ || echo "警告：静态文件目录不存在！"
+
+#       - name: 设置 Docker Buildx
+#         uses: docker/setup-buildx-action@v3
+
+#       - name: 构建并推送 Docker 镜像
+#         uses: docker/build-push-action@v5
+#         with:
+#           context: .  # 构建上下文，这里是项目根目录
+#           file: docker/prod/Dockerfile # 指定使用哪个 Dockerfile
+#           push: false    # 不推送到远程仓库
+#           tags: water-dashboard:${{ github.ref_name }}
+#           load: true    # 将镜像加载到本地 Docker 引擎
+#           cache-from: type=gha  # 使用 GitHub Actions 缓存
+#           cache-to: type=gha,mode=max
+
+#       - name: 保存 Docker 镜像和配置文件
+#         run: |
+#           docker save water-dashboard:${{ github.ref_name }} > water-dashboard.tar
+       
+#           echo "TAG=${{ github.ref_name }}" > docker/prod/.env
+
+#       - name: 部署到服务器
+#         uses: appleboy/scp-action@v0.1.4
+#         with:
+#           host: ${{ secrets.SERVER_HOST }}
+#           username: ${{ secrets.SERVER_USERNAME }}
+#           key: ${{ secrets.SERVER_SSH_KEY }}
+#           port: ${{ secrets.SERVER_PORT }}
+#           source: water-dashboard.tar,docker/prod/docker-compose.yml,docker/prod/.env
+#           target: /tmp  #部署到了 /tmp 目录
+
+#       - name: 在服务器上启动容器
+#         uses: appleboy/ssh-action@v1.0.0
+#         with:
+#           host: ${{ secrets.SERVER_HOST }}
+#           username: ${{ secrets.SERVER_USERNAME }}
+#           key: ${{ secrets.SERVER_SSH_KEY }}
+#           port: ${{ secrets.SERVER_PORT }}
+#           script: |
+#             cd /tmp
+#             docker load < water-dashboard.tar
+       
+            
+#             # 使用 Docker Compose 启动应用
+#             docker compose -f docker/prod/docker-compose.yml down
+#             docker compose -f docker/prod/docker-compose.yml up -d
+            
+#             # 等待容器启动
+#             sleep 10
+            
+#             # 检查容器状态
+#             docker-compose ps
+            
+#             # 检查应用是否正常启动
+#             echo "检查外部访问:"
+#             curl -I http://localhost:4000 || echo "外部访问失败"
+            
+#             # 检查容器日志
+#             docker-compose logs
+            
+#             # 清理文件
+#             rm water-dashboard.tar

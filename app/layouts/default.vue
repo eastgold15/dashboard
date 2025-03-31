@@ -5,7 +5,7 @@ const { rootRoutes } = useRouteChildren()
 <template>
   <section class="layout-container flex-col">
     <Header class="layout-header" :routes="rootRoutes">
-      <!-- 头部内容 -->
+    <!-- 头部内容 -->
     </Header>
     <main class="layout-main">
       <slot />

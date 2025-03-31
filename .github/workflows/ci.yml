@@ -27,7 +27,7 @@ jobs:
           cache: pnpm
 
       - name: 代码环境检查
-        run: pnpm check-env    
+        run: pnpm check-env
 
       - name: 安装依赖
         run: pnpm install
@@ -40,9 +40,13 @@ jobs:
       - name: 检查构建产物
         run: |
           echo "检查构建产物..."
-          ls -la .output/
-          ls -la .output/server/
-          ls -la .output/public/
+          echo "当前工作目录: $(pwd)"
+          echo "目录结构:"
+          ls -la
+          echo ".output 目录内容:"
+          ls -la .output/ || echo ".output 目录不存在"
+          ls -la .output/server/ || echo ".output/server 目录不存在"
+          ls -la .output/public/ || echo ".output/public 目录不存在"
           test -f .output/server/index.mjs || echo "警告：入口文件不存在！"
           test -d .output/public/ || echo "警告：静态文件目录不存在！"
 

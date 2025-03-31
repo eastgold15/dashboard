@@ -1,10 +1,20 @@
-import type { ILoginToken } from './auth.type'
+import type { DataRes } from '../index.type'
+import type { ImageCaptcha, LoginToken } from './auth.type'
 
 export default {
-  serverStatus() {
-    return Get('auth/status')
+  // 密码登录
+  async login(options: any) {
+    return  await useAPI<DataRes<LoginToken>>('/auth/login', options)
+
   },
-  renewToken() {
-    return Get('auth/renew_token') as Promise<IDataResponse<ILoginToken>>
+
+  // 验证码
+  async getCaptcha() {
+    return await useAPI<DataRes<ImageCaptcha>>('/auth/captcha/img')
+ 
   },
+
+  /*  renewToken() {
+     return Get('auth/renew_token') as Promise<IDataResponse<ILoginToken>>
+   }, */
 }

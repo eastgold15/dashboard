@@ -17,10 +17,16 @@ interface Props {
       </NuxtLink>
       <h1>{{ title }}</h1>
     </div>
+
     <nav class="header-nav flex-row">
       <HeaderNavItem v-for="route in props.routes" :key="route.path" :path="route.path" :label="route.label" />
     </nav>
-    <HeaderTimeShow class="header-time" />
+
+    <div class="flex-row gap-4">
+      <HeaderTimeShow class="header-time" />
+      <HeaderSetting />
+    </div>
+
   </div>
 </template>
 

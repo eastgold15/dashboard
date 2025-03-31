@@ -1,3 +1,4 @@
+import Aura from '@primevue/themes/aura'
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
   modules: [
@@ -10,7 +11,7 @@ export default defineNuxtConfig({
     'nuxt-echarts',
     'dayjs-nuxt',
     '@primevue/nuxt-module',
-
+    'nuxt-auth-utils',
   ],
 
   echarts: {
@@ -25,15 +26,19 @@ export default defineNuxtConfig({
     enabled: true,
   },
   primevue: {
+    autoImport: true,
     importTheme: { from: '@/assets/themes/mytheme.js' },
     options: {
       ripple: true,
       inputVariant: 'filled',
       unstyled: false, // 添加此项以使用默认样式
+      theme: {
+        preset: Aura,
+      },
     },
-    components: {
-      include: ['DataTable', 'Column', 'Button', 'Dialog'], // 明确指定需要的组件
-    },
+    // components: {
+    //   // include: ['DataTable', 'Column', 'Button', 'Dialog'], // 明确指定需要的组件
+    // },
     directives: {
       include: ['Tooltip', 'Ripple'], // 添加需要的指令
     },
@@ -143,14 +148,9 @@ export default defineNuxtConfig({
     apiSecret: '', // 可以由 NUXT_API_SECRET 环境变量覆盖
     public: {
       // 可以由 NUXT_BASEURL_DEV 环境变量覆盖
-      // eslint-disable-next-line node/prefer-global/process
-      apiBase: process.env.NODE_ENV === 'development' ? process.env.NUXT_BASEURL_DEV : process.env.NUXT_BASEURL_PROD,
-      // eslint-disable-next-line node/prefer-global/process
-      apiBase_mock: process.env.NUXT_BASEURL_MOCK,
 
-      // # 开发环境读取配置文件路径
-      // eslint-disable-next-line node/prefer-global/process
-      VITE_PUBLIC_PATH: process.env.VITE_PUBLIC_PATH || '/',
+      apiBase: '',
+      apiBase_mock: '',
     },
   },
 
@@ -161,6 +161,7 @@ export default defineNuxtConfig({
   },
   $development: {
     //
+
   },
 
   typescript: {

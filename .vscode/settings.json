@@ -1,6 +1,6 @@
 {
   "eslint.useFlatConfig": true,
-
+  "npm.autoDetect": "on",
   // Auto fix
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",

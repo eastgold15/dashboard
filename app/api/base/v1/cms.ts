@@ -1,5 +1,7 @@
 // import type { promises } from 'node:dns'
 
+import type { DataRes, IMenuModel, IMenuModelQuery, IRes, PageRes } from '../index.type'
+
 // import type { IDataResponse, IPageResponse, IStandardResponse } from '../index.type'
 // import type {
 //   IAdminOrder,
@@ -30,94 +32,96 @@
 //   ServeStatInfo,
 // } from './cms.type'
 
-// export default {
-//   doc: {
-//     deployedList(query: Partial<IDocQuery>) {
-//       return endHttp.post('doc/published/list', query) as Promise<IPageResponse<IDoc>>
-//     },
-//     list(query: Partial<IDocQuery>) {
-//       return endHttp.post('doc/list', query) as Promise<IPageResponse<IDoc>>
-//     },
-//     create(body: IDoc) {
-//       return endHttp.post('doc', body) as Promise<IDataResponse<IDoc>>
-//     },
-//     tempSave(id: number, body: IDoc) {
-//       return endHttp.post(`doc/temp_save?id=${id}`, body) as Promise<IDataResponse<IDoc>>
-//     },
-//     update(id: number, body: IDoc) {
-//       return endHttp.put(`doc/${id}`, body) as Promise<IDataResponse<IDoc>>
-//     },
-//     archived(id: number) {
-//       return endHttp.del(`doc/${id}`) as Promise<IStandardResponse>
-//     },
-//     public(id: number) {
-//       return endHttp.post(`doc/publish/${id}`) as Promise<IDataResponse<boolean>>
-//     },
-//     info(id: number) {
-//       return endHttp.get(`doc/${id}`) as Promise<IDataResponse<[IDoc, { content: string }]>>
-//     },
-//   },
+export default {
+  //   doc: {
+  //     deployedList(query: Partial<IDocQuery>) {
+  //       return endHttp.post('doc/published/list', query) as Promise<IPageResponse<IDoc>>
+  //     },
+  //     list(query: Partial<IDocQuery>) {
+  //       return endHttp.post('doc/list', query) as Promise<IPageResponse<IDoc>>
+  //     },
+  //     create(body: IDoc) {
+  //       return endHttp.post('doc', body) as Promise<IDataResponse<IDoc>>
+  //     },
+  //     tempSave(id: number, body: IDoc) {
+  //       return endHttp.post(`doc/temp_save?id=${id}`, body) as Promise<IDataResponse<IDoc>>
+  //     },
+  //     update(id: number, body: IDoc) {
+  //       return endHttp.put(`doc/${id}`, body) as Promise<IDataResponse<IDoc>>
+  //     },
+  //     archived(id: number) {
+  //       return endHttp.del(`doc/${id}`) as Promise<IStandardResponse>
+  //     },
+  //     public(id: number) {
+  //       return endHttp.post(`doc/publish/${id}`) as Promise<IDataResponse<boolean>>
+  //     },
+  //     info(id: number) {
+  //       return endHttp.get(`doc/${id}`) as Promise<IDataResponse<[IDoc, { content: string }]>>
+  //     },
+  //   },
 
-//   users: {
-//     list(query: IUserModelQuery) {
-//       return endHttp.get('system/users', query) as Promise<IPageResponse<IUserModel>>
-//     },
-//     create(Body: IUserModel) {
-//       return endHttp.post('system/users', Body)
-//     },
-//     get(id: number | string) {
-//       return endHttp.get(`system/users/${id}`) as Promise<IDataResponse<IUserModel>>
-//     },
-//     update(id: number | string, Body: IUserModel) {
-//       return endHttp.put(`system/users/${id}`, Body) as Promise<IDataResponse<IUserModel>>
-//     },
-//     delete(id: number | string) {
-//       return endHttp.del(`system/users/${id}`) as Promise<IStandardResponse>
-//     },
-//     search(query: string) {
-//       return endHttp.get(`system/users/search?query=${query}`) as Promise<IDataResponse<[IUserModel[], number]>>
-//     },
-//   },
-//   order: {
-//     list(body: Partial<IAdminOrderQuery>) {
-//       return endHttp.post('order/admin/list', body) as Promise<IPageResponse<IAdminOrder>>
-//     },
+  //   users: {
+  //     list(query: IUserModelQuery) {
+  //       return endHttp.get('system/users', query) as Promise<IPageResponse<IUserModel>>
+  //     },
+  //     create(Body: IUserModel) {
+  //       return endHttp.post('system/users', Body)
+  //     },
+  //     get(id: number | string) {
+  //       return endHttp.get(`system/users/${id}`) as Promise<IDataResponse<IUserModel>>
+  //     },
+  //     update(id: number | string, Body: IUserModel) {
+  //       return endHttp.put(`system/users/${id}`, Body) as Promise<IDataResponse<IUserModel>>
+  //     },
+  //     delete(id: number | string) {
+  //       return endHttp.del(`system/users/${id}`) as Promise<IStandardResponse>
+  //     },
+  //     search(query: string) {
+  //       return endHttp.get(`system/users/search?query=${query}`) as Promise<IDataResponse<[IUserModel[], number]>>
+  //     },
+  //   },
+  //   order: {
+  //     list(body: Partial<IAdminOrderQuery>) {
+  //       return endHttp.post('order/admin/list', body) as Promise<IPageResponse<IAdminOrder>>
+  //     },
 
-//   },
+  // },
 
-//   role: {
-//     list(query: Partial<IRoleModelQuery> = { page: 1, pageSize: 50 }) {
-//       return endHttp.get('system/roles', query) as Promise<IPageResponse<IRoleModel>>
-//     },
-//     create(Body: IRoleModel) {
-//       return endHttp.post('system/roles', Body)
-//     },
-//     get(id: number | string) {
-//       return endHttp.get(`system/roles/${id}`) as Promise<IDataResponse<IRoleModel>>
-//     },
-//     update(id: number | string, query: IRoleModel) {
-//       return endHttp.put(`system/roles/${id}`, query) as Promise<IDataResponse<IRoleModel>>
-//     },
-//     delete(id: number | string) {
-//       return endHttp.del(`system/roles/${id}`) as Promise<IStandardResponse>
-//     },
-//   },
-//   menu: {
-//     list(query: IMenuModelQuery = { page: 1, pageSize: 50 }) {
-//       return endHttp.get('system/menus', query) as Promise<IPageResponse<IMenuModel>>
-//     },
-//     create(Body: IMenuModel) {
-//       return endHttp.post('system/menus', Body)
-//     },
-//     get(id: number | string) {
-//       return endHttp.get(`system/menus/${id}`) as Promise<IDataResponse<IMenuModel>>
-//     },
-//     update(id: number | string, query: IMenuModel) {
-//       return endHttp.put(`system/menus/${id}`, query) as Promise<IDataResponse<IMenuModel>>
-//     },
-//     delete(id: number | string) {
-//       return endHttp.del(`system/menus/${id}`) as Promise<IStandardResponse>
-//     },
+  //   role: {
+  //     list(query: Partial<IRoleModelQuery> = { page: 1, pageSize: 50 }) {
+  //       return endHttp.get('system/roles', query) as Promise<IPageResponse<IRoleModel>>
+  //     },
+  //     create(Body: IRoleModel) {
+  //       return endHttp.post('system/roles', Body)
+  //     },
+  //     get(id: number | string) {
+  //       return endHttp.get(`system/roles/${id}`) as Promise<IDataResponse<IRoleModel>>
+  //     },
+  //     update(id: number | string, query: IRoleModel) {
+  //       return endHttp.put(`system/roles/${id}`, query) as Promise<IDataResponse<IRoleModel>>
+  //     },
+  //     delete(id: number | string) {
+  //       return endHttp.del(`system/roles/${id}`) as Promise<IStandardResponse>
+  //     },
+  //   },
+  menu: {
+    async list(query: any = { page: 1, pageSize: 50 }) {
+      return await useAPI.get<IMenuModelQuery, DataRes<IMenuModel[]>>('/system/menus', query)
+    },
+    async create(Body: any) {
+      return await useAPI.post<IMenuModel, DataRes<IMenuModel>>('/system/menus', Body)
+    },
+    async get(id: number | string) {
+      return await useAPI.get<number | string, DataRes<IMenuModel>>(`system/menus/${id}`)
+    },
+    async update(id: number | string, query: any) {
+      return await useAPI.put<any, DataRes<IMenuModel>>(`system/menus/${id}`, query)
+    },
+    async delete(id: number | string) {
+      return await useAPI.delete<any, DataRes<any>>(`system/menus/${id}`)
+    },
+  },
+}
 
 //     /* 获取后端定义的所有权限集
 //      *

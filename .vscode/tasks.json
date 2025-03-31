@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"path": "admin3-2.1.1",
+			"problemMatcher": [],
+			"label": "npm: dev - admin3-2.1.1",
+			"detail": "nuxt dev --port=8000 --host --no-qr --open"
+		}
+	]
+}

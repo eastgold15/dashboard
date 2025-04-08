@@ -8,7 +8,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-import FontCarbon from '@/constants/carbon.json'
+
 export default defineConfig({
   shortcuts: {
     // 特殊原子
@@ -21,11 +21,11 @@ export default defineConfig({
     'space-lg': 'm-6 p-6', // 24px
     'space-xl': 'm-8 p-8', // 32px
     // 按钮样式
-    'btn': 'bg-[#407E8A] text-white p-2 px-8 rounded-md text-center text-sm hover:bg-[#366a74] active:bg-[#2a525c] focus:ring-2 focus:ring-[#407E8A] focus:ring-opacity-50 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95',
-    'btn-active': 'bg-[#2a525c] ring-2 ring-[#407E8A] ring-opacity-50',
+
+    'header-btn': 'bg-[#407E8A] text-white p-2 px-8 rounded-md text-center text-sm hover:bg-[#366a74] active:bg-[#2a525c] focus:ring-2 focus:ring-[#407E8A] focus:ring-opacity-50 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95',
+    'header-btn-active': 'bg-[#2a525c] ring-2 ring-[#407E8A] ring-opacity-50',
     // 背景色
-    'bg-primary': 'bg-[#1C222A]', // 背景色
-    'bgAlpha': 'bg-black bg-opacity-50 backdrop-blur-sm shadow-md backdrop-blur-1px', // 移除首尾多余空格
+    'bgAlpha': 'bg-black bg-opacity-50 backdrop-blur-sm shadow-md backdrop-blur-1px',
 
     // 菜单间距
     'menu-space': 'm-4 p-4', // 菜单之间的间距
@@ -35,14 +35,7 @@ export default defineConfig({
     'layout-space': 'm-8 p-8', // 布局之间的间距
     'section-space': 'm-6 p-6', // 区块之间的间距
 
-    // 文字颜色
-    'text-primary': 'text-gray-900 dark:text-gray-100', // 主要文字
-    'text-secondary': 'text-gray-700 dark:text-gray-300', // 次要文字
-    'text-tertiary': 'text-gray-500 dark:text-gray-500', // 辅助文字
-    'text-error': 'text-red-500 dark:text-red-400', // 错误文字
-    'text-success': 'text-green-500 dark:text-green-400', // 成功文字
-    'text-warning': 'text-yellow-500 dark:text-yellow-400', // 警告文字
-    'text-info': 'text-blue-500 dark:text-blue-400', // 信息文字
+
 
     // 水务特色文本
     'water-title': 'text-xl font-bold text-water-blue text-[#387e98]',
@@ -96,9 +89,11 @@ export default defineConfig({
       },
     }),
   ],
+  theme: {
+
+  },
   transformers: [
     transformerDirectives(),
     transformerVariantGroup(),
-  ],
-  safelist: FontCarbon,
+  ]
 })

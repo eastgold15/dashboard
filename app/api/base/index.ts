@@ -4,7 +4,7 @@
 // // import AigcApi from './v1/aigc'
 import AccountApi from './v1/account'
 import AuthApi from './v1/auth'
-import CmsApi from './v1/cms'
+import { useCmsApi } from './v1/cms'
 // // import MarketAPi from './v1/marketing'
 // // import WeChatApi from './v1/weChat'
 
@@ -13,7 +13,9 @@ export const $endApi = {
     //     login: LoginAPi,
     auth: AuthApi,
     account: AccountApi,
-    cms: CmsApi,
+    get cms() {
+      return useCmsApi() // 改为 getter 形式
+    },
     //     // common: CommonApi,
     //     // tools: ToolsApi,
     //     // aigc: AigcApi,

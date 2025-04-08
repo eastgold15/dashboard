@@ -1,12 +1,14 @@
 <script lang="ts" setup>
-import type { LoginToken } from '~/api/base/index.type'
-import { ref, computed } from 'vue'
-import { $endApi } from '~/api/base'
+
+import { ref } from 'vue'
+
+import type { DataRes, ImageCaptcha } from '~/api/base/index.type'
 
 definePageMeta({
   layout: 'auth',
   alias: ['/auth/login'],
 })
+const authStore = useMyAuthStore()
 
 // 表单数据
 const form = ref({
@@ -18,41 +20,39 @@ const form = ref({
 // 验证码图片
 const captchaImage = ref<string>()
 // 获取验证码
-const { data: Captcha, refresh } = await $endApi.v1.auth.getCaptcha()
+const { data: Captcha, refresh } = await useAPI.get<any, DataRes<ImageCaptcha>>('/auth/captcha/img')
 
 
-captchaImage.value =Captcha.value?.data?.img
+captchaImage.value = Captcha.value?.data?.img
 
 
 
 // 刷新验证码
 function refreshCaptcha() {
   refresh().then((res) => {
-    captchaImage.value =Captcha.value?.data?.img
+    captchaImage.value = Captcha.value?.data?.img
   })
 }
 
 // 处理登录
-function handleLogin() {
+async function handleLogin() {
   const requestOptions = {
-    method: 'POST',
-    body: {
-      username: form.value.username,
-      password: form.value.password,
-      captchaId: Captcha.value?.data?.id,
-      verifyCode: form.value.captcha,
-    },
+    username: form.value.username,
+    password: form.value.password,
+    captchaId: Captcha.value?.data?.id,
+    verifyCode: form.value.captcha,
   }
-  const token = useCookie<LoginToken | null>('token')
-  $endApi.v1.auth.login(requestOptions).then((res) => {
-    if (res.data.value) {
-      token.value = res.data.value?.data
-      // 登录成功后跳转到首页
-      const currentToken = token.value
-      console.log(currentToken)
-      navigateTo('/')
-    }
-  })
+
+
+  const success = await authStore.login(requestOptions)
+  if (success) {
+    // 登录成功后获取权限
+    const permissionStore = useMyPermissionStore()
+    await permissionStore.fetchPermissions()
+  
+    await navigateTo('/dashboard/index')
+  }
+
 }
 </script>
 

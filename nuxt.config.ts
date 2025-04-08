@@ -141,7 +141,6 @@ export default defineNuxtConfig({
         name: '中文',
       },
     ],
-
   },
   runtimeConfig: {
     count: 1,

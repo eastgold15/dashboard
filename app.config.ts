@@ -10,6 +10,10 @@
 export default defineAppConfig({
   title: 'Hello Nuxt',
   // title:""水务Nuxt App""
+
+  appName: '水务Nuxt App',
+  appDescription: 'Nuxt Stater for Element Plus',
+  // 主题配置
   theme: {
     dark: true,
     colors: {

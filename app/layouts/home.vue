@@ -1,12 +1,13 @@
 <template>
   <div>
-
+    <slot />
   </div>
 </template>
 
 <script lang="ts" setup>
-navigateTo("/dashboard/index")
 
 </script>
 
-<style></style>
+<style>
+
+</style>

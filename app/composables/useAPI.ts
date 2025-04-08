@@ -7,7 +7,7 @@ export function useAPI<T = any>(
 ) {
   return useFetch(url, {
     ...options,
-    $fetch: useNuxtApp().$api as typeof $fetch,
+    $fetch: useNuxtApp().$api.baseApi as typeof $fetch,
   })
 }
 

@@ -1,26 +1,31 @@
 import type { LoginToken } from '~/api/base/index.type'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const token = useCookie<LoginToken>('token')
+
 
   const runtimeConfig = useRuntimeConfig()
-
-  const api = $fetch.create({
+  const baseApi = $fetch.create({
     baseURL: runtimeConfig.public.apiBase,
     onRequest({ options }) {
       // console.log('请求配置', options)
+
+      // const { authToken } = toRefs(useUserStore())
+      // 从 cookie 中直接获取 token
+      const token = useCookie<string | null>('token')
+      console.log('token', token.value)
       if (token.value) {
         // Add Authorization header
         // options.headers.set('Authorization', `Bearer ${userAuth.value}`)
         options.headers = {
-          Authorization: `Bearer ${token.value.accessToken}`,
+          Authorization: `Bearer ${token.value}`,
           ...options.headers,
         } as unknown as Headers
       }
     },
     onResponse({ response }) {
-      console.log('======= response =======\n', response)
-      const token = useCookie<LoginToken | null>('token')
+      // console.log('======= response =======\n', response)
+      const token = useCookie<string | null>('token')
+
 
 
       // 处理成功响应
@@ -50,9 +55,6 @@ export default defineNuxtPlugin((nuxtApp) => {
               // 处理其他业务错误
               break
           }
-
-
-
           nuxtApp.runWithContext(() => {
             navigateTo({
               path: '/error',
@@ -78,9 +80,49 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
   })
 
+
+
+  // 封装 GET 请求
+  const get = async <T>(url: string, params?: Record<string, any>) => {
+    return baseApi<T>(url, {
+      method: 'GET',
+      params
+    })
+  }
+
+  // 封装 POST 请求
+  const post = async <T>(url: string, body?: Record<string, any>) => {
+    return baseApi<T>(url, {
+      method: 'POST',
+      body
+    })
+  }
+
+  // 封装 PUT 请求
+  const put = async <T>(url: string, body?: Record<string, any>) => {
+    return baseApi<T>(url, {
+      method: 'PUT',
+      body
+    })
+  }
+
+  // 封装 DELETE 请求
+  const del = async <T>(url: string, params?: Record<string, any>) => {
+    return baseApi<T>(url, {
+      method: 'DELETE',
+      params
+    })
+  }
+
   return {
     provide: {
-      api,
+      api: {
+        baseApi,  // 保留原始请求方法
+        get,
+        post,
+        put,
+        delete: del
+      }
     },
   }
 })

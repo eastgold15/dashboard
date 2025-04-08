@@ -1,16 +1,24 @@
 declare global {
-  declare interface Fn<T = any> {
+  interface Fn<T = any> {
     (...arg: T[]): T
   }
 
-  declare type Nullable<T> = T | null
+  type Nullable<T> = T | null
 
-  declare type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>
+  type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>
 
-  declare type Recordable<T = any, K = string> = Record<K extends null | undefined ? string : K, T>
+  type Recordable<T = any, K = string> = Record<K extends null | undefined ? string : K, T>
 
-  declare type ComponentRef<T> = InstanceType<T>
+  type ComponentRef<T> = InstanceType<T>
 
-  declare type LocaleType = 'zh-CN' | 'en'
+  type LocaleType = 'zh-CN' | 'en'
+  type QueryDataType<T> = { [key in keyof T]: T[key] }
 
+
+  
 }
+
+
+
+// 确保有导出空对象以触发模块扩充
+export { }

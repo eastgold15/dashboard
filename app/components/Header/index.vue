@@ -10,61 +10,27 @@ interface Props {
 </script>
 
 <template>
-  <div class="header bgAlpha">
-    <div class="header-title">
-      <NuxtLink to="/">
-        <img :src="logo" alt="logo" class="mr-2 h-24px w-24px">
+
+  <div class=" flex justify-between items-center   px-4">
+    <div class="flex-start  ">
+      <NuxtLink to="/" class="">
+        <img :src="logo" alt="logo" class="mr-2  w-9 h-9  inline-block">
+        <h1 class="inline-block text-9 v-middle">{{ title }}</h1>
       </NuxtLink>
-      <h1>{{ title }}</h1>
+
+      <nav class="flex flex-center px-9  gap-4">
+        <HeaderNavItem v-for="route in props.routes" :key="route.path" :path="route.path" :label="route.label" />
+      </nav>
+
     </div>
 
-    <nav class="header-nav flex-row">
-      <HeaderNavItem v-for="route in props.routes" :key="route.path" :path="route.path" :label="route.label" />
-    </nav>
-
-    <div class="flex-row gap-4">
+    <div class="flex gap-4">
       <HeaderTimeShow class="header-time" />
       <HeaderSetting />
     </div>
 
+
   </div>
 </template>
 
-<style lang="scss">
-.header {
-  display: grid;
-  height: 80px;
-  grid-template-columns: 1fr 2fr 0.5fr;
-  /* 定义网格列的比例 */
-  align-items: center;
-  color: white;
-  font-size: 24px;
-  padding: 10px;
-
-  .header-title {
-    text-align: left;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    background: linear-gradient(to right, #387e98, white);
-    font-size: 28px;
-    font-weight: bold;
-
-    background-clip: text;
-    color: transparent;
-  }
-
-  .header-nav {
-    width: 80%;
-    display: flex;
-    gap: 20px;
-    // display: grid;
-    // grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    /* 定义网格列的比例 */
-  }
-
-  .header-time {
-    text-align: right;
-  }
-}
-</style>
+<style lang="scss"></style>

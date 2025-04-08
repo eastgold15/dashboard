@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { appName } from '~/constants'
 
+const appConfig = useAppConfig();
 useHead({
-  title: appName,
+  title: appConfig.title as string,
 })
 </script>
 

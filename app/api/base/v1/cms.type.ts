@@ -116,10 +116,11 @@ export interface IRoleModel extends Record<string, any> {
 
 export interface IRoleModelQuery extends IRoleModel {
   page: number
-  pageSize: number
+  pageSize: number,
 }
 
 export interface IMenuModel extends Record<string, any> {
+  id: number
   /**
    * 设置当前路由高亮的菜单项，一般用于详情页
    */

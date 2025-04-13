@@ -4,6 +4,12 @@ import logo from '/logo.png'
 const props = defineProps<Props>()
 const appStore = useMyAppStore()
 const title = appStore.getTitle() // 确保路径正确
+
+
+
+const config =useAppConfig()
+console.log(config)
+const appName = config.appName || 'App'
 interface Props {
   routes: Array<Route>
 }
@@ -33,4 +39,4 @@ interface Props {
   </div>
 </template>
 
-<style lang="scss"></style>
+

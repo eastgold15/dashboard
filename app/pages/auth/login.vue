@@ -49,7 +49,7 @@ async function handleLogin() {
     // 登录成功后获取权限
     const permissionStore = useMyPermissionStore()
     await permissionStore.fetchPermissions()
-  
+
     await navigateTo('/dashboard/index')
   }
 
@@ -97,7 +97,7 @@ async function handleLogin() {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  background: linear-gradient(135deg,rgb(65, 28, 134) 0%, #2575fc 100%);
 }
 
 .login-card {

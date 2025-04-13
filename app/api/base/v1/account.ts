@@ -1,19 +1,25 @@
-import type { AccountInfo, DataRes, MenuList } from '../index.type'
+import type { $API, AccountInfo, DataRes, MenuList } from '../index.type'
 
 
-const { $api } = useNuxtApp()
-export default {
+// 工厂函数：创建账户相关 API
+const createAccountApi = ($api: $API) => ({
   // 获取账户资料
   async getAccountInfo() {
-    return await useAPI<DataRes<AccountInfo>>('/account/profile')
+    return await $api.get<DataRes<AccountInfo>>('/account/profile')
   },
   // 获取菜单列表
   async getMenuList() {
-    return await useAPI<DataRes<MenuList[]>>('/account/menus')
+    return await $api.get<DataRes<MenuList[]>>('/account/menus')
   },
   // 获取权限列表
   async getPermissionList() {
-    return await useAPI<DataRes<string[]>>('/account/permissions')
-  },
+    return await $api.get<DataRes<string[]>>('/account/permissions')
+  }
+})
 
-}
+// 使用示例
+const { $api } = useNuxtApp()
+
+export const accountApi = createAccountApi($api)
+
+

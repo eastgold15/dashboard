@@ -1,44 +1,7 @@
-// import type { promises } from 'node:dns'
 
-import type { DataRes, IMenuModel, IMenuModelQuery, IRes, PageRes } from '../index.type'
-
-// import type { IDataResponse, IPageResponse, IStandardResponse } from '../index.type'
-// import type {
-//   IAdminOrder,
-//   IAdminOrderQuery,
-//   IDeptModelQuery,
-//   IDictItemModel,
-//   IDictItemModelQuery,
-//   IDictTypeModel,
-//   IDictTypeModelQuery,
-//   IDoc,
-//   IDocQuery,
-
-//   IFeedbackModel,
-//   IFeedbackModelQuery,
-
-//   IMenuModel,
-//   IMenuModelQuery,
-//   IParamConfigModel,
-//   IParamConfigModelQuery,
-//   IRoleModel,
-//   IRoleModelQuery,
-//   ISubscriptionPlan,
-//   ISubscriptionPlanQuery,
-//   ITasksModel,
-//   ITasksModelQuery,
-//   IUserModel,
-//   IUserModelQuery,
-//   ServeStatInfo,
-// } from './cms.type'
-
-
-
-
-
-// 改为导出一个工厂函数
-export function useCmsApi() {
-  const { $api } = useNuxtApp()
+import type { $API, DataRes, IMenuModel, IMenuModelQuery, IRes, PageRes } from '../index.type'
+const { $api } = useNuxtApp()
+export function useCmsApi($api: $API) {
 
   return {
     menu: {
@@ -57,8 +20,11 @@ export function useCmsApi() {
       async delete(id: number | string) {
         return await $api.delete<DataRes<any>>(`/system/menus/${id}`)
       },
-    },
+    }
   }
+
 }
+
+export const CmsApi = useCmsApi($api)
 
 

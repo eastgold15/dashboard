@@ -1,17 +1,19 @@
-import type { DataRes } from '../index.type'
+import type { $API, DataRes } from '../index.type'
 import type { ImageCaptcha, LoginToken } from './auth.type'
 
-export default {
+
+
+
+const createAuthApi = ($api: $API) => ({
   // 密码登录
   async login(options: any) {
-    return await useAPI.post<LoginToken, DataRes<LoginToken>>('/auth/login', options)
+    return await $api.post<DataRes<LoginToken>>('/auth/login', options)
   },
-
   // 验证码
   async getCaptcha() {
     return await useAPI.get<any, DataRes<ImageCaptcha>>('/auth/captcha/img')
+  }
+})
 
-  },
-
-
-}
+const { $api } = useNuxtApp()
+export const authApi = createAuthApi($api)

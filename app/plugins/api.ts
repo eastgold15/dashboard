@@ -1,16 +1,10 @@
 import type { LoginToken } from '~/api/base/index.type'
 
 export default defineNuxtPlugin((nuxtApp) => {
-
-
   const runtimeConfig = useRuntimeConfig()
   const baseApi = $fetch.create({
     baseURL: runtimeConfig.public.apiBase,
     onRequest({ options }) {
-      // console.log('请求配置', options)
-
-      // const { authToken } = toRefs(useUserStore())
-      // 从 cookie 中直接获取 token
       const token = useCookie<string | null>('token')
       console.log('token', token.value)
       if (token.value) {
@@ -23,16 +17,11 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     },
     onResponse({ response }) {
-      // console.log('======= response =======\n', response)
       const token = useCookie<string | null>('token')
-
-
-
       // 处理成功响应
       if (response.status >= 200 && response.status < 300) {
         if (response._data?.code !== 200) {
           // 处理业务错误
-
           switch (response._data.code) {
             case 1101:
               // 处理token过期

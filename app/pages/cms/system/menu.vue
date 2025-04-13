@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 
-import { $endApi } from '~/api/base';
-import type { IMenuModel, IMenuModelQuery, IRoleModelQuery } from '~/api/base/index.type';
-import { genCmsTemplateData } from '~/composables/cms/template-generator';
 
+import type { IMenuModel, IMenuModelQuery, IRoleModelQuery } from '~/api/base/index.type';
+import { genCmsTemplateData } from '~/composables/cms/useTemplateGen';
+import {CmsApi} from '@/api/base/index';
 // 定义页面元信息
 definePageMeta({
   name: '菜单管理',
@@ -13,10 +13,7 @@ definePageMeta({
 
 type TableColumn = IMenuModel
 
-const $crud = $endApi.v1.cms.menu
-
-
-export type GenCmsTemplateDataResultType = typeof templateData
+const $crud = CmsApi.menu
 
 
 const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null>({
@@ -49,25 +46,20 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
   onFetchSuccess: async () => {
     const permissionStore = useMyPermissionStore()
     await permissionStore.fetchPermissions()
-  },
-  handleCrudDialog(data, mode, meta) {
-
-  },
-
-
-
+  }
 },
   //5. 定义查询表单 
   {
     name: '',
     value: '',
-    status: 0,
     remark: '',
     page: 1,
     pageSize: 60,
   })
 
-const { tableData, queryForm, refresh } =  templateData
+  
+
+const { tableData,queryForm } = templateData
 
 
 
@@ -126,7 +118,7 @@ const menuWithRoot = computed(() => ([{ id: -1, name: '根目录', children: [..
 
 
 <template>
-  <CmsCrudTemplate name="菜单" identifier="role" :rules="rules" :tableData="tableData.items" :template-data="templateData"
+  <CmsCrudTemplate name="菜单" identifier="role" :rules="rules" :tableData="tableData" :template-data="templateData"
     :crud-controller="15">
     <template #QueryForm>
       <el-form-item label="用户名">

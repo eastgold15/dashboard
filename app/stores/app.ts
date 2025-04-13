@@ -4,7 +4,7 @@ import routerConstans from '~/constants/router.constans'
 export const useMyAppStore = defineStore('myAppStore', () => {
   // state
   const mobile = ref(false) // 是否是移动端
-  const title = ref('江西飞行学员') // 标题
+  const title = ref('水务系统实践') // 标题
   const routes = ref(routerConstans)
   const pageLoading = ref(false) // 路由跳转loading
   const breadcrumb = ref(true) // 面包屑

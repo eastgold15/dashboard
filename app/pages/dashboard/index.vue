@@ -34,8 +34,8 @@ definePageMeta({
         <EchartsYearoveryearMonthlyWater />
       </div>
       <div class="grid-item grid-item-bottom bgAlpha">
-        <!-- <EchartsAlarmInfo /> -->
-        <Button label="Verify" />
+        <EchartsAlarmInfo />
+
       </div>
     </div>
   </div>

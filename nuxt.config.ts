@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@element-plus/nuxt',
     '@nuxtjs/color-mode',
-    '@nuxtjs/i18n',
     'nuxt-echarts',
     'dayjs-nuxt',
     '@primevue/nuxt-module',
@@ -51,7 +50,7 @@ export default defineNuxtConfig({
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
-          hid: 'description',
+
           name: 'description',
           content: 'ElementPlus + Nuxt3',
         },
@@ -75,7 +74,6 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: '',
   },
-
   future: {
     compatibilityVersion: 4,
   },
@@ -125,23 +123,7 @@ export default defineNuxtConfig({
     importStyle: 'scss',
     themes: ['dark'],
   },
-  i18n: {
-    strategy: 'prefix_except_default',
-    defaultLocale: 'zh',
-    vueI18n: './i18n.config.ts',
-    locales: [
-      {
-        code: 'en',
-        iso: 'en-US',
-        name: 'English',
-      },
-      {
-        code: 'zh',
-        iso: 'zh-CN',
-        name: '中文',
-      },
-    ],
-  },
+
   runtimeConfig: {
     count: 1,
     apiSecret: '', // 可以由 NUXT_API_SECRET 环境变量覆盖
@@ -160,6 +142,11 @@ export default defineNuxtConfig({
   },
   $development: {
     //
+
+    sourcemap: {
+      server: true,
+      client: true,
+    },
 
   },
 

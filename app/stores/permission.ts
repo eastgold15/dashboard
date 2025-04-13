@@ -1,10 +1,10 @@
-import { use } from 'echarts'
+
 import { defineStore } from 'pinia'
-import { $endApi } from '~/api/base'
+
 import type { DataRes, MenuList } from '~/api/base/index.type'
 
 import { useLocalStorage } from '@vueuse/core'
-import { array } from 'vue-types'
+
 
 export const constantRoutes: any[] = [
   {
@@ -29,7 +29,6 @@ export const constantRoutes: any[] = [
   }
 
 ]
-
 
 export const useMyPermissionStore = defineStore('myPermissionStore', () => {
   const { $api } = useNuxtApp()

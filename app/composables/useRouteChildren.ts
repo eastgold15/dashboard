@@ -1,6 +1,6 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useMyAppStore } from '../stores/app'
+import routes from '~/constants/router'
 
 export interface Route {
   path: string
@@ -28,7 +28,6 @@ function findRoute(routes: Route[], path: string): Route | undefined {
 
 // 获取当前路径下的所有子路由
 export function useRouteChildren() {
-  const appStore = useMyAppStore()
   const route = useRoute()
   const currentPath = ref(route.path)
 
@@ -43,7 +42,7 @@ export function useRouteChildren() {
 
   // 使用 computed 获取当前路径下的子路由或平级路由
   const childrenRoutes = computed(() => {
-    const currentRoute = findRoute(appStore.routes, currentPath.value)
+    const currentRoute = findRoute(routes, currentPath.value)
     if (!currentRoute) {
       return []
     }
@@ -53,22 +52,22 @@ export function useRouteChildren() {
     }
     // 查找父路由
     const parentPath = currentPath.value.split('/').slice(0, -1).join('/')
-    const parentRoute = findRoute(appStore.routes, parentPath)
+    const parentRoute = findRoute(routes, parentPath)
     if (parentRoute && parentRoute.children) {
       return parentRoute.children
     }
     // 如果当前路由是顶级路由，返回所有顶级路由
-    return appStore.routes
+    return routes
   })
 
   // 获取当前路由信息
   const currentRoute = computed(() => {
-    return findRoute(appStore.routes, currentPath.value)
+    return findRoute(routes, currentPath.value)
   })
 
   // 获取所有顶级路由
   const rootRoutes = computed(() => {
-    return appStore.routes
+    return routes
   })
 
   return {

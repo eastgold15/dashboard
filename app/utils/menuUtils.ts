@@ -1,5 +1,5 @@
 import type { MenuList } from '~/api/base/index.type'
-import routerConstans from '~/constants/router.constans'
+import routerConstans from '~/constants/router'
 
 // 将扁平化菜单转换为树形菜单
 export function flattenToTree(menus: any[]) {
@@ -36,16 +36,16 @@ export function flattenToTree(menus: any[]) {
 
 // 将树形菜单转换为扁平化菜单
 export function treeToFlatten(menus: MenuList[]): any[] {
-  const flattened: any[] = [];
+  const flattened: any[] = []
   function flatten(menu: MenuList) {
-    const { children, ...rest } = menu;
-    flattened.push(rest);
+    const { children, ...rest } = menu
+    flattened.push(rest)
     if (children) {
-      children.forEach(flatten);
+      children.forEach(flatten)
     }
   }
-  menus.forEach(flatten);
-  return flattened;
+  menus.forEach(flatten)
+  return flattened
 }
 
 // 合并远程菜单和本地树形菜单

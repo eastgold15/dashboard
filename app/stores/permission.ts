@@ -1,10 +1,8 @@
-
-import { defineStore } from 'pinia'
-
 import type { DataRes, MenuList } from '~/api/base/index.type'
 
 import { useLocalStorage } from '@vueuse/core'
 
+import { defineStore } from 'pinia'
 
 export const constantRoutes: any[] = [
   {
@@ -26,7 +24,7 @@ export const constantRoutes: any[] = [
       status: 1,
       keepAlive: 0,
     },
-  }
+  },
 
 ]
 
@@ -54,13 +52,12 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
       return
     }
     // 使用解构赋值创建新数组保证响应式
-    const localTreeMenus = [...constantRoutes];
-    const mergedMenus = mergeMenus(menus, localTreeMenus);
+    const localTreeMenus = [...constantRoutes]
+    const mergedMenus = mergeMenus(menus, localTreeMenus)
 
     // 直接赋值新数组
-    menuList.value = mergedMenus;
+    menuList.value = mergedMenus
   }
-
 
   // 检查是否有指定权限
   function hasPermission(permissionCode: string) {
@@ -70,9 +67,7 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
     return permissions.value?.map(item => item.includes(permissionCode))
   }
 
-
   async function fetchPermissions() {
-
     const [menus, perms] = await Promise.all([
       $api.get<DataRes<MenuList[]>>('/account/menus'),
       $api.get<DataRes<string[]>>('/account/permissions'),
@@ -82,7 +77,6 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
     setPermissions(perms.data)
   }
 
-
   function getMenuList() {
     return computed(() => menuList.value)
   }
@@ -91,12 +85,11 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
   }
   function getDashboardMenuList() {
     return computed(() => {
-      return menuList.value?.filter(item => {
+      return menuList.value?.filter((item) => {
         return item.path.startsWith('/dashboard') || item.children?.some(child => child.path.startsWith('/dashboard'))
       })
     })
   }
-
 
   return {
 
@@ -107,7 +100,7 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
     setMenuList,
     getMenuList,
     getPermissions,
-
+    hasPermission,
     getDashboardMenuList,
 
   }

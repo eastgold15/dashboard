@@ -3,8 +3,8 @@ import {
   presetAttributify,
   presetIcons,
   presetTypography,
-  presetUno,
   presetWebFonts,
+  presetWind3,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
@@ -15,11 +15,7 @@ export default defineConfig({
     'btn-unit': 'text-14px text-[rgba(255,255,255,0.8)] bg-rgba(255, 255, 255, 0.1) px-8px py-4px border-rd-4px',
 
     // 间距规范
-    'space-xs': 'm-1 p-1', // 4px
-    'space-sm': 'm-2 p-2', // 8px
-    'space-md': 'm-4 p-4', // 16px
-    'space-lg': 'm-6 p-6', // 24px
-    'space-xl': 'm-8 p-8', // 32px
+
     // 按钮样式
 
     'header-btn': 'bg-[#407E8A] text-white p-2 px-8 rounded-md text-center text-sm hover:bg-[#366a74] active:bg-[#2a525c] focus:ring-2 focus:ring-[#407E8A] focus:ring-opacity-50 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95',
@@ -34,8 +30,6 @@ export default defineConfig({
     // 布局间距
     'layout-space': 'm-8 p-8', // 布局之间的间距
     'section-space': 'm-6 p-6', // 区块之间的间距
-
-
 
     // 水务特色文本
     'water-title': 'text-xl font-bold text-water-blue text-[#387e98]',
@@ -66,15 +60,14 @@ export default defineConfig({
     'text-lg': 'text-lg sm:text-xl md:text-2xl lg:text-3xl', // 响应式文字大小
 
     // 卡片样式
-    'card': 'bg-white p-4 rounded-lg shadow-md',
-    'card-header': 'text-lg font-bold mb-2',
+
 
     // 布局样式
-    'container': 'max-w-7xl mx-auto px-4',
+
 
   },
   presets: [
-    presetUno(),
+    presetWind3(),
     presetAttributify(),
     presetIcons({
       scale: 1.2,
@@ -95,5 +88,5 @@ export default defineConfig({
   transformers: [
     transformerDirectives(),
     transformerVariantGroup(),
-  ]
+  ],
 })

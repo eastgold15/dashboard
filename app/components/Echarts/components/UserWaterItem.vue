@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { AnnimalsCircular } from '#components'
+
 interface Props {
   title: string
   content: number
@@ -13,20 +15,14 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <div class="container">
-    <div class="img">
-      <!-- 这里可以放置动画，例如一个 SVG 动画 -->
-      <svg width="50" height="50" viewBox="0 0 50 50">
-        <circle cx="25" cy="25" r="20" stroke="blue" stroke-width="5" fill="none" />
-        <circle cx="25" cy="25" r="20" stroke="lightblue" stroke-width="5" fill="none" stroke-dasharray="125.6" stroke-dashoffset="125.6">
-          <animate attributeName="stroke-dashoffset" from="125.6" to="0" dur="2s" repeatCount="indefinite" />
-        </circle>
-      </svg>
+    <div class="img h-40% w-40%">
+      <AnnimalsCircular :percent="33" :wave-amplitude="5" :wave-speed="0.05" />
     </div>
     <div class="text-container">
       <div class="text-item item-title">
         {{ props.title }}
       </div>
-      <div class="text-item  bgAlpha">
+      <div class="text-item bgAlpha">
         {{ props.content }}
         <span class="unit">{{ props.unit }}</span>
       </div>
@@ -53,8 +49,8 @@ const props = withDefaults(defineProps<Props>(), {
 .text-item {
   margin-bottom: 5px;
 }
+
 .item-title {
   font-size: large;
 }
-
 </style>

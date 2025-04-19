@@ -1,15 +1,13 @@
-import type { LoginToken } from '~/api/base/index.type'
+import { useLocalStorage } from '@vueuse/core'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const runtimeConfig = useRuntimeConfig()
   const baseApi = $fetch.create({
     baseURL: runtimeConfig.public.apiBase,
     onRequest({ options }) {
-      const token = useCookie<string | null>('token')
-      console.log('token', token.value)
+      const token = useLocalStorage<string | null>('token', null)
+
       if (token.value) {
-        // Add Authorization header
-        // options.headers.set('Authorization', `Bearer ${userAuth.value}`)
         options.headers = {
           Authorization: `Bearer ${token.value}`,
           ...options.headers,
@@ -17,24 +15,18 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     },
     onResponse({ response }) {
-      const token = useCookie<string | null>('token')
+      const token = useLocalStorage<string | null>('token', null)
       // 处理成功响应
       if (response.status >= 200 && response.status < 300) {
         if (response._data?.code !== 200) {
           // 处理业务错误
           switch (response._data.code) {
             case 1101:
-              // 处理token过期
-              // 清空token
               token.value = null
               ElMessage.error(`${response._data.code}${response._data.message}`)
               // 跳转登录页
               navigateTo({
                 path: '/auth/login',
-                query: {
-                  code: response._data.code,
-                  message: response._data.message,
-                }
               })
               break
             case 403:
@@ -44,15 +36,6 @@ export default defineNuxtPlugin((nuxtApp) => {
               // 处理其他业务错误
               break
           }
-          nuxtApp.runWithContext(() => {
-            navigateTo({
-              path: '/error',
-              query: {
-                code: response._data.code,
-                message: response._data.message,
-              },
-            })
-          })
         }
       }
     },
@@ -60,22 +43,20 @@ export default defineNuxtPlugin((nuxtApp) => {
       // 处理 401 未授权
       if (response.status === 401) {
         await nuxtApp.runWithContext(() => navigateTo('/login'))
-      }
 
-      // 处理其他错误
-      if (import.meta.client) {
-        ElMessage.error(`请求失败: ${response.statusText}`)
+        // 处理其他错误
+        if (import.meta.client) {
+          ElMessage.error(`请求失败: ${response.statusText}`)
+        }
       }
     },
   })
-
-
 
   // 封装 GET 请求
   const get = async <T>(url: string, params?: Record<string, any>) => {
     return baseApi<T>(url, {
       method: 'GET',
-      params
+      params,
     })
   }
 
@@ -83,7 +64,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const post = async <T>(url: string, body?: Record<string, any>) => {
     return baseApi<T>(url, {
       method: 'POST',
-      body
+      body,
     })
   }
 
@@ -91,7 +72,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const put = async <T>(url: string, body?: Record<string, any>) => {
     return baseApi<T>(url, {
       method: 'PUT',
-      body
+      body,
     })
   }
 
@@ -99,19 +80,19 @@ export default defineNuxtPlugin((nuxtApp) => {
   const del = async <T>(url: string, params?: Record<string, any>) => {
     return baseApi<T>(url, {
       method: 'DELETE',
-      params
+      params,
     })
   }
 
   return {
     provide: {
       api: {
-        baseApi,  // 保留原始请求方法
+        baseApi, // 保留原始请求方法
         get,
         post,
         put,
-        delete: del
-      }
+        delete: del,
+      },
     },
   }
 })

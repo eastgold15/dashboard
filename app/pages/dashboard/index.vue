@@ -1,17 +1,46 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'default',
-  alias: ["/dashboard/index"]
+  alias: ['/dashboard/index'],
 })
+
+const data = ref([
+  {
+    name: '今日水量',
+    content: 100,
+    unit: 'm',
+  },
+  {
+    name: '本月水量',
+    content: 100,
+    unit: 'm',
+  },
+  {
+    name: '本年水量',
+    content: 100,
+    unit: 'm',
+  },
+  {
+    name: '上月水量',
+    content: 100,
+    unit: 'm',
+  },
+])
 </script>
 
 <template>
   <div class="page-container">
     <div class="grid-container">
-      <div class="grid-item bgAlpha">
-        <!-- 用水数据 -->
-        <EchartsUseWater />
-      </div>
+      <DashCard title="用水数据" data="ds" unit="m³" height="100%" class="grid-item">
+        <div class="grid grid-cols-2 grid-rows-2 h-100% w-100%">
+          <!-- 用水数据 -->
+          <EchartsComponentsUserWaterItem
+            v-for="(item, index) in data" :key="index" :title="item.name"
+            :content="item.content" :unit="item.unit"
+          />
+        </div>
+      </DashCard>
+
       <div class="grid-item bgAlpha">
         <!-- 用水占比 -->
         <EchartsWaterProportion />
@@ -35,7 +64,6 @@ definePageMeta({
       </div>
       <div class="grid-item grid-item-bottom bgAlpha">
         <EchartsAlarmInfo />
-
       </div>
     </div>
   </div>

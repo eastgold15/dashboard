@@ -1,8 +1,7 @@
 <script lang="ts" setup>
+import type { DataRes, ImageCaptcha } from '~/api/base/index.type'
 
 import { ref } from 'vue'
-
-import type { DataRes, ImageCaptcha } from '~/api/base/index.type'
 
 definePageMeta({
   layout: 'auth',
@@ -20,16 +19,12 @@ const form = ref({
 // 验证码图片
 const captchaImage = ref<string>()
 // 获取验证码
-const { data: Captcha, refresh } = await useAPI.get<any, DataRes<ImageCaptcha>>('/auth/captcha/img')
-
-
+const { data: Captcha, refresh } = await useAPI<DataRes<ImageCaptcha>>('/auth/captcha/img')
 captchaImage.value = Captcha.value?.data?.img
-
-
 
 // 刷新验证码
 function refreshCaptcha() {
-  refresh().then((res) => {
+  refresh().then(() => {
     captchaImage.value = Captcha.value?.data?.img
   })
 }
@@ -43,7 +38,6 @@ async function handleLogin() {
     verifyCode: form.value.captcha,
   }
 
-
   const success = await authStore.login(requestOptions)
   if (success) {
     // 登录成功后获取权限
@@ -52,7 +46,6 @@ async function handleLogin() {
 
     await navigateTo('/dashboard/index')
   }
-
 }
 </script>
 
@@ -97,7 +90,7 @@ async function handleLogin() {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg,rgb(65, 28, 134) 0%, #2575fc 100%);
+  background: linear-gradient(135deg, rgb(65, 28, 134) 0%, #2575fc 100%);
 }
 
 .login-card {

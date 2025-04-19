@@ -1,12 +1,11 @@
-import type { FormInstance } from "element-plus";
+import type { FormInstance } from 'element-plus'
 
-import type { PageModel } from "~/api/base/index.type";
-
+import type { PageModel } from '~/api/base/index.type'
 
 // 定义通用的模板接口 T 是数据类型，PageQuery 是查询参数类型，MetaData 是元数据类型
 export interface TemplateCrudHandler<T extends AnyObject & WithId, PageQuery extends PageDto<T>, MetaData> {
   getList: (query: Nullable<Partial<PageQuery>>) => Promise<any>
-  update: (id: string | number, data: Partial<T>) => Promise<any>
+  update: (id: WithId, data: Partial<T>) => Promise<any>
   create: (data: Partial<T>) => Promise<any>
   delete?: (id: WithId) => Promise<any>
   deletes?: (ids: WithId[]) => Promise<any>
@@ -16,7 +15,7 @@ export interface TemplateCrudHandler<T extends AnyObject & WithId, PageQuery ext
   getDeleteBoxTitles: (ids: Array<number>) => string
   // 获取空模型的方法
   getEmptyModel: () => T
-  //回调
+  // 回调
   onFetchSuccess?: () => Promise<void>
   // 转换提交数据的方法
   transformSubmitData?: (originData: T, mode: CrudMode) => any
@@ -36,15 +35,14 @@ export enum CurdController {
 
 /**
  * 传入
- * @param dataCrudHandler 
- * @param queryData 
- * @returns 
+ * @param dataCrudHandler
+ * @param queryData
+ * @returns
  */
 export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery extends PageDto<T>, MetaData>(
   dataCrudHandler: TemplateCrudHandler<T, PageQuery, MetaData>, // 传入完整的接口
-  queryData: Partial<PageQuery>  //2. 传入查询参数类型
+  queryData: Partial<PageQuery>, // 2. 传入查询参数类型
 ) {
-
   // 表单加载状态
   const formLoading = ref(false)
 
@@ -57,13 +55,26 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
       totalPages: 0,
       itemsPerPage: 20,
       totalItems: 0,
-    }
+    },
   })
-  //初始化数据
-  // 获取数据方法  因为使用服务端渲染，所以必须这里完成数据的获取
 
+  // 搜索表单
+  const queryForm = reactive<Partial<PageQuery>>({
+    ...queryData,
+  })
+  // 查询参数
+  const queryParams = computed<PageDto<Partial<PageQuery>>>(() => {
+    const params = {
+      page: tableData.value.meta.currentPage,
+      pageSize: tableData.value.meta.itemsPerPage,
+      ...queryForm,
+    }
+    return params as PageDto<Partial<PageQuery>>
+  })
+  // 获取数据方法  因为使用服务端渲染，所以必须这里完成数据的获取
   const fetchList = async (params: Nullable<Partial<PageQuery>> = queryParams.value) => {
-    //对参数去掉空值
+    console.log('params:', params)
+    // 对参数去掉空值
     if (params) {
       Object.keys(params).forEach((key) => {
         if (params[key] === null || params[key] === undefined || params[key] === '') {
@@ -78,14 +89,13 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
     }
     return {
       listData,
-      refresh
+      refresh,
     }
   }
   // 初始化数据
-  const { refresh: refreshList } = await fetchList({})
+  const { refresh: refreshList } = await fetchList()
 
-
-  //重置表单
+  // 重置表单
   function resetForm(formEl: FormInstance | undefined) {
     if (!formEl)
       return
@@ -93,30 +103,27 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
   }
 
   // 搜索表单
-  const queryForm = reactive<Partial<PageQuery>>({
-    ...queryData
-  })
-  // 查询参数
-  const queryParams = computed<PageDto<Partial<PageQuery>>>(() => {
-    const params = {
-      page: tableData.value.meta.currentPage,
-      pageSize: tableData.value.meta.itemsPerPage,
-      ...queryForm
-    }
-    return params as PageDto<Partial<PageQuery>>
-  })
-
-
-  // 搜索表单
   const FormSearch = async (formEl: FormInstance | undefined, param: Partial<PageQuery> = queryParams.value) => {
-    if (!formEl)
+    if (!formEl || !formEl.validate) {
+      console.warn('表单实例无效或验证方法不存在')
+      await fetchList(param) // 即使验证失败也执行查询
       return
-    await formEl.validate(async (vaild: any) => {
-      if (!vaild) return
-      //请求代码
+    }
+
+    try {
+      await formEl.validate(async (valid) => {
+        if (valid) {
+          await fetchList(param)
+        }
+      })
+    }
+    catch (error) {
+      console.error('表单验证错误:', error)
+      // 可以选择在这里处理错误或继续执行查询
       await fetchList(param)
-    })
+    }
   }
+
   const crudDialogOptions = reactive<{
     visible: boolean
     mode: CrudMode
@@ -140,64 +147,62 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
     })
   }
 
-
-
-
-
-
   const actions = {
     create: async (data: T) => {
-      crudDialogOptions.loading = true;
+      crudDialogOptions.loading = true
       try {
-        const { data: create } = await dataCrudHandler.create(data);
+        const { data: create } = await dataCrudHandler.create(data)
         if (create.code === 200) {
-          ElMessage.success('创建成功');
+          ElMessage.success('创建成功')
           refreshList()
-          return true;
+          return true
         }
-      } finally {
-        crudDialogOptions.loading = false;
       }
-      return false;
+      finally {
+        crudDialogOptions.loading = false
+      }
+      return false
     },
 
-    update: async (id: string | number, data: T) => {
-      crudDialogOptions.loading = true;
+    update: async (id: WithId, data: T) => {
+      crudDialogOptions.loading = true
       try {
-        const { data: update } = await dataCrudHandler.update(id, data);
+        const { data: update } = await dataCrudHandler.update(id, data)
         if (update.code === 200) {
-          ElMessage.success('更新成功');
+          ElMessage.success('更新成功')
           refreshList()
-          return true;
+          return true
         }
-      } finally {
-        crudDialogOptions.loading = false;
       }
-      return false;
+      finally {
+        crudDialogOptions.loading = false
+      }
+      return false
     },
 
     delete: async (id: WithId) => {
       try {
-        const { data } = await dataCrudHandler.delete?.(id);
+        const { data } = await dataCrudHandler.delete?.(id)
         if (data.code === 200) {
-          ElMessage.success('删除成功');
+          ElMessage.success('删除成功')
           refreshList()
-          return true;
+          return true
         }
-      } catch (e) {
-        console.error(e);
       }
-      return false;
-    }
+      catch (e) {
+        console.error(e)
+      }
+      return false
+    },
   }
-
 
   async function submitForm(formEl: FormInstance | undefined) {
     if (!formEl) {
       return
     }
     await formEl.validate(async (vaild: any) => {
-      if (!vaild) return
+      if (!vaild)
+        return
       const data = crudDialogOptions.data as T | undefined
       if (!data) {
         ElMessage.error('流程数据错误！')
@@ -234,9 +239,8 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
     })
   }
 
-
   return {
-    //重置表单
+    // 重置表单
     resetForm,
     FormSearch,
     fetchList,
@@ -246,15 +250,11 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
     handleCrudDialog,
     crudDialogOptions,
     ...actions,
-    submitForm
+    submitForm,
   }
-
-
 }
 
-export type GenCmsTemplateData = ReturnType<typeof genCmsTemplateData>
-
-
+export type GenCmsTemplateData = Awaited<ReturnType<typeof genCmsTemplateData>>
 
 // async function handleDeleteDatas(ids: Array<number>) {
 //   ElMessageBox.confirm(`你确定要删除${dataCrudHandler.getDeleteBoxTitles(ids)} 吗？删除后这个${dataCrudHandler.getDeleteBoxTitles(ids)}永久无法找回。`, '是否确认删除', {
@@ -315,7 +315,3 @@ export type GenCmsTemplateData = ReturnType<typeof genCmsTemplateData>
 //       })
 //     })
 // }
-
-
-
-

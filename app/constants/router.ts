@@ -1,5 +1,26 @@
 export default [
 
+  {
+    id: 1,
+    path: '/',
+    name: 'basic',
+    label: '基础信息',
+    component: 'basic',
+    parentPath: null,
+    meta: {
+      title: '基础信息',
+      icon: '',
+      isExt: false,
+      extOpenMode: 1,
+      type: 0,
+      orderNo: 1,
+      show: 1,
+      activeMenu: null,
+      status: 1,
+      keepAlive: 0,
+    },
+  },
+
   // {
   //   id: 1,
   //   path: '/',

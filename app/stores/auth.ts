@@ -1,19 +1,16 @@
-import { defineStore } from 'pinia'
-import { func } from 'vue-types'
 import type { AccountInfo, DataRes, LoginToken } from '~/api/base/index.type'
+import { useLocalStorage } from '@vueuse/core'
+import { defineStore } from 'pinia'
+
 export const useMyAuthStore = defineStore('myAuth', () => {
   // 使用 useCookie 管理 token
   const { $api } = useNuxtApp()
-  const token = useCookie<string | null>('token', {
-    maxAge: 60 * 60 * 24 * 7, // 7天过期
-    sameSite: 'strict'
-  })
+
+  const token = useLocalStorage<string | null>('token', null)
 
   const userInfo = ref(useLocalStorage<AccountInfo | null>('userInfo', null))
   const loggedIn = computed(() => !!token.value)
   const isAdmin = ref(false)
-
-
 
   // 设置用户资料
   function setUserInfo(info: AccountInfo | null) {
@@ -22,35 +19,45 @@ export const useMyAuthStore = defineStore('myAuth', () => {
     isAdmin.value = info?.roles?.some(role => role.value === 'admin') ?? false
   }
 
-
   function getUserInfo() {
     return computed(() => userInfo.value)
   }
 
   // 登录方法
-  async function login(option: any) {
+  async function login(option: any): Promise<boolean> {
+    try {
+      const loginRes = await $api.post<DataRes<LoginToken>>('/auth/login', option)
+      if (loginRes.code !== 200)
+        return false
+      // 确保 token 立即更新
+      const newToken = loginRes.data?.accessToken as string
+      if (!newToken)
+        return false
+      token.value = newToken
 
-    return $api.post<DataRes<LoginToken>>('/auth/login', option).then((res) => {
-      if (res.code === 200) {
-        token.value = res.data?.accessToken as string
-      }
-      $api.get<DataRes<AccountInfo>>('/account/profile').then((res) => {
-        setUserInfo(res.data)
-      })
+      // 强制同步到 localStorage
+      localStorage.setItem('token', newToken)
+      // await new Promise(resolve => setTimeout(resolve, 100))
+
+      const profileRes = await $api.get<DataRes<AccountInfo>>('/account/profile')
+      setUserInfo(profileRes.data)
+
       return true
-    })
+    }
+    catch (error) {
+      console.error('Login failed:', error)
+      return false
+    }
   }
 
   // 登出方法
   function logout() {
-    const cookie = useCookie('token')
-    cookie.value = null
+    const token = useLocalStorage('token', null)
+    token.value = null
     userInfo.value = null
-
     // 重定向到登录页
     return navigateTo('/auth/login')
   }
-
 
   return {
     isAdmin,
@@ -59,7 +66,7 @@ export const useMyAuthStore = defineStore('myAuth', () => {
     userInfo,
     loggedIn,
     login,
-    logout
+    logout,
   }
 })
 if (import.meta.hot) {

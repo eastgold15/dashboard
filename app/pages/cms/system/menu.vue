@@ -1,28 +1,25 @@
 <script lang="ts" setup>
-
-
-import type { IMenuModel, IMenuModelQuery, IRoleModelQuery } from '~/api/base/index.type';
-import { genCmsTemplateData } from '~/composables/cms/useTemplateGen';
-import {CmsApi} from '@/api/base/index';
+import type { FormItemRule } from 'element-plus'
+import type { IMenuModel, IMenuModelQuery, IRoleModelQuery } from '~/api/base/index.type'
+import { CmsApi } from '@/api/base/index'
+import { genCmsTemplateData } from '~/composables/cms/useTemplateGen'
 // 定义页面元信息
 definePageMeta({
   name: '菜单管理',
   layout: 'cms',
 })
 
-
 type TableColumn = IMenuModel
 
 const $crud = CmsApi.menu
-
-
+// 使用 ref 存储异步加载的 templateData
 const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null>({
-  //1. 定义查询表单
+  // 1. 定义查询表单
   getList: $crud.list,
   create: $crud.create,
   update: $crud.update,
   delete: $crud.delete,
-  //2. 定义初始表格列
+  // 2. 定义初始表格列
   getEmptyModel: () => ({
     id: -1,
     name: '',
@@ -33,36 +30,32 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
     icon: '',
     type: 0,
     status: 0,
-    remark: ''
+    remark: '',
   }),
-  //3. 定义删除框标题
+  // 3. 定义删除框标题
   getDeleteBoxTitle(id) {
     return `删除菜单${id}`
   },
   getDeleteBoxTitles(ids: Array<number>): string {
     return ` 菜单#${ids.join(',')} `
   },
-  //4. 生命周期
+  // 4. 生命周期
   onFetchSuccess: async () => {
     const permissionStore = useMyPermissionStore()
     await permissionStore.fetchPermissions()
-  }
+  },
 },
-  //5. 定义查询表单 
-  {
-    name: '',
-    value: '',
-    remark: '',
-    page: 1,
-    pageSize: 60,
-  })
+// 5. 定义查询表单
+{
+  name: '',
+  value: '',
+  remark: '',
+  page: 1,
+  pageSize: 100,
+})
+// 等待 templateData 初始化完成
 
-  
-
-const { tableData,queryForm } = templateData
-
-
-
+const { tableData, queryForm } = templateData
 
 const rules = reactive<Partial<Record<keyof IMenuModel, any>>>({
   type: {
@@ -112,14 +105,30 @@ const rules = reactive<Partial<Record<keyof IMenuModel, any>>>({
   },
 })
 
-
-const menuWithRoot = computed(() => ([{ id: -1, name: '根目录', children: [...tableData.value.items] }]))
+const queryRules = reactive<Record<string, FormItemRule[]>>({
+  user: [
+    { min: 4, message: '用户名至少4个字符', trigger: 'blur' },
+    { pattern: /^\w+$/, message: '只能包含字母、数字和下划线', trigger: 'blur' },
+  ],
+  email: [
+    { type: 'email', message: '请输入有效的邮箱地址', trigger: 'blur' },
+  ],
+  phone: [
+    { pattern: /^1[3-9]\d{9}$/, message: '请输入有效的手机号', trigger: 'blur' },
+  ],
+  remark: [
+    { max: 100, message: '备注不能超过100个字符', trigger: 'blur' },
+  ],
+})
+const menuWithRoot = computed(() =>
+  ([{ id: -1, name: '根目录', children: [...tableData.value.items] }]))
 </script>
 
-
 <template>
-  <CmsCrudTemplate name="菜单" identifier="role" :rules="rules" :tableData="tableData" :template-data="templateData"
-    :crud-controller="15">
+  <CmsCrudTemplate
+    name="菜单" identifier="role" :rules="rules" :query-rules="queryRules" :table-data="tableData"
+    :template-data="templateData" :crud-controller="15"
+  >
     <template #QueryForm>
       <el-form-item label="用户名">
         <el-input v-model="queryForm.user" minlength="4" placeholder="搜索用户名" clearable />
@@ -199,9 +208,15 @@ const menuWithRoot = computed(() => ([{ id: -1, name: '根目录', children: [..
       <!-- 修改所有表单字段的v-model绑定方式 -->
       <el-form-item label="菜单类型" prop="type">
         <el-radio-group v-model="data.type">
-          <el-radio-button :value="0">目录</el-radio-button>
-          <el-radio-button :value="1">菜单</el-radio-button>
-          <el-radio-button :value="2">权限</el-radio-button>
+          <el-radio-button :value="0">
+            目录
+          </el-radio-button>
+          <el-radio-button :value="1">
+            菜单
+          </el-radio-button>
+          <el-radio-button :value="2">
+            权限
+          </el-radio-button>
         </el-radio-group>
       </el-form-item>
 
@@ -214,9 +229,11 @@ const menuWithRoot = computed(() => ([{ id: -1, name: '根目录', children: [..
 
       <!-- 其他表单字段也做同样修改 -->
       <el-form-item label="上级节点" prop="parentId">
-        <el-tree-select v-model="data.parentId" :data="menuWithRoot" default-expand-all
+        <el-tree-select
+          v-model="data.parentId" :data="menuWithRoot" default-expand-all
           :props="{ label: 'name', value: 'id' }" check-strictly :render-after-expand="false"
-          placeholder="请选择上级节点..." />
+          placeholder="请选择上级节点..."
+        />
       </el-form-item>
       <el-form-item v-if="data.type !== 2" label="路由地址" prop="name">
         <el-input v-model="data.path" placeholder="请输入路由地址..." />

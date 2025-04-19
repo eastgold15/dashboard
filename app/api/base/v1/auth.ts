@@ -11,7 +11,8 @@ const createAuthApi = ($api: $API) => ({
   },
   // 验证码
   async getCaptcha() {
-    return await useAPI.get<any, DataRes<ImageCaptcha>>('/auth/captcha/img')
+    return await useAPI<DataRes<ImageCaptcha>>('/auth/captcha/img'
+    )
   }
 })
 

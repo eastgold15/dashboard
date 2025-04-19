@@ -1,4 +1,5 @@
 import Aura from '@primevue/themes/aura'
+import { fa } from 'element-plus/es/locale/index.mjs'
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
   modules: [
@@ -13,6 +14,8 @@ export default defineNuxtConfig({
     'nuxt-auth-utils',
   ],
 
+  //很笑话 ，最终我还是取消了服务端渲染，因为 这个usefetch获取数据还是太邪门l
+  ssr: false,
   echarts: {
     // https://echarts.nuxt.dev/guides/usage
     renderer: ['svg', 'canvas'],

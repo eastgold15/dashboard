@@ -10,10 +10,11 @@ const props = withDefaults(defineProps<Propr>(), {
 
 <template>
   <div class="Echart-title bgAlpha">
-    <div class="name">
+    <div class="flex-1 text-left pl-16px">
       {{ props.title }}
     </div>
-    <div v-if="props.unit" class="unit">
+    <div v-if="props.unit" class="unit" text-14px text="[rgba(255,255,255,0.8)]" bg="rgba(255, 255, 255, 0.1)" px-8px
+      py-4px border-rd-4px>
       单位:{{ props.unit }}
     </div>
   </div>
@@ -33,18 +34,5 @@ const props = withDefaults(defineProps<Propr>(), {
   border-radius: 8px 8px 0 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-  .name {
-    flex: 1;
-    text-align: left;
-    padding-left: 16px;
-  }
-
-  .unit {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 4px 8px;
-    border-radius: 4px;
-  }
 }
 </style>

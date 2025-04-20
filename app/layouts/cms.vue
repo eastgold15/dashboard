@@ -4,6 +4,7 @@ import { ref } from 'vue'
 
 const permission = useMyPermissionStore()
 const menulist = permission.getMenuList()
+
 const isCollapsed = ref(false)
 
 const toggleCollapse = () => {
@@ -26,7 +27,7 @@ const toggleCollapse = () => {
         <el-container>
           <el-aside :width="isCollapsed ? '64px' : '200px'" class="h-full">
 
-            <CmsMenu :menu-list="menulist" :is-collapsed="isCollapsed"></CmsMenu>
+            <CmsMenu :menu-list="menulist!" :is-collapsed="isCollapsed"></CmsMenu>
           </el-aside>
           <el-main>
             <slot />

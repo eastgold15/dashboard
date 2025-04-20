@@ -10,14 +10,16 @@ const props = defineProps<{
   /**
    * 表单数据
    */
-  queryForm: PageDto<Partial<PageQuery>>
+  queryForm: Partial<PageQuery>
   tableData: PageModel<T>
   templateData: GenCmsTemplateData
   rules?: FormRules<T> //
   queryRules?: Record<string, FormItemRule[]>
+
   crudController?: number
 }>()
-
+console.log('rules:', props.rules)
+console.log('queryRules:', props.queryRules)
 const {
   FormSearch,
   formLoading,
@@ -27,15 +29,17 @@ const {
   crudDialogOptions,
   resetForm,
   submitForm,
-
+  handleDeletes
 } = props.templateData
-
+console.log('crudDialogOptions.data:', crudDialogOptions.data)
 const _crudController = computed(() => props.crudController || 15)
 
 // 重置表单
 
-const formRef = ref<FormInstance>()
+const queryformRef = ref<FormInstance>()
 const drawerFormRef = ref<FormInstance>()
+
+
 </script>
 
 <template>
@@ -43,15 +47,15 @@ const drawerFormRef = ref<FormInstance>()
     <el-main>
       <!-- 查询表单区域 -->
       <slot name="IHeader" class="w-100%">
-        <ElForm ref="formRef" :disabled="formLoading" :rules="queryRules" :inline="true" :model="queryForm">
+        <ElForm ref="queryformRef" :disabled="formLoading" :rules="queryRules" :inline="true" :model="queryForm">
           <slot name="QueryForm" />
 
           <slot name="QueryFormAction">
             <el-form-item>
-              <el-button @click="resetForm(formRef || undefined)">
+              <el-button @click="resetForm(queryformRef)">
                 重置
               </el-button>
-              <el-button type="primary" :loading="formLoading" @click="() => formRef && FormSearch(formRef)">
+              <el-button type="primary" :loading="formLoading" @click="() => queryformRef && FormSearch(queryformRef)">
                 查询
               </el-button>
               <el-button type="success" @click="handleCrudDialog(null, 'NEW')">
@@ -68,10 +72,8 @@ const drawerFormRef = ref<FormInstance>()
             <ElCol :span="24">
               <slot name="ITable">
                 <!-- 表格区域 -->
-                <ElTable
-                  v-if="tableData" table-layout="auto" class="w-100%" :data="tableData.items" row-key="id"
-                  default-expand-all border style="width: 100%;"
-                >
+                <ElTable v-if="tableData" table-layout="auto" class="w-100%" :data="tableData.items" row-key="id"
+                   border style="width: 100%;">
                   <slot name="TableColumn" />
                   <slot name="TableColumnAction">
                     <el-table-column label="操作" width="250" fixed="right">
@@ -82,7 +84,7 @@ const drawerFormRef = ref<FormInstance>()
                         <el-button v-if="_crudController & 4" type="warning" @click="handleCrudDialog(row, 'EDIT')">
                           编辑
                         </el-button>
-                        <el-button v-if="_crudController & 8" type="danger" @click="delete (row.id)">
+                        <el-button v-if="_crudController & 8" type="danger" @click="handleDeletes([row.id])">
                           删除
                         </el-button>
                       </template>
@@ -93,16 +95,15 @@ const drawerFormRef = ref<FormInstance>()
             </ElCol>
           </ElRow>
 
-          <ElPagination
-            v-if="tableData" v-model:current-page="tableData.meta.currentPage"
+          <ElPagination v-if="tableData" v-model:current-page="tableData.meta.currentPage"
             v-model:page-size="tableData.meta.itemsPerPage" :page-sizes="[20, 30, 50, 100]"
             layout="total, sizes, prev, pager, next, jumper" :total="tableData.meta.totalItems"
-            @change="() => fetchList()"
-          />
+            @change="() => fetchList()" />
         </ElMain>
       </ClientOnly>
     </el-main>
 
+    <!-- 抽屉 -->
     <el-drawer v-model="crudDialogOptions.visible" :close-on-click-modal="false" :close-on-press-escape="false">
       <template #header>
         <h4>
@@ -115,15 +116,15 @@ const drawerFormRef = ref<FormInstance>()
       </template>
 
       <template #default>
-        <el-form
-          v-if="crudDialogOptions.data" ref="drawerFormRef"
+        <el-form v-if="crudDialogOptions.data" ref="drawerFormRef"
           :disabled="crudDialogOptions.loading || crudDialogOptions.mode === 'READ'" style="max-width: 600px"
-          :model="crudDialogOptions.data" :rules="rules" label-width="auto" status-icon
-        >
-          <!-- <slot :data="() => crudDialogOptions.data" :mode="crudDialogOptions.mode" name="CrudForm" /> -->
+          :model="crudDialogOptions.data" :rules="rules" label-width="auto" status-icon>
+
           <slot :data="crudDialogOptions.data" :mode="crudDialogOptions.mode" name="CrudForm" />
         </el-form>
       </template>
+
+
       <template #footer>
         <div style="flex: auto">
           <slot name="CrudFormAction">

@@ -6,7 +6,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     baseURL: runtimeConfig.public.apiBase,
     onRequest({ options }) {
       const token = useLocalStorage<string | null>('token', null)
-
       if (token.value) {
         options.headers = {
           Authorization: `Bearer ${token.value}`,

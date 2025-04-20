@@ -11,8 +11,8 @@ export interface TemplateCrudHandler<T extends AnyObject & WithId, PageQuery ext
   deletes?: (ids: WithId[]) => Promise<any>
   // 处理弹窗的方法
   handleCrudDialog?: (data: T | null, mode: CrudMode, meta?: Partial<MetaData>) => void
-  getDeleteBoxTitle: (id: string | number) => string
-  getDeleteBoxTitles: (ids: Array<number>) => string
+  getDeleteBoxTitle: (id: WithId) => string
+  getDeleteBoxTitles: (ids: Array<WithId>) => string
   // 获取空模型的方法
   getEmptyModel: () => T
   // 回调
@@ -73,7 +73,6 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
   })
   // 获取数据方法  因为使用服务端渲染，所以必须这里完成数据的获取
   const fetchList = async (params: Nullable<Partial<PageQuery>> = queryParams.value) => {
-    console.log('params:', params)
     // 对参数去掉空值
     if (params) {
       Object.keys(params).forEach((key) => {
@@ -82,24 +81,35 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
         }
       })
     }
-    const { data: listData, refresh } = await dataCrudHandler.getList(params)
-    if (listData?.value.code === 200) {
-      tableData.value = listData.value.data
-      dataCrudHandler.onFetchSuccess?.()
-    }
-    return {
-      listData,
-      refresh,
+    const res = await dataCrudHandler.getList(params)
+    if (res.code === 200) {
+
+      // 先执行 onFetchSuccess
+      if (dataCrudHandler.onFetchSuccess) {
+        await dataCrudHandler.onFetchSuccess();
+        console.log('fetchList success');
+      }
+      // 再赋值 tableData
+      tableData.value = res.data;
     }
   }
-  // 初始化数据
-  const { refresh: refreshList } = await fetchList()
+
 
   // 重置表单
+
   function resetForm(formEl: FormInstance | undefined) {
-    if (!formEl)
+    console.log('resetForm', formEl)
+    if (!formEl) {
+      console.error('表单实例未初始化')
       return
-    formEl.resetFields()
+    }
+    try {
+      formEl.resetFields()
+      // 重置后重新获取数据
+      fetchList()
+    } catch (error) {
+      console.error('重置表单失败:', error)
+    }
   }
 
   // 搜索表单
@@ -109,7 +119,6 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
       await fetchList(param) // 即使验证失败也执行查询
       return
     }
-
     try {
       await formEl.validate(async (valid) => {
         if (valid) {
@@ -147,97 +156,84 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
     })
   }
 
-  const actions = {
-    create: async (data: T) => {
-      crudDialogOptions.loading = true
-      try {
-        const { data: create } = await dataCrudHandler.create(data)
-        if (create.code === 200) {
-          ElMessage.success('创建成功')
-          refreshList()
-          return true
-        }
-      }
-      finally {
-        crudDialogOptions.loading = false
-      }
-      return false
-    },
-
-    update: async (id: WithId, data: T) => {
-      crudDialogOptions.loading = true
-      try {
-        const { data: update } = await dataCrudHandler.update(id, data)
-        if (update.code === 200) {
-          ElMessage.success('更新成功')
-          refreshList()
-          return true
-        }
-      }
-      finally {
-        crudDialogOptions.loading = false
-      }
-      return false
-    },
-
-    delete: async (id: WithId) => {
-      try {
-        const { data } = await dataCrudHandler.delete?.(id)
-        if (data.code === 200) {
-          ElMessage.success('删除成功')
-          refreshList()
-          return true
-        }
-      }
-      catch (e) {
-        console.error(e)
-      }
-      return false
-    },
-  }
-
   async function submitForm(formEl: FormInstance | undefined) {
-    if (!formEl) {
-      return
+    if (!formEl) return;
+    try {
+      // 使用 validate 方法进行表单验证
+      await formEl.validate(async (valid: boolean) => {
+        if (!valid) return;
+      // 表单验证通过，提交表单
+        const data = crudDialogOptions.data as T | undefined;
+        if (!data) {
+          ElMessage.error('流程数据错误！');
+          return;
+        }
+
+        crudDialogOptions.loading = true;
+        const submitData = dataCrudHandler.transformSubmitData?.(data, crudDialogOptions.mode) || data;
+        if (crudDialogOptions.mode === 'EDIT') {
+          const res = await dataCrudHandler.update(submitData.id!, submitData);
+          if (res.code === 200) {
+            ElMessage.success('修改成功！');
+            crudDialogOptions.visible = false;
+            fetchList();
+          } else {
+            ElMessage.error(res.message ?? '修改失败！');
+          }
+        } else {
+          const res = await dataCrudHandler.create(submitData);
+          if (res.code === 200) {
+            ElMessage.success('添加成功！');
+            crudDialogOptions.visible = false;
+            fetchList();
+          } else {
+            ElMessage.error(res.message ?? '添加失败！');
+          }
+        }
+      });
+    } catch (error) {
+      console.error('表单提交失败:', error);
+      ElMessage.error('表单提交失败，请稍后重试');
+    } finally {
+      crudDialogOptions.loading = false;
     }
-    await formEl.validate(async (vaild: any) => {
-      if (!vaild)
-        return
-      const data = crudDialogOptions.data as T | undefined
-      if (!data) {
-        ElMessage.error('流程数据错误！')
-        return
-      }
-      crudDialogOptions.loading = true
-      const submitData = dataCrudHandler.transformSubmitData?.(data, crudDialogOptions.mode) || data
-
-      if (crudDialogOptions.mode === 'EDIT') {
-        const { data: EDIT } = await dataCrudHandler.update!(submitData.id!, submitData)
-
-        if (EDIT.code === 200) {
-          ElMessage.success('修改成功！')
-          crudDialogOptions.visible = false
-          fetchList()
-        }
-        else {
-          ElMessage.error(EDIT.message ?? '修改失败！')
-        }
-      }
-      else {
-        const { data: create } = await dataCrudHandler.create!(data)
-
-        if (create.code === 200) {
-          ElMessage.success('添加成功！')
-          crudDialogOptions.visible = false
-          fetchList()
-        }
-        else {
-          ElMessage.error(create.message ?? '添加失败！')
-        }
-      }
-      crudDialogOptions.loading = false
-    })
   }
+
+  // 删除数据
+  async function handleDeletes(ids: Array<WithId>) {
+    ElMessageBox.confirm(`你确定要删除${dataCrudHandler.getDeleteBoxTitles(ids)} 吗？删除后这个${dataCrudHandler.getDeleteBoxTitles(ids)}永久无法找回。`, '是否确认删除', {
+      confirmButtonText: '取消',
+      cancelButtonText: '确定删除',
+      type: 'error',
+    })
+      .then(() => {
+        ElMessage({
+          type: 'success',
+          message: `已取消删除${dataCrudHandler.getDeleteBoxTitles(ids)}！`,
+        })
+      })
+      .catch(async () => {
+        let res
+        if (ids.length == 1) {
+          res = await dataCrudHandler.delete!(ids[0]!)
+        } else {
+          res = await dataCrudHandler.deletes!(ids)
+        }
+
+
+        if (res.code !== 200) {
+          ElMessage.error(res.message || '删除失败！')
+          return
+        }
+        fetchList() // 刷新数据
+        ElNotification({
+          title: 'Info',
+          message: `你永久删除了${dataCrudHandler.getDeleteBoxTitles(ids)}！`,
+          type: 'info',
+        })
+      })
+  }
+
 
   return {
     // 重置表单
@@ -249,42 +245,13 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
     formLoading,
     handleCrudDialog,
     crudDialogOptions,
-    ...actions,
     submitForm,
+    handleDeletes
   }
 }
 
 export type GenCmsTemplateData = Awaited<ReturnType<typeof genCmsTemplateData>>
 
-// async function handleDeleteDatas(ids: Array<number>) {
-//   ElMessageBox.confirm(`你确定要删除${dataCrudHandler.getDeleteBoxTitles(ids)} 吗？删除后这个${dataCrudHandler.getDeleteBoxTitles(ids)}永久无法找回。`, '是否确认删除', {
-//     confirmButtonText: '取消',
-//     cancelButtonText: '确定删除',
-//     type: 'error',
-//   })
-//     .then(() => {
-//       ElMessage({
-//         type: 'success',
-//         message: `已取消删除${dataCrudHandler.getDeleteBoxTitles(ids)}！`,
-//       })
-//     })
-//     .catch(async () => {
-//       const res = await dataCrudHandler.deletes!(ids)
-
-//       if (res.data.value.code !== 200) {
-//         ElMessage.error(res.message || '删除失败！')
-//         return
-//       }
-
-//       fetchData() // 刷新数据
-
-//       ElNotification({
-//         title: 'Info',
-//         message: `你永久删除了${dataCrudHandler.getDeleteBoxTitles(ids)}！`,
-//         type: 'info',
-//       })
-//     })
-// }
 
 // async function handleDeleteData(id: string | number) {
 //   ElMessageBox.confirm(`你确定要删除${dataCrudHandler.getDeleteBoxTitle(id)} 吗？删除后这个${dataCrudHandler.getDeleteBoxTitle(id)}永久无法找回。`, '是否确认删除', {

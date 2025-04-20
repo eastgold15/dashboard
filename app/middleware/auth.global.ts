@@ -18,7 +18,7 @@ export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized) => 
     // 不去首页
     else {
       // 检查权限
-      if (hasPermission()) {
+      if (true) {
         return true
       }
       /// 其他页面

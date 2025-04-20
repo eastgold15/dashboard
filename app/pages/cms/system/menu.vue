@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { FormItemRule } from 'element-plus'
+import type { FormItemRule, FormRules } from 'element-plus'
 import type { IMenuModel, IMenuModelQuery, IRoleModelQuery } from '~/api/base/index.type'
-import { CmsApi } from '@/api/base/index'
+import { useCmsApi } from '@/api/base/index'
 import { genCmsTemplateData } from '~/composables/cms/useTemplateGen'
 // 定义页面元信息
 definePageMeta({
@@ -11,7 +11,7 @@ definePageMeta({
 
 type TableColumn = IMenuModel
 
-const $crud = CmsApi.menu
+const $crud = useCmsApi().menu
 // 使用 ref 存储异步加载的 templateData
 const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null>({
   // 1. 定义查询表单
@@ -21,7 +21,7 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
   delete: $crud.delete,
   // 2. 定义初始表格列
   getEmptyModel: () => ({
-    id: -1,
+    id: 1,
     name: '',
     path: '',
     component: '',
@@ -33,10 +33,10 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
     remark: '',
   }),
   // 3. 定义删除框标题
-  getDeleteBoxTitle(id) {
+  getDeleteBoxTitle(id: WithId) {
     return `删除菜单${id}`
   },
-  getDeleteBoxTitles(ids: Array<number>): string {
+  getDeleteBoxTitles(ids: Array<WithId>) {
     return ` 菜单#${ids.join(',')} `
   },
   // 4. 生命周期
@@ -44,66 +44,114 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
     const permissionStore = useMyPermissionStore()
     await permissionStore.fetchPermissions()
   },
+  transformSubmitData: (data, type) => {
+    if (type == 'NEW') {
+      if (data.parentId === -1) {
+        data.parentId = undefined
+      }
+    }
+    return data
+
+  },
+
+
 },
-// 5. 定义查询表单
-{
-  name: '',
-  value: '',
-  remark: '',
-  page: 1,
-  pageSize: 100,
-})
+  // 5. 定义查询表单
+  {
+    name: '',
+    value: '',
+    remark: '',
+    page: 1,
+    pageSize: 200,
+  })
 // 等待 templateData 初始化完成
 
-const { tableData, queryForm } = templateData
+const { tableData, queryForm, crudDialogOptions, fetchList } = templateData
 
-const rules = reactive<Partial<Record<keyof IMenuModel, any>>>({
-  type: {
-    available() {
-      return true
-    },
-    conditions: [
-      { required: true, message: '请选择菜单类型', trigger: 'blur' },
-    ],
-  },
-  name: {
-    available(type: number) {
-      if (type === 2)
-        this.conditions[0].message = '请输入权限名称'
-      else
-        this.conditions[0].message = '请输入菜单名称'
-
-      return true
-    },
-    conditions: [
-      { required: true, message: '请输入菜单名称', trigger: 'blur' },
-    ],
-  },
-  parentId: {
-    available() {
-      return true
-    },
-    conditions: [
-      { required: true, message: '请选择上级节点', trigger: 'blur' },
-    ],
-  },
-  path: {
-    available(type: number) {
-      return type !== 2
-    },
-    conditions: [
-      { required: true, message: '请输入路由地址', trigger: 'blur' },
-    ],
-  },
-  permission: {
-    available(type: number) {
-      return type === 2
-    },
-    conditions: [
-      { required: true, message: '请输入权限', trigger: 'blur' },
-    ],
-  },
+onMounted(async () => {
+  await fetchList()
 })
+const cheackType = (rule: any, value: number, callback: Function) => {
+  if ([0, 1, 2].includes(value)) {
+    callback()
+  } else {
+    callback(new Error('菜单类型必须是 0（目录）、1（菜单）或 2（权限）'))
+  }
+}
+const crudDialogOptionsData = crudDialogOptions.data!
+const rules = reactive<FormRules<Partial<typeof crudDialogOptionsData>>>({
+  type: [
+    { validator: cheackType, required: true, message: '请选择菜单类型', trigger: 'blur' },
+    { type: 'number', message: 'age must be a number' },
+  ],
+})
+
+
+// const rules = reactive<>({
+//   type: {
+//     available() {
+//       return true
+//     },
+//     conditions: [
+//       {
+//         required: true,
+//         type: 'number',
+//         message: '请选择菜单类型',
+//         trigger: 'blur',
+//         validator: (rule: any, value: number, callback: Function) => {
+//           // 验证 type 是否为 0、1 或 2
+//           if ([0, 1, 2].includes(value)) {
+//             callback()
+//           } else {
+//             callback(new Error('菜单类型必须是 0（目录）、1（菜单）或 2（权限）'))
+//           }
+//         }
+//       }
+//     ],
+//   },
+//   name: {
+//     available(type: number) {
+//       if (type === 2)
+//         this.conditions[0].message = '请输入权限名称'
+//       else
+//         this.conditions[0].message = '请输入菜单名称'
+
+//       return true
+//     },
+//     conditions: [
+//       { required: true, message: '请输入菜单名称', trigger: 'blur' },
+//     ],
+//   },
+//   parentId: {
+//     available() {
+//       return true
+//     },
+//     conditions: [
+//       {
+//         required: true,
+//         message: '请选择上级节点',
+//         trigger: 'blur',
+//         type: 'number'
+//       }
+//     ],
+//   },
+//   path: {
+//     available(type: number) {
+//       return type !== 2
+//     },
+//     conditions: [
+//       { required: true, message: '请输入路由地址', trigger: 'blur' },
+//     ],
+//   },
+//   permission: {
+//     available(type: number) {
+//       return type === 2
+//     },
+//     conditions: [
+//       { required: true, message: '请输入权限', trigger: 'blur' },
+//     ],
+//   },
+// })
 
 const queryRules = reactive<Record<string, FormItemRule[]>>({
   user: [
@@ -122,26 +170,31 @@ const queryRules = reactive<Record<string, FormItemRule[]>>({
 })
 const menuWithRoot = computed(() =>
   ([{ id: -1, name: '根目录', children: [...tableData.value.items] }]))
+
+
 </script>
 
 <template>
-  <CmsCrudTemplate
-    name="菜单" identifier="role" :rules="rules" :query-rules="queryRules" :table-data="tableData"
-    :template-data="templateData" :crud-controller="15"
-  >
+  <CmsCrudTemplate generic="TableColumn ,IMenuModelQuery,null" name="菜单" identifier="role" :rules="rules"
+    :query-rules="queryRules" :table-data="tableData" :template-data="templateData" :crud-controller="15"
+    :query-form="queryForm">
     <template #QueryForm>
-      <el-form-item label="用户名">
-        <el-input v-model="queryForm.user" minlength="4" placeholder="搜索用户名" clearable />
+      <el-form-item prop="name" label="菜单名称">
+        <el-input v-model="queryForm.name" minlength="4" placeholder="搜索菜单名称" clearable />
       </el-form-item>
-      <el-form-item label="邮箱">
-        <el-input v-model="queryForm.email" placeholder="搜索邮箱" clearable />
+      <el-form-item prop="path" label="路劲">
+        <el-input v-model="queryForm.path" placeholder="搜索路劲" clearable />
       </el-form-item>
-      <el-form-item label="手机号">
-        <el-input v-model="queryForm.phone" placeholder="搜索手机号" clearable />
+      <!-- <el-form-item prop="isExt" label="外链">
+
+        <el-radio-group v-model="queryForm.isExt" placeholder="是否外链">
+          <el-radio-button label="1">是</el-radio-button>
+          <el-radio-button label="0">否</el-radio-button>
+        </el-radio-group>
       </el-form-item>
-      <el-form-item label="备注">
-        <el-input v-model="queryForm.remark" placeholder="搜索备注" clearable />
-      </el-form-item>
+      <el-form-item prop="show" label="显示">
+        <el-input v-model="queryForm.show" placeholder="是否显示" clearable />
+      </el-form-item> -->
     </template>
     <template #TableColumn>
       <el-table-column label="序号" prop="id" />
@@ -229,13 +282,11 @@ const menuWithRoot = computed(() =>
 
       <!-- 其他表单字段也做同样修改 -->
       <el-form-item label="上级节点" prop="parentId">
-        <el-tree-select
-          v-model="data.parentId" :data="menuWithRoot" default-expand-all
+        <el-tree-select v-model="data.parentId" :data="menuWithRoot" default-expand-all
           :props="{ label: 'name', value: 'id' }" check-strictly :render-after-expand="false"
-          placeholder="请选择上级节点..."
-        />
+          placeholder="请选择上级节点..." />
       </el-form-item>
-      <el-form-item v-if="data.type !== 2" label="路由地址" prop="name">
+      <el-form-item v-if="data.type !== 2" label="路由地址" prop="path">
         <el-input v-model="data.path" placeholder="请输入路由地址..." />
       </el-form-item>
       <el-form-item v-if="data.type !== 0" label="权限" prop="permission">

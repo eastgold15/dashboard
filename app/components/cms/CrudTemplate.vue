@@ -29,7 +29,7 @@ const {
   crudDialogOptions,
   resetForm,
   submitForm,
-  handleDeletes
+  handleDeletes,
 } = props.templateData
 console.log('crudDialogOptions.data:', crudDialogOptions.data)
 const _crudController = computed(() => props.crudController || 15)
@@ -38,8 +38,6 @@ const _crudController = computed(() => props.crudController || 15)
 
 const queryformRef = ref<FormInstance>()
 const drawerFormRef = ref<FormInstance>()
-
-
 </script>
 
 <template>
@@ -72,8 +70,10 @@ const drawerFormRef = ref<FormInstance>()
             <ElCol :span="24">
               <slot name="ITable">
                 <!-- 表格区域 -->
-                <ElTable v-if="tableData" table-layout="auto" class="w-100%" :data="tableData.items" row-key="id"
-                   border style="width: 100%;">
+                <ElTable
+                  v-if="tableData" table-layout="auto" class="w-100%" :data="tableData.items" row-key="id" border
+                  style="width: 100%;"
+                >
                   <slot name="TableColumn" />
                   <slot name="TableColumnAction">
                     <el-table-column label="操作" width="250" fixed="right">
@@ -95,10 +95,12 @@ const drawerFormRef = ref<FormInstance>()
             </ElCol>
           </ElRow>
 
-          <ElPagination v-if="tableData" v-model:current-page="tableData.meta.currentPage"
+          <ElPagination
+            v-if="tableData" v-model:current-page="tableData.meta.currentPage"
             v-model:page-size="tableData.meta.itemsPerPage" :page-sizes="[20, 30, 50, 100]"
             layout="total, sizes, prev, pager, next, jumper" :total="tableData.meta.totalItems"
-            @change="() => fetchList()" />
+            @change="() => fetchList()"
+          />
         </ElMain>
       </ClientOnly>
     </el-main>
@@ -116,14 +118,14 @@ const drawerFormRef = ref<FormInstance>()
       </template>
 
       <template #default>
-        <el-form v-if="crudDialogOptions.data" ref="drawerFormRef"
+        <el-form
+          v-if="crudDialogOptions.data" ref="drawerFormRef"
           :disabled="crudDialogOptions.loading || crudDialogOptions.mode === 'READ'" style="max-width: 600px"
-          :model="crudDialogOptions.data" :rules="rules" label-width="auto" status-icon>
-
+          :model="crudDialogOptions.data" :rules="rules" label-width="auto" status-icon
+        >
           <slot :data="crudDialogOptions.data" :mode="crudDialogOptions.mode" name="CrudForm" />
         </el-form>
       </template>
-
 
       <template #footer>
         <div style="flex: auto">

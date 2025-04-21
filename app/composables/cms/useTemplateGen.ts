@@ -10,7 +10,7 @@ export interface TemplateCrudHandler<T extends AnyObject & WithId, PageQuery ext
   delete?: (id: WithId) => Promise<any>
   deletes?: (ids: WithId[]) => Promise<any>
   // 处理弹窗的方法
-  handleCrudDialog?: (data: T | null, mode: CrudMode, meta?: Partial<MetaData>) => void
+  // handleCrudDialog: (data: T | null, mode: CrudMode, meta?: Partial<MetaData>) => void
   getDeleteBoxTitle: (id: WithId) => string
   getDeleteBoxTitles: (ids: Array<WithId>) => string
   // 获取空模型的方法
@@ -83,17 +83,15 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
     }
     const res = await dataCrudHandler.getList(params)
     if (res.code === 200) {
-
       // 先执行 onFetchSuccess
       if (dataCrudHandler.onFetchSuccess) {
-        await dataCrudHandler.onFetchSuccess();
-        console.log('fetchList success');
+        await dataCrudHandler.onFetchSuccess()
+        console.log('fetchList success')
       }
       // 再赋值 tableData
-      tableData.value = res.data;
+      tableData.value = res.data
     }
   }
-
 
   // 重置表单
 
@@ -107,7 +105,8 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
       formEl.resetFields()
       // 重置后重新获取数据
       fetchList()
-    } catch (error) {
+    }
+    catch (error) {
       console.error('重置表单失败:', error)
     }
   }
@@ -147,7 +146,7 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
     meta: {},
   })
   //
-  function handleCrudDialog(data: Nullable<T>, mode: CrudMode, meta?: Partial<MetaData>) {
+  function handleCrudDialog(data: Nullable<T>, mode: CrudMode, meta?: Partial<MetaData | null>) {
     Object.assign(crudDialogOptions, {
       meta,
       mode,
@@ -157,45 +156,52 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
   }
 
   async function submitForm(formEl: FormInstance | undefined) {
-    if (!formEl) return;
+    if (!formEl)
+      return
     try {
       // 使用 validate 方法进行表单验证
       await formEl.validate(async (valid: boolean) => {
-        if (!valid) return;
-      // 表单验证通过，提交表单
-        const data = crudDialogOptions.data as T | undefined;
+        if (!valid)
+          return
+        // 表单验证通过，提交表单
+        const data = crudDialogOptions.data as T | undefined
         if (!data) {
-          ElMessage.error('流程数据错误！');
-          return;
+          ElMessage.error('流程数据错误！')
+          return
         }
 
-        crudDialogOptions.loading = true;
-        const submitData = dataCrudHandler.transformSubmitData?.(data, crudDialogOptions.mode) || data;
+        crudDialogOptions.loading = true
+        const submitData = dataCrudHandler.transformSubmitData?.(data, crudDialogOptions.mode) || data
         if (crudDialogOptions.mode === 'EDIT') {
-          const res = await dataCrudHandler.update(submitData.id!, submitData);
+          const res = await dataCrudHandler.update(submitData.id!, submitData)
           if (res.code === 200) {
-            ElMessage.success('修改成功！');
-            crudDialogOptions.visible = false;
-            fetchList();
-          } else {
-            ElMessage.error(res.message ?? '修改失败！');
+            ElMessage.success('修改成功！')
+            crudDialogOptions.visible = false
+            fetchList()
           }
-        } else {
-          const res = await dataCrudHandler.create(submitData);
-          if (res.code === 200) {
-            ElMessage.success('添加成功！');
-            crudDialogOptions.visible = false;
-            fetchList();
-          } else {
-            ElMessage.error(res.message ?? '添加失败！');
+          else {
+            ElMessage.error(res.message ?? '修改失败！')
           }
         }
-      });
-    } catch (error) {
-      console.error('表单提交失败:', error);
-      ElMessage.error('表单提交失败，请稍后重试');
-    } finally {
-      crudDialogOptions.loading = false;
+        else {
+          const res = await dataCrudHandler.create(submitData)
+          if (res.code === 200) {
+            ElMessage.success('添加成功！')
+            crudDialogOptions.visible = false
+            fetchList()
+          }
+          else {
+            ElMessage.error(res.message ?? '添加失败！')
+          }
+        }
+      })
+    }
+    catch (error) {
+      console.error('表单提交失败:', error)
+      ElMessage.error('表单提交失败，请稍后重试')
+    }
+    finally {
+      crudDialogOptions.loading = false
     }
   }
 
@@ -216,10 +222,10 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
         let res
         if (ids.length == 1) {
           res = await dataCrudHandler.delete!(ids[0]!)
-        } else {
+        }
+        else {
           res = await dataCrudHandler.deletes!(ids)
         }
-
 
         if (res.code !== 200) {
           ElMessage.error(res.message || '删除失败！')
@@ -234,7 +240,6 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
       })
   }
 
-
   return {
     // 重置表单
     resetForm,
@@ -246,39 +251,8 @@ export async function genCmsTemplateData<T extends AnyObject & WithId, PageQuery
     handleCrudDialog,
     crudDialogOptions,
     submitForm,
-    handleDeletes
+    handleDeletes,
   }
 }
 
 export type GenCmsTemplateData = Awaited<ReturnType<typeof genCmsTemplateData>>
-
-
-// async function handleDeleteData(id: string | number) {
-//   ElMessageBox.confirm(`你确定要删除${dataCrudHandler.getDeleteBoxTitle(id)} 吗？删除后这个${dataCrudHandler.getDeleteBoxTitle(id)}永久无法找回。`, '是否确认删除', {
-//     confirmButtonText: '取消',
-//     cancelButtonText: '确定删除',
-//     type: 'error',
-//   })
-//     .then(() => {
-//       ElMessage({
-//         type: 'success',
-//         message: `已取消删除${dataCrudHandler.getDeleteBoxTitle(id)}！`,
-//       })
-//     })
-//     .catch(async () => {
-//       const res = await dataCrudHandler.delete!(id)
-
-//       if (res.data.value.code !== 200) {
-//         ElMessage.error(res.message || '删除失败！')
-//         return
-//       }
-
-//       fetchData() // 刷新数据
-
-//       ElNotification({
-//         title: 'Info',
-//         message: `你永久删除了${dataCrudHandler.getDeleteBoxTitle(id)}！`,
-//         type: 'info',
-//       })
-//     })
-// }

@@ -55,70 +55,6 @@ export interface IUserModelQuery extends IUserModel {
   pageSize?: number
 }
 
-export interface IAdminOrderQuery extends IAdminOrder {
-  page: number
-  pageSize: number
-  /**
-   * 支付时间范围(max)
-   */
-  maxPayTime: Date
-  /**
-   * 购买金额范围(max)
-   */
-  maxPrice: number
-  /**
-   * 支付时间范围(min)
-   */
-  minPayTime: Date
-  /**
-   * 购买金额范围(min)
-   */
-}
-
-export interface IAdminOrder {
-  additionalInfo: string
-  createdAt: string
-  description: string
-  id: string
-  paymentMethod: number
-  status: number
-  totalAmount: number
-  updatedAt: string
-}
-
-export interface IRoleModel extends Record<string, any> {
-  /**
-   * 关联菜单、权限编号
-   */
-  menuIds?: string[]
-  /**
-   * 角色名称
-   */
-  name?: string
-  order?: string
-  /**
-   * 角色备注
-   */
-  remark?: string
-  /**
-   * 状态
-   */
-  status?: number
-  /**
-   * 角色值
-   */
-  value?: string
-
-  id?: number
-  updatedAt?: string
-  createdAt?: string
-}
-
-export interface IRoleModelQuery extends IRoleModel {
-  page: number
-  pageSize: number
-}
-
 export interface IMenuModel extends AnyObject, WithId {
   /**
    * 设置当前路由高亮的菜单项，一般用于详情页
@@ -183,265 +119,43 @@ export interface IMenuModelQuery extends IMenuModel {
   pageSize: number
 }
 
-export interface IDeptModelQuery {
-  name: string
-}
-
-export interface IDeptModel extends Record<string, any> {
-  children: childrenDeptEntity[]
-  createdAt: Date
+/**
+ * CreateOrganizationDto
+ */
+export interface OrgModel extends AnyObject, WithId {
   /**
-   * 创建者
+   * 组织地址
    */
-  creator: string
-  id: number
+  address?: string
   /**
-   * 部门名称
+   * 联系电话
    */
-  name: string
+  contactPhone?: string
   /**
-   * 排序
+   * 邮箱
    */
-  orderNo: number
-  parent?: DeptEntity
-  parentid?: number
-  updatedAt: Date
+  email?: string
   /**
-   * 更新者
+   * 组织Logo URL
    */
-  updater: string
-}
-
-interface childrenDeptEntity extends DeptEntity {
-  parent: DeptEntity
-}
-
-interface DeptEntity {
-  createdAt: string
-  creator: string
-  id: number
-  name: string
-  orderNo: number
-  updatedAt: string
-  updater: null
-}
-
-export interface IParamConfigModel extends Record<string, any> {
+  logoUrl?: string
   /**
-   * 配置键名
-   */
-  key: string
-  /**
-   * 配置值
-   */
-  value: string
-  /**
-   * 配置名
+   * 组织名称
    */
   name: string
   /**
-   * 配置描述
-   */
-  remark: string
-
-  id: number
-  updatedAt?: string
-  createdAt?: string
-}
-
-export interface IParamConfigModelQuery extends IParamConfigModel {
-  page: number
-  pageSize: number
-
-  /**
-   * 参数名称
-   */
-  name: string
-}
-
-export interface IDictTypeModel extends Record<string, any> {
-  /**
-   * 字典编码
-   */
-  code: string
-
-  /**
-   * 创建者
-   */
-  creator: string
-
-  /**
-   * 字典名称
-   */
-  name: string
-  /**
-   * 备注
-   */
-  remark: string
-  /**
-   * 状态
-   */
-  status: number
-
-  /**
-   * 更新者
-   */
-  updater: string
-
-  id?: number
-  updatedAt?: string
-  createdAt?: string
-}
-
-export interface IDictTypeModelQuery extends IDictTypeModel {
-  page: number
-  pageSize: number
-}
-
-export interface IDictItemModel extends Record<string, any> {
-  /**
-   * 创建者
-   */
-  creator: string
-
-  /**
-   * 字典项键名
-   */
-  label: string
-  orderNo: number
-  /**
-   * 备注
-   */
-  remark: string
-  /**
-   * 状态
-   */
-  status: number
-  type: DictTypeEntity
-
-  /**
-   * 更新者
-   */
-  updater: string
-  /**
-   * 字典项值
-   */
-  value: string
-  [property: string]: any
-
-  id: number
-  updatedAt: string
-  createdAt: string
-}
-export interface DictTypeEntity {
-  /**
-   * 字典编码
-   */
-  code: string
-
-  /**
-   * 创建者
-   */
-  creator: string
-
-  /**
-   * 字典名称
-   */
-  name: string
-  /**
-   * 备注
-   */
-  remark: string
-  /**
-   * 状态
-   */
-  status: number
-
-  /**
-   * 更新者
-   */
-  updater: string
-
-  id: number
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface IDictItemModelQuery extends IDictItemModel {
-  page: number
-  pageSize: number
-
-  /**
-   * 字典项键名
-   */
-  label?: string
-
-  /**
-   * 字典类型 ID
-   */
-  typeid?: number
-  /**
-   * 字典项值
-   */
-  value?: string
-}
-
-export interface ITasksModel extends Record<string, any> {
-  /**
-   * cron表达式
-   */
-  cron?: string
-  /**
-   * 执行参数
-   */
-  data?: string
-  /**
-   * 结束时间
-   */
-  endTime?: string
-  /**
-   * 执行间隔，毫秒单位
-   */
-  every?: number
-
-  /**
-   * 限制执行次数，负数则无限制
-   */
-  limit?: number
-  /**
-   * 任务名称
-   */
-  name?: string
-
-  /**
-   * 任务备注
-   */
-  remark?: string
-  /**
-   * 调用的服务
-   */
-  service?: string
-  /**
-   * 开始时间
-   */
-  startTime?: string
-  /**
-   * 任务状态
+   * 组织状态: 1-启用, 0-禁用
    */
   status?: number
-  /**
-   * 任务类别：cron | interval
-   */
-  type?: number
 
-  id: number
-  updatedAt: string
-  createdAt: string
 }
-
-export interface ITasksModelQuery extends ITasksModel {
+export interface OrgModelQuery extends OrgModel {
   page: number
   pageSize: number
+}
+
+export interface IDeptModelQuery {
+  name: string
 }
 
 // 系统监控

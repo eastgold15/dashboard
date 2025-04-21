@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormItemRule, FormRules } from 'element-plus'
-import type { IMenuModel, IMenuModelQuery, IRoleModelQuery } from '~/api/base/index.type'
+import type { IMenuModel, IMenuModelQuery } from '~/api/base/index.type'
 import { useCmsApi } from '@/api/base/index'
 import { genCmsTemplateData } from '~/composables/cms/useTemplateGen'
 // 定义页面元信息
@@ -51,19 +51,17 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
       }
     }
     return data
-
   },
 
-
 },
-  // 5. 定义查询表单
-  {
-    name: '',
-    value: '',
-    remark: '',
-    page: 1,
-    pageSize: 200,
-  })
+// 5. 定义查询表单
+{
+  name: '',
+  value: '',
+  remark: '',
+  page: 1,
+  pageSize: 200,
+})
 // 等待 templateData 初始化完成
 
 const { tableData, queryForm, crudDialogOptions, fetchList } = templateData
@@ -71,21 +69,22 @@ const { tableData, queryForm, crudDialogOptions, fetchList } = templateData
 onMounted(async () => {
   await fetchList()
 })
-const cheackType = (rule: any, value: number, callback: Function) => {
+// eslint-disable-next-line ts/no-unsafe-function-type
+function cheackType(rule: any, value: number, callback: Function) {
   if ([0, 1, 2].includes(value)) {
     callback()
-  } else {
+  }
+  else {
     callback(new Error('菜单类型必须是 0（目录）、1（菜单）或 2（权限）'))
   }
 }
-const crudDialogOptionsData = crudDialogOptions.data!
-const rules = reactive<FormRules<Partial<typeof crudDialogOptionsData>>>({
+const _crudDialogOptionsData = crudDialogOptions.data!
+const rules = reactive<FormRules<Partial<typeof _crudDialogOptionsData>>>({
   type: [
     { validator: cheackType, required: true, message: '请选择菜单类型', trigger: 'blur' },
     { type: 'number', message: 'age must be a number' },
   ],
 })
-
 
 // const rules = reactive<>({
 //   type: {
@@ -170,14 +169,14 @@ const queryRules = reactive<Record<string, FormItemRule[]>>({
 })
 const menuWithRoot = computed(() =>
   ([{ id: -1, name: '根目录', children: [...tableData.value.items] }]))
-
-
 </script>
 
 <template>
-  <CmsCrudTemplate generic="TableColumn ,IMenuModelQuery,null" name="菜单" identifier="role" :rules="rules"
+  <CmsCrudTemplate
+    generic="TableColumn ,IMenuModelQuery,null" name="菜单" identifier="role" :rules="rules"
     :query-rules="queryRules" :table-data="tableData" :template-data="templateData" :crud-controller="15"
-    :query-form="queryForm">
+    :query-form="queryForm"
+  >
     <template #QueryForm>
       <el-form-item prop="name" label="菜单名称">
         <el-input v-model="queryForm.name" minlength="4" placeholder="搜索菜单名称" clearable />
@@ -282,9 +281,11 @@ const menuWithRoot = computed(() =>
 
       <!-- 其他表单字段也做同样修改 -->
       <el-form-item label="上级节点" prop="parentId">
-        <el-tree-select v-model="data.parentId" :data="menuWithRoot" default-expand-all
+        <el-tree-select
+          v-model="data.parentId" :data="menuWithRoot" default-expand-all
           :props="{ label: 'name', value: 'id' }" check-strictly :render-after-expand="false"
-          placeholder="请选择上级节点..." />
+          placeholder="请选择上级节点..."
+        />
       </el-form-item>
       <el-form-item v-if="data.type !== 2" label="路由地址" prop="path">
         <el-input v-model="data.path" placeholder="请输入路由地址..." />

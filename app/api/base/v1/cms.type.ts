@@ -1,3 +1,5 @@
+import type { PaginationParams } from '../index.type'
+
 export interface IUserModel extends Record<string, any> {
   /**
    * 头像
@@ -54,12 +56,15 @@ export interface IUserModelQuery extends IUserModel {
   page?: number
   pageSize?: number
 }
+// --------现在确定 一个增删改查的实体 因该有三个类型 ，应对不同新增 和 更新
+// ---- 记住这个 xxxBase  xxxxModel  xxxxModelQuery
 
-export interface IMenuModel extends AnyObject, WithId {
+// 基础菜单类型（不含id，用于新增）
+export interface IMenuBase {
   /**
    * 设置当前路由高亮的菜单项，一般用于详情页
    */
-  activeMenu?: string
+  activeMenu: string
   /**
    * 菜单路由路径或外链
    */
@@ -75,7 +80,7 @@ export interface IMenuModel extends AnyObject, WithId {
   /**
    * 是否外链
    */
-  isExt?: boolean
+  isExt: boolean
   /**
    * 是否开启页面缓存
    */
@@ -113,11 +118,13 @@ export interface IMenuModel extends AnyObject, WithId {
    */
   type?: number
 }
-// 这里这个菜单疑惑有没有page,pagesize
-export interface IMenuModelQuery extends IMenuModel {
-  page: number
-  pageSize: number
+// 完整菜单类型（包含id，用于查询/修改/删除）
+export interface IMenuModel extends IMenuBase {
+  id: string
+
 }
+// 查询参数（继承完整类型，含分页）
+export interface IMenuModelQuery extends IMenuModel, PaginationParams { }
 
 /**
  * CreateOrganizationDto

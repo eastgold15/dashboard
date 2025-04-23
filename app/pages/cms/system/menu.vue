@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import type { FormItemRule, FormRules } from 'element-plus'
-import type { IMenuModel, IMenuModelQuery } from '~/api/base/index.type'
+import type { IMenuBase, IMenuModel, IMenuModelQuery } from '~/api/base/index.type'
 import { useCmsApi } from '@/api/base/index'
+import { string } from 'vue-types'
 import { genCmsTemplateData } from '~/composables/cms/useTemplateGen'
 // 定义页面元信息
 definePageMeta({
@@ -9,11 +10,9 @@ definePageMeta({
   layout: 'cms',
 })
 
-type TableColumn = IMenuModel
-
 const $crud = useCmsApi().menu
 // 使用 ref 存储异步加载的 templateData
-const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null>({
+const templateData = await genCmsTemplateData<IMenuModel, IMenuModelQuery, null>({
   // 1. 定义查询表单
   getList: $crud.list,
   create: $crud.create,
@@ -21,7 +20,7 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
   delete: $crud.delete,
   // 2. 定义初始表格列
   getEmptyModel: () => ({
-    id: 1,
+    id: '1',
     name: '',
     path: '',
     component: '',
@@ -31,12 +30,14 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
     type: 0,
     status: 0,
     remark: '',
+    activeMenu: '',
+    isExt: false,
   }),
   // 3. 定义删除框标题
-  getDeleteBoxTitle(id: WithId) {
+  getDeleteBoxTitle(id: string) {
     return `删除菜单${id}`
   },
-  getDeleteBoxTitles(ids: Array<WithId>) {
+  getDeleteBoxTitles(ids: Array<string>) {
     return ` 菜单#${ids.join(',')} `
   },
   // 4. 生命周期
@@ -45,9 +46,9 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
     await permissionStore.fetchPermissions()
   },
   transformSubmitData: (data, type) => {
-    if (type == 'NEW') {
+    if (type === 'NEW') {
       if (data.parentId === -1) {
-        data.parentId = undefined
+        return { ...data, parentId: undefined }
       }
     }
     return data
@@ -57,14 +58,12 @@ const templateData = await genCmsTemplateData<TableColumn, IMenuModelQuery, null
 // 5. 定义查询表单
 {
   name: '',
-  value: '',
-  remark: '',
   page: 1,
   pageSize: 200,
 })
 // 等待 templateData 初始化完成
 
-const { tableData, queryForm, crudDialogOptions, fetchList } = templateData
+const { tableData, queryForm, fetchList } = templateData
 
 onMounted(async () => {
   await fetchList()
@@ -78,8 +77,8 @@ function cheackType(rule: any, value: number, callback: Function) {
     callback(new Error('菜单类型必须是 0（目录）、1（菜单）或 2（权限）'))
   }
 }
-const _crudDialogOptionsData = crudDialogOptions.data!
-const rules = reactive<FormRules<Partial<typeof _crudDialogOptionsData>>>({
+
+const rules = reactive<FormRules<Partial<IMenuBase>>>({
   type: [
     { validator: cheackType, required: true, message: '请选择菜单类型', trigger: 'blur' },
     { type: 'number', message: 'age must be a number' },

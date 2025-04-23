@@ -8,15 +8,15 @@ export function useCmsApi() {
         return await $api.get<PageRes<IMenuModel[]>>('/system/menus', query)
       },
       async create(Body: any) {
-        return await $api.post<DataRes<IMenuModel>>('/system/menus', Body)
+        return await $api.post<DataRes<void>>('/system/menus', Body)
       },
-      async get(id: WithId) {
+      async get(id: string) {
         return await $api.get<DataRes<IMenuModel>>(`/system/menus/${id}`)
       },
-      async update(id: WithId, query: any) {
-        return await $api.put<DataRes<IMenuModel>>(`/system/menus/${id}`, query)
+      async update(id: string, query: any) {
+        return await $api.put<DataRes<void>>(`/system/menus/${id}`, query)
       },
-      async delete(id: WithId) {
+      async delete(id: string) {
         return await $api.delete<DataRes<any>>(`/system/menus/${id}`)
       },
     },

@@ -18,20 +18,23 @@ declare global {
   // 定义任何对象类型
   type AnyObject = Record<string, any>
 
-  // 定义带有 id 属性的基础类型
-  type WithId = { id: string | number }
+  type UnpackRef<T> = T extends Ref<infer U> ? U : T
+
+  // 解包 Promise 的工具类型
+  type UnPromisify<T> = T extends Promise<infer U> ? U : T
+
+  type WithGenerics<T, G extends any[]> = T & { __genericTypes: G }
   //
   /**
    * 定义分页 DTO 类型
    * @template T - 可选的额外属性类型
    */
-  type PageDto<T = {}> = {
-    page: number
-    pageSize: number
-  } & T
+  // type PageDto<T = {}> = {
+  //   page: number
+  //   pageSize: number
+  // } & T
 
 }
-
 
 // 确保有导出空对象以触发模块扩充
 export { }

@@ -33,5 +33,12 @@ export interface PageModel<T> {
 export interface PageRes<T> extends IRes {
   data: PageModel<T>
 }
+
+export interface PaginationParams {
+  page?: number
+  pageSize?: number
+  sort?: string
+}
+
 const { $api } = useNuxtApp()
 export type $API = typeof $api

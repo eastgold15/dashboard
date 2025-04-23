@@ -1,4 +1,4 @@
-<script lang="ts" generic="T extends AnyObject & WithId, PageQuery extends PageDto<T>, MetaData" setup>
+<script lang="ts" generic="T extends  { id: string }, PageQuery, MetaData" setup>
 import type { FormInstance, FormItemRule, FormRules } from 'element-plus'
 
 import type { PageModel } from '~/api/base/index.type'
@@ -11,8 +11,8 @@ const props = defineProps<{
    * 表单数据
    */
   queryForm: Partial<PageQuery>
-  tableData: PageModel<T>
-  templateData: GenCmsTemplateData
+  tableData: PageModel<T[]>
+  templateData: GenCmsTemplateData<T, PageQuery, MetaData>
   rules?: FormRules<T> //
   queryRules?: Record<string, FormItemRule[]>
 
@@ -31,7 +31,7 @@ const {
   submitForm,
   handleDeletes,
 } = props.templateData
-console.log('crudDialogOptions.data:', crudDialogOptions.data)
+
 const _crudController = computed(() => props.crudController || 15)
 
 // 重置表单

@@ -50,12 +50,12 @@ const templateData = await genCmsTemplateData<IOrgModel, IOrgModelQuery, null>({
   },
 
 },
-  // 5. 定义查询表单
-  {
-    name: '',
-    page: 1,
-    pageSize: 200,
-  })
+// 5. 定义查询表单
+{
+  name: '',
+  page: 1,
+  pageSize: 10,
+})
 // 等待 templateData 初始化完成
 
 const { tableData, queryForm, fetchList } = templateData
@@ -161,14 +161,14 @@ const queryRules = reactive<Record<string, FormItemRule[]>>({
     { max: 100, message: '备注不能超过100个字符', trigger: 'blur' },
   ],
 })
-const menuWithRoot = computed(() =>
-  ([{ id: -1, name: '根目录', children: [...tableData.value.items] }]))
 </script>
 
 <template>
-  <CmsCrudTemplate generic="TableColumn ,IMenuModelQuery,null" name="组织" identifier="role" :rules="rules"
+  <CmsCrudTemplate
+    generic="TableColumn ,IMenuModelQuery,null" name="组织" identifier="role" :rules="rules"
     :query-rules="queryRules" :table-data="tableData" :template-data="templateData" :crud-controller="15"
-    :query-form="queryForm">
+    :query-form="queryForm"
+  >
     <template #QueryForm>
       <el-form-item prop="name" label="组织名称">
         <el-input v-model="queryForm.name" minlength="4" placeholder="搜索组织名称" clearable />
@@ -230,6 +230,7 @@ const menuWithRoot = computed(() =>
       <!-- 其他表单字段也做同样修改 -->
       <el-form-item label="logo" prop="logoUrl">
         <!-- <IconSelector v-model="data.icon!" /> -->
+        <el-input v-model="data.logoUrl" placeholder="请输入logo名称..." />
       </el-form-item>
 
       <el-form-item label="组织地址" prop="adress">
@@ -241,7 +242,6 @@ const menuWithRoot = computed(() =>
       <el-form-item label="emil" prop="email">
         <el-input v-model="data.email" placeholder="请输入邮箱..." />
       </el-form-item>
-
 
       <!-- <el-form-item label="排序优先级" prop="orderNo">
         <el-input v-model="data.orderNo" placeholder="请输入排序优先级..." />

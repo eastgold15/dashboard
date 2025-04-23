@@ -12,7 +12,7 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "nuxi dev",
+    "dev": "nuxi dev --open",
     "build": "nuxi build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -58,7 +58,6 @@ export interface IUserModelQuery extends IUserModel {
 }
 // --------现在确定 一个增删改查的实体 因该有三个类型 ，应对不同新增 和 更新
 // ---- 记住这个 xxxBase  xxxxModel  xxxxModelQuery
-
 // 基础菜单类型（不含id，用于新增）
 export interface IMenuBase {
   /**
@@ -121,15 +120,12 @@ export interface IMenuBase {
 // 完整菜单类型（包含id，用于查询/修改/删除）
 export interface IMenuModel extends IMenuBase {
   id: string
-
 }
 // 查询参数（继承完整类型，含分页）
 export interface IMenuModelQuery extends IMenuModel, PaginationParams { }
 
-/**
- * CreateOrganizationDto
- */
-export interface OrgModel extends AnyObject, WithId {
+// --- --组织
+export interface IOrgBase {
   /**
    * 组织地址
    */
@@ -154,12 +150,13 @@ export interface OrgModel extends AnyObject, WithId {
    * 组织状态: 1-启用, 0-禁用
    */
   status?: number
-
 }
-export interface OrgModelQuery extends OrgModel {
-  page: number
-  pageSize: number
+// 完整组织类型（包含id，用于查询/修改/删除）
+export interface IOrgModel extends IOrgBase {
+  id: string
 }
+// 查询参数（继承完整类型，含分页）
+export interface IOrgModelQuery extends IOrgModel, PaginationParams { }
 
 export interface IDeptModelQuery {
   name: string

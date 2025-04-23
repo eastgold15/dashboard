@@ -132,7 +132,6 @@ export default defineNuxtConfig({
     apiSecret: '', // 可以由 NUXT_API_SECRET 环境变量覆盖
     public: {
       // 可以由 NUXT_BASEURL_DEV 环境变量覆盖
-
       apiBase: '',
       apiBase_mock: '',
     },

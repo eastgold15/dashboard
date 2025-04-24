@@ -21,8 +21,9 @@ export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized) => 
   }
   // 4. 其他情况（已登录且非登录页）→ 检查权限
   // 4. 检查菜单权限
-  if (!hasMenuPermission(to.path)) {
-    return navigateTo('/error/403', { replace: true })
-  }
+  // if (!hasMenuPermission(to.path)) {
+  //   return navigateTo('/error/403')
+  // }
+  return true
   // 5. 检查接口权限（非守卫逻辑，在具体页面处理）
 })

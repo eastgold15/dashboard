@@ -106,6 +106,7 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
 
   // 获取控制台相关菜单
   const getDashboardMenuList = computed(() => {
+    console.log('menuList.value:', menuList.value)
     return menuList.value?.filter((item) => {
       return item.path.startsWith('/dashboard')
         || item.children?.some(child => child.path.startsWith('/dashboard'))

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormItemRule, FormRules } from 'element-plus'
-import type { IMenuBase, IMenuModel, IMenuModelQuery, IOrgModel, IOrgModelQuery, IUserModel, IUserModelQuery } from '~/api/base/index.type'
+import type { IDeptModel, IMenuBase, IMenuModel, IMenuModelQuery, IOrgModel, IOrgModelQuery, IRoleModel, IUserModel, IUserModelQuery } from '~/api/base/index.type'
 import { useCmsApi } from '@/api/base/index'
 import { string } from 'vue-types'
 import { genCmsTemplateData } from '~/composables/cms/useTemplateGen'
@@ -57,12 +57,12 @@ const templateData = await genCmsTemplateData<IUserModel, IUserModelQuery, null>
   },
 
 },
-// 5. 定义查询表单
-{
-  username: '',
-  page: 1,
-  pageSize: 10,
-})
+  // 5. 定义查询表单
+  {
+    username: '',
+    page: 1,
+    pageSize: 10,
+  })
 // 等待 templateData 初始化完成
 
 const { tableData, queryForm, fetchList, crudDialogOptions } = templateData
@@ -170,16 +170,24 @@ const queryRules = reactive<Record<string, FormItemRule[]>>({
 })
 
 // 用户部门
+const dept = reactive<IDeptModel[]>([])
+useCmsApi().dept.list({ page: 1, PageSize: 50 }).then((res) => {
+  dept.push(...res.data.items as any)
+})
 
 // 用户角色
+
+
+const roleList = reactive<IRoleModel[]>([])
+useCmsApi().role.list({ page: 1, PageSize: 50 }).then((res) => {
+  roleList.push(...res.data.items as any)
+})
 </script>
 
 <template>
-  <CmsCrudTemplate
-    generic="TableColumn ,IMenuModelQuery,null" name="用户" identifier="role" :rules="rules"
+  <CmsCrudTemplate generic="TableColumn ,IMenuModelQuery,null" name="用户" identifier="role" :rules="rules"
     :query-rules="queryRules" :table-data="tableData" :template-data="templateData" :crud-controller="15"
-    :query-form="queryForm"
-  >
+    :query-form="queryForm">
     <template #QueryForm>
       <el-form-item prop="username" label="用户名称">
         <el-input v-model="queryForm.username" minlength="4" placeholder="搜索登录账号名称" clearable />
@@ -257,10 +265,8 @@ const queryRules = reactive<Record<string, FormItemRule[]>>({
       <!-- 修改所有表单字段的v-model绑定方式 -->
 
       <el-form-item label="用户头像" prop="avatar">
-        <UserUploadAvatar
-          v-model="data.avatar"
-          :disabled="crudDialogOptions.loading || crudDialogOptions.mode === 'READ'"
-        />
+        <UserUploadAvatar v-model="data.avatar"
+          :disabled="crudDialogOptions.loading || crudDialogOptions.mode === 'READ'" />
       </el-form-item>
       <el-form-item label="用户名称" prop="username">
         <el-input v-model="data.username" :disabled="crudDialogOptions.mode !== 'NEW'" />
@@ -280,12 +286,12 @@ const queryRules = reactive<Record<string, FormItemRule[]>>({
       <el-form-item label="用户手机号" prop="phone">
         <el-input v-model="data.phone" />
       </el-form-item>
-      <!-- <el-form-item label="用户部门" prop="dept">
+      <el-form-item label="用户部门" prop="dept">
         <el-tree-select
           v-model="data.deptId" :default-expand-all="true" :highlight-current="true" node-key="id"
-          :check-on-click-node="true" :props="defaultProps" :data="depts" :render-after-expand="false"
+          :check-on-click-node="true"  :data="dept" :render-after-expand="false"
         />
-      </el-form-item> -->
+      </el-form-item>
       <!-- <el-form-item label="用户角色" prop="roles">
         <el-select v-model="data.roleIds" multiple placeholder="请选择角色">
           <el-option v-for="item in roles.items" :key="item.id" :label="item.name" :value="item.id" />

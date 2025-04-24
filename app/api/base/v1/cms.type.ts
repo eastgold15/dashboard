@@ -206,7 +206,7 @@ export interface IRoleModelQuery extends IRoleModel, PaginationParams { }
 // ----------------------部门
 
 export interface IDeptBase {
-  children: IDeptBase[]
+  children?: IDeptBase[]
   createdAt: string
   creator: null | string
   name: string

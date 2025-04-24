@@ -1,4 +1,4 @@
-import type { $API, DataRes, IMenuModel, IMenuModelQuery, IOrgBase, IOrgModel, IRes, PageRes } from '../index.type'
+import type { $API, DataRes, IDeptModel, IMenuModel, IMenuModelQuery, IOrgBase, IOrgModel, IRes, IRoleModel, PageRes } from '../index.type'
 
 export function useCmsApi() {
   const { $api } = useNuxtApp()
@@ -57,19 +57,36 @@ export function useCmsApi() {
     },
     role: {
       async create(body: any) {
-        return await $api.post<DataRes<any>>('/role', body)
+        return await $api.post<DataRes<void>>('/role', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<any[]>>('/role', query)
+        return await $api.get<PageRes<IRoleModel[]>>('/role', query)
       },
       async get(id: string) {
-        return await $api.get<DataRes<any>>(`/role/${id}`)
+        return await $api.get<DataRes<IRoleModel>>(`/role/${id}`)
       },
       async update(id: string, body: any) {
-        return await $api.put<DataRes<any>>(`/role/${id}`, body)
+        return await $api.put<DataRes<void>>(`/role/${id}`, body)
       },
       async delete(id: string) {
         return await $api.delete<DataRes<any>>(`/role/${id}`)
+      },
+    },
+    dept: {
+      async create(body: any) {
+        return await $api.post<DataRes<void>>('/system/depts', body)
+      },
+      async list(query: any = { page: 1, pageSize: 50 }) {
+        return await $api.get<PageRes<IDeptModel[]>>('/system/depts', query)
+      },
+      async get(id: string) {
+        return await $api.get<DataRes<IDeptModel>>(`/system/depts/${id}`)
+      },
+      async update(id: string, body: any) {
+        return await $api.put<DataRes<void>>(`/system/depts/${id}`, body)
+      },
+      async delete(id: string) {
+        return await $api.delete<DataRes<any>>(`/system/depts/${id}`)
       },
     },
     area: {

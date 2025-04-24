@@ -1,64 +1,10 @@
-import type { PaginationParams } from '../index.type'
+import type { Order, PaginationParams } from '../index.type'
+import { string } from 'vue-types'
 
-export interface IUserModel extends Record<string, any> {
-  /**
-   * 头像
-   */
-  avatar?: string
-  /**
-   * 归属大区
-   */
-  deptId?: number
-  /**
-   * 邮箱
-   */
-  email?: string
-
-  /**
-   * 呢称
-   */
-  nickname?: string
-
-  /**
-   * 登录密码
-   */
-  password?: string
-  /**
-   * 手机号
-   */
-  phone?: string
-  /**
-   * QQ
-   */
-  qq?: string
-  /**
-   * 备注
-   */
-  remark?: string
-  /**
-   * 归属角色
-   */
-  roleIds?: string[]
-  /**
-   * 状态
-   */
-  status?: number
-  /**
-   * 登录账号
-   */
-  username?: string
-
-  id?: number
-  updatedAt?: string
-  createdAt?: string
-}
-export interface IUserModelQuery extends IUserModel {
-  page?: number
-  pageSize?: number
-}
 // --------现在确定 一个增删改查的实体 因该有三个类型 ，应对不同新增 和 更新
 // ---- 记住这个 xxxBase  xxxxModel  xxxxModelQuery
 // 基础菜单类型（不含id，用于新增）
+// ----------------------菜单
 export interface IMenuBase {
   /**
    * 设置当前路由高亮的菜单项，一般用于详情页
@@ -124,7 +70,7 @@ export interface IMenuModel extends IMenuBase {
 // 查询参数（继承完整类型，含分页）
 export interface IMenuModelQuery extends IMenuModel, PaginationParams { }
 
-// --- --组织
+// -----------------组织
 export interface IOrgBase {
   /**
    * 组织地址
@@ -158,9 +104,123 @@ export interface IOrgModel extends IOrgBase {
 // 查询参数（继承完整类型，含分页）
 export interface IOrgModelQuery extends IOrgModel, PaginationParams { }
 
-export interface IDeptModelQuery {
-  name: string
+// -----------------用户-------------------------
+
+export interface IUserBase {
+  /**
+   * 头像
+   */
+  avatar?: string
+  /**
+   * 归属大区
+   */
+  deptId?: number
+  /**
+   * 邮箱
+   */
+  email?: string
+
+  /**
+   * 呢称
+   */
+  nickname?: string
+
+  /**
+   * 登录密码
+   */
+  password?: string
+  /**
+   * 手机号
+   */
+  phone?: string
+  /**
+   * QQ
+   */
+  qq?: string
+  /**
+   * 备注
+   */
+  remark?: string
+  /**
+   * 归属角色
+   */
+  roleIds?: string[]
+  /**
+   * 状态
+   */
+  status?: number
+  /**
+   * 登录账号
+   */
+  username?: string
+
+  updatedAt?: string
+  createdAt?: string
 }
+
+// 完整组织类型（包含id，用于查询/修改/删除）
+export interface IUserModel extends IUserBase {
+  id: string
+}
+// 查询参数（继承完整类型，含分页）
+export interface IUserModelQuery extends IUserModel, PaginationParams { }
+
+// ----------------------角色
+
+export interface IRoleBase {
+  _t?: number
+  field?: string
+  /**
+   * 关联菜单、权限编号
+   */
+  menuIds?: number[]
+  /**
+   * 角色名称
+   */
+  name?: string
+  order?: Order
+  page?: number
+  pageSize?: number
+  /**
+   * 角色备注
+   */
+  remark?: string
+  /**
+   * 状态
+   */
+  status?: number
+  /**
+   * 角色值
+   */
+  value?: string
+
+}
+
+// 完整组织类型（包含id，用于查询/修改/删除）
+export interface IRoleModel extends IRoleBase {
+  id: string
+}
+// 查询参数（继承完整类型，含分页）
+export interface IRoleModelQuery extends IRoleModel, PaginationParams { }
+
+// ----------------------部门
+
+export interface IDeptBase {
+  children: IDeptBase[]
+  createdAt: string
+  creator: null | string
+  name: string
+  orderNo: number
+  parent?: IDeptBase
+  updatedAt: string
+  updater: null | string
+}
+// 完整组织类型（包含id，用于查询/修改/删除）
+export interface IDeptModel extends IDeptBase {
+  id: string
+}
+// 查询参数（继承完整类型，含分页）
+export interface IDeptModelQuery extends IDeptModel, PaginationParams { }
 
 // 系统监控
 /**

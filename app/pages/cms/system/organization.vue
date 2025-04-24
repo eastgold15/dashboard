@@ -41,6 +41,7 @@ const templateData = await genCmsTemplateData<IOrgModel, IOrgModelQuery, null>({
     await permissionStore.fetchPermissions()
   },
   transformSubmitData: (data, type) => {
+    console.log('type:', type)
     // if (type === 'NEW') {
     //   if (data.parentId === -1) {
     //     return { ...data, parentId: undefined }

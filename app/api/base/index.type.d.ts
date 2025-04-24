@@ -40,5 +40,9 @@ export interface PaginationParams {
   sort?: string
 }
 
+export enum Order {
+  Asc = 'ASC',
+  Desc = 'DESC',
+}
 const { $api } = useNuxtApp()
 export type $API = typeof $api

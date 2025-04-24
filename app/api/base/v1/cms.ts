@@ -38,6 +38,23 @@ export function useCmsApi() {
         return await $api.delete<DataRes<any>>(`/organization/${id}`)
       },
     },
+    user: {
+      async create(body: any) {
+        return await $api.post<DataRes<void>>('/system/users', body)
+      },
+      async list(query: any = { page: 1, pageSize: 50 }) {
+        return await $api.get<PageRes<IOrgModel[]>>('/system/users', query)
+      },
+      async get(id: string) {
+        return await $api.get<DataRes<IOrgModel>>(`/system/users/${id}`)
+      },
+      async update(id: string, body: any) {
+        return await $api.put<DataRes<void>>(`/system/users/${id}`, body)
+      },
+      async delete(id: string) {
+        return await $api.delete<DataRes<any>>(`/system/users/${id}`)
+      },
+    },
     role: {
       async create(body: any) {
         return await $api.post<DataRes<any>>('/role', body)

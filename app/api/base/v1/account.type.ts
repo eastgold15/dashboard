@@ -51,31 +51,26 @@ export interface Role {
   [property: string]: any
 }
 
-// // 获取菜单列表
-
-// export interface MenuModel {
-//   id: string
-//   children?: MenuModel[]
-//   component: string
-//   meta: MenuMeta | null
-//   name: string
-//   path: string
-//   redirect?: string
-//   [property: string]: any
-// }
-
-// export interface MenuMeta {
-//   activeMenu: null | string
-//   extOpenMode: number
-//   icon: string
-//   isExt: boolean
-//   keepAlive: number
-//   orderNo: number
-//   show: number
-//   status: number
-//   title: string
-//   type: number
-//   [property: string]: any
-// }
-
-// //
+export interface NestedMenu {
+  children: NestedMenu[]
+  component: null | string
+  id: number
+  meta: Meta
+  name: string
+  path: string
+  redirect: string
+  [property: string]: any
+}
+export interface Meta {
+  activeMenu: null | string
+  extOpenMode: number
+  icon: string
+  isExt: boolean
+  keepAlive: number
+  orderNo: number
+  show: number
+  status: number
+  title: string
+  type: number
+  [property: string]: any
+}

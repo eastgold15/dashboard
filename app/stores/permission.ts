@@ -1,6 +1,4 @@
-import type { MenuItem } from 'primevue/menuitem'
-
-import type { DataRes, MenuModel } from '~/api/base/index.type'
+import type { DataRes, NestedMenu } from '~/api/base/index.type'
 
 import { useLocalStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
@@ -34,14 +32,14 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
   // 2. 状态管理
 
   const permissions = ref(useLocalStorage<string[] | null>('permissions', [])) // 操作权限码
-  const menuList = ref(useLocalStorage<MenuModel[] | null>('menuList', [])) // 完整菜单树
+  const menuList = ref(useLocalStorage<NestedMenu[] | null>('menuList', [])) // 完整菜单树
 
   // 3. 预处理菜单路径（用于快速查找）
   const flattenedPaths = computed(() => {
     const paths: string[] = []
 
     // 递归扁平化菜单路径
-    const flatten = (menus: MenuModel[]) => {
+    const flatten = (menus: NestedMenu[]) => {
       menus.forEach((menu) => {
         if (menu.meta?.show !== 0) { // 只处理需要显示的菜单
           paths.push(menu.path)
@@ -62,14 +60,14 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
   const setPermissions = (perms: string[] | null) => {
     permissions.value = perms || []
   }
-  // 合并静态路由和动态菜单
-  const mergeMenus = (dynamicMenus: MenuModel[], staticMenus: MenuModel[]): MenuModel[] => {
+  // 合并静态路由和动态菜单112
+  const mergeMenus = (dynamicMenus: NestedMenu[], staticMenus: NestedMenu[]): NestedMenu[] => {
     return [...staticMenus, ...(dynamicMenus || [])].filter(menu =>
       menu.meta?.show !== 0, // 过滤掉配置为隐藏的菜单
     )
   }
   // 设置菜单列表
-  const setMenuList = (menus: MenuModel[] | null) => {
+  const setMenuList = (menus: NestedMenu[] | null) => {
     menuList.value = mergeMenus(menus || [], constantRoutes)
   }
 
@@ -85,7 +83,7 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
   }
   async function fetchPermissions() {
     const [menus, perms] = await Promise.all([
-      $api.get<DataRes<MenuModel[]>>('/account/menus'),
+      $api.get<DataRes<NestedMenu[]>>('/account/menus'),
       $api.get<DataRes<string[]>>('/account/permissions'),
     ])
     console.log(menus.data, 'menus')
@@ -96,20 +94,11 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
   // 6. 计算属性
   const getMenuList = computed(() => menuList.value)
   const getPermissions = computed(() => permissions.value)
-  // function getDashboardMenuList() {
-  //   return computed(() => {
-  //     return menuList.value?.filter((item) => {
-  //       return item.path.startsWith('/dashboard') || item.children?.some(child => child.path.startsWith('/dashboard'))
-  //     })
-  //   })
-  // }
 
-  // 获取控制台相关菜单
+  // 获取首页相关菜单
   const getDashboardMenuList = computed(() => {
-    console.log('menuList.value:', menuList.value)
     return menuList.value?.filter((item) => {
       return item.path.startsWith('/dashboard')
-        || item.children?.some(child => child.path.startsWith('/dashboard'))
     })
   })
 

@@ -1,4 +1,4 @@
-import type { $API, AccountInfo, DataRes, MenuModel } from '../index.type'
+import type { $API, AccountInfo, DataRes, NestedMenu } from '../index.type'
 
 // 工厂函数：创建账户相关 API
 function createAccountApi($api: $API) {
@@ -22,27 +22,3 @@ function createAccountApi($api: $API) {
 const { $api } = useNuxtApp()
 
 export const accountApi = createAccountApi($api)
-
-interface NestedMenu {
-  children: NestedMenu[];
-  component: null | string;
-  id: number;
-  meta: Meta;
-  name: string;
-  path: string;
-  redirect: string;
-  [property: string]: any;
-}
-export interface Meta {
-  activeMenu: null | string;
-  extOpenMode: number;
-  icon: string;
-  isExt: boolean;
-  keepAlive: number;
-  orderNo: number;
-  show: number;
-  status: number;
-  title: string;
-  type: number;
-  [property: string]: any;
-}

@@ -40,10 +40,9 @@ async function handleLogin() {
 
   const success = await authStore.login(requestOptions)
   if (success) {
-    // 登录成功后获取权限
+    // 登录成功后获取权限   我在layout 界面获取 权限菜单
     const permissionStore = useMyPermissionStore()
     await permissionStore.fetchPermissions()
-
     await navigateTo('/dashboard/index')
   }
 }

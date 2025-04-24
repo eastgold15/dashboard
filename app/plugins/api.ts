@@ -41,7 +41,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     async onResponseError({ response }) {
       // 处理 401 未授权
       if (response.status === 401) {
-        await nuxtApp.runWithContext(() => navigateTo('/login'))
+        await nuxtApp.runWithContext(() => navigateTo('/auth/login'))
 
         // 处理其他错误
         if (import.meta.client) {

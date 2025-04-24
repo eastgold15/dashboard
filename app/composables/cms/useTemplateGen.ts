@@ -6,7 +6,7 @@ import { isNil, method, omitBy } from 'lodash-es'
 type TransformSubmitData<T> = (
   originData: T,
   mode: CrudMode
-) => Omit<T, 'id'> | T // 根据mode动态返回类型
+) => void// 根据mode动态返回类型
 
 // 定义通用的模板接口 T 是数据类型，PageQuery 是查询参数类型，MetaData 是元数据类型
 export interface TemplateCrudHandler<T, TBase, PageQuery, MetaData> {
@@ -29,7 +29,7 @@ export interface TemplateCrudHandler<T, TBase, PageQuery, MetaData> {
   // 回调
   onFetchSuccess?: () => Promise<void>
   // 转换提交数据的方法
-  transformSubmitData?: TransformSubmitData<TBase>
+  transformSubmitData?: TransformSubmitData<any>
 }
 
 export type CrudMode = 'NEW' | 'EDIT' | 'READ'
@@ -194,6 +194,7 @@ export async function genCmsTemplateData<T extends { id: string }, PageQuery, Me
         crudDialogOptions.value.loading = true
 
         // 修改点1：改为无返回值的修改方式  引用修改
+
         dataCrudHandler.transformSubmitData?.(data as T, crudDialogOptions.value.mode)
 
         // 修改点2：直接使用修改后的data

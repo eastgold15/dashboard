@@ -1,16 +1,13 @@
+// export function pathToRegExp(path: string) {
+//   const pattern = path.replace(/\//g, '\/').replace(/\*/g, '.*')
+//   return new RegExp(`^${pattern}$`) // 将路径转换为正则表达式
+// }
+export function useAuth() {
+  // 从cooike中读取token，判断登录没，没登录跳转到登录页
 
+  const whitelist = ['/auth/login', '/auth/login/*', '/403', '/404', '/', '/dashboard/*', '/dashboard', '/error']
 
-export const useAuth = () => {
-  //从cooike中读取token，判断登录没，没登录跳转到登录页
-
-
-  const whitelist = ['/auth/login', '/403', '/404', '/', '/dashboard/*']
-
-
-  const isWhitelist = (path: string) => whitelist.some(path => pathToRegExp(path).test(path))
-
-
-
+  const isWhitelist = (path: string) => whitelist.some(item => pathToRegExp(item).test(path))
 
   // // 获取菜单列表  与本地菜单合并
   // const getMenuList = async () => {
@@ -32,10 +29,10 @@ export const useAuth = () => {
   //   return flatMenuList.some((route: any) => route.path === path)
   // }
 
-
-
-
   return {
     isWhitelist,
   }
 }
+
+// const { isWhitelist } = useAuth()
+// console.log('isWhitelist:', isWhitelist('/error'))

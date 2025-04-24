@@ -48,10 +48,9 @@ const templateData = await genCmsTemplateData<IMenuModel, IMenuModelQuery, null>
   transformSubmitData: (data, type) => {
     if (type === 'NEW') {
       if (data.parentId === -1) {
-        return { ...data, parentId: undefined }
+        data.parentId = undefined
       }
     }
-    return data
   },
 
 },

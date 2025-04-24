@@ -1,7 +1,8 @@
-import type { DataRes, MenuList } from '~/api/base/index.type'
+import type { MenuItem } from 'primevue/menuitem'
+
+import type { DataRes, MenuModel } from '~/api/base/index.type'
 
 import { useLocalStorage } from '@vueuse/core'
-
 import { defineStore } from 'pinia'
 
 export const constantRoutes: any[] = [
@@ -30,46 +31,61 @@ export const constantRoutes: any[] = [
 
 export const useMyPermissionStore = defineStore('myPermissionStore', () => {
   const { $api } = useNuxtApp()
+  // 2. 状态管理
 
-  // 权限列表
-  const permissions = ref(useLocalStorage<string[] | null>('permissions', []))
-  // 菜单列表
-  const menuList = ref(useLocalStorage<MenuList[] | null>('menuList', []))
+  const permissions = ref(useLocalStorage<string[] | null>('permissions', [])) // 操作权限码
+  const menuList = ref(useLocalStorage<MenuModel[] | null>('menuList', [])) // 完整菜单树
+
+  // 3. 预处理菜单路径（用于快速查找）
+  const flattenedPaths = computed(() => {
+    const paths: string[] = []
+
+    // 递归扁平化菜单路径
+    const flatten = (menus: MenuModel[]) => {
+      menus.forEach((menu) => {
+        if (menu.meta?.show !== 0) { // 只处理需要显示的菜单
+          paths.push(menu.path)
+          if (menu.children)
+            flatten(menu.children)
+        }
+      })
+    }
+
+    flatten(menuList.value!)
+    console.log(paths, 'paths')
+
+    return paths
+  })
+  // 4. 核心方法实现
 
   // 设置权限列表
-  function setPermissions(perms: string[] | null) {
-    if (!perms) {
-      permissions.value = []
-      return
-    }
-    permissions.value = perms
+  const setPermissions = (perms: string[] | null) => {
+    permissions.value = perms || []
+  }
+  // 合并静态路由和动态菜单
+  const mergeMenus = (dynamicMenus: MenuModel[], staticMenus: MenuModel[]): MenuModel[] => {
+    return [...staticMenus, ...(dynamicMenus || [])].filter(menu =>
+      menu.meta?.show !== 0, // 过滤掉配置为隐藏的菜单
+    )
+  }
+  // 设置菜单列表
+  const setMenuList = (menus: MenuModel[] | null) => {
+    menuList.value = mergeMenus(menus || [], constantRoutes)
   }
 
-  // 设置菜单列表 需要传入一个菜单列表 格式为 MenuList[]
-  function setMenuList(menus: MenuList[] | null) {
-    if (!menus) {
-      menuList.value = []
-      return
-    }
-    // 使用解构赋值创建新数组保证响应式
-    const localTreeMenus = [...constantRoutes]
-    const mergedMenus = mergeMenus(menus, localTreeMenus)
-
-    // 直接赋值新数组
-    menuList.value = mergedMenus
-  }
-
-  // 检查是否有指定权限
-  function hasPermission(permissionCode: string) {
-    if (!permissionCode) {
+  // 检查路由权限
+  const hasMenuPermission = (path: string): boolean => {
+    if (!path)
       return false
-    }
-    return permissions.value?.map(item => item.includes(permissionCode))
+    return flattenedPaths.value.includes(path)
   }
-
+  // 检查操作权限
+  const hasPermission = (permissionCode: string): boolean => {
+    return permissions.value?.includes(permissionCode) || false
+  }
   async function fetchPermissions() {
     const [menus, perms] = await Promise.all([
-      $api.get<DataRes<MenuList[]>>('/account/menus'),
+      $api.get<DataRes<MenuModel[]>>('/account/menus'),
       $api.get<DataRes<string[]>>('/account/permissions'),
     ])
     console.log(menus.data, 'menus')
@@ -77,31 +93,35 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
     setPermissions(perms.data)
   }
 
-  function getMenuList() {
-    return computed(() => menuList.value)
-  }
-  function getPermissions() {
-    return computed(() => permissions.value)
-  }
-  function getDashboardMenuList() {
-    return computed(() => {
-      return menuList.value?.filter((item) => {
-        return item.path.startsWith('/dashboard') || item.children?.some(child => child.path.startsWith('/dashboard'))
-      })
+  // 6. 计算属性
+  const getMenuList = computed(() => menuList.value)
+  const getPermissions = computed(() => permissions.value)
+  // function getDashboardMenuList() {
+  //   return computed(() => {
+  //     return menuList.value?.filter((item) => {
+  //       return item.path.startsWith('/dashboard') || item.children?.some(child => child.path.startsWith('/dashboard'))
+  //     })
+  //   })
+  // }
+
+  // 获取控制台相关菜单
+  const getDashboardMenuList = computed(() => {
+    return menuList.value?.filter((item) => {
+      return item.path.startsWith('/dashboard')
+        || item.children?.some(child => child.path.startsWith('/dashboard'))
     })
-  }
+  })
 
   return {
-
     permissions,
     menuList,
+    getMenuList,
+    getPermissions,
+    getDashboardMenuList,
+    hasMenuPermission,
+    hasPermission,
     fetchPermissions,
     setPermissions,
     setMenuList,
-    getMenuList,
-    getPermissions,
-    hasPermission,
-    getDashboardMenuList,
-
   }
 })

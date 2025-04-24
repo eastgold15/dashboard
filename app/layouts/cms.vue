@@ -3,11 +3,11 @@ import { Menu as IconMenu } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 
 const permission = useMyPermissionStore()
-const menulist = permission.getMenuList()
+const menulist = permission.getMenuList
 
 const isCollapsed = ref(false)
 
-const toggleCollapse = () => {
+function toggleCollapse() {
   isCollapsed.value = !isCollapsed.value
 }
 </script>
@@ -26,8 +26,7 @@ const toggleCollapse = () => {
         </el-header>
         <el-container>
           <el-aside :width="isCollapsed ? '64px' : '200px'" class="h-full">
-
-            <CmsMenu :menu-list="menulist!" :is-collapsed="isCollapsed"></CmsMenu>
+            <CmsMenu :menu-list="menulist!" :is-collapsed="isCollapsed" />
           </el-aside>
           <el-main>
             <slot />

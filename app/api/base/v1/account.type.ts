@@ -53,10 +53,10 @@ export interface Role {
 
 // 获取菜单列表
 
-export interface MenuList {
-  children?: MenuList[]
+export interface MenuModel {
+  id: string
+  children?: MenuModel[]
   component: string
-  id: number
   meta: MenuMeta | null
   name: string
   path: string

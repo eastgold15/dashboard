@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const { rootRoutes } = useRouteChildren()
-//从pinia 的 获取菜单， 过滤菜单路径为 /dashboard ，只显示这个dashboard下面的菜单
+// 从pinia 的 获取菜单， 过滤菜单路径为 /dashboard ，只显示这个dashboard下面的菜单
 
 const PermissionStore = useMyPermissionStore()
 
-console.log(PermissionStore.getDashboardMenuList().value, "userStore.getDashboardMenuList()")
+console.log(PermissionStore.getDashboardMenuList, 'userStore.getDashboardMenuList()')
 </script>
 
 <template>

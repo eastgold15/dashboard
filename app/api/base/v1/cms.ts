@@ -1,4 +1,4 @@
-import type { $API, DataRes, IDeptModel, IDeviceModel, IMenuModel, IMenuModelQuery, IOrderModel, IOrgBase, IOrgModel, IRes, IRoleModel, PageRes } from '../index.type'
+import type { $API, DataRes, IAreaModel, IDeptModel, IDeviceModel, IMenuModel, IMenuModelQuery, IOrderModel, IOrgBase, IOrgModel, IRes, IRoleModel, IUserModel, PageRes } from '../index.type'
 
 export function useCmsApi() {
   const { $api } = useNuxtApp()
@@ -9,7 +9,7 @@ export function useCmsApi() {
         return await $api.post<DataRes<void>>('/system/menus', Body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<IMenuModel[]>>('/system/menus', query)
+        return await $api.get<PageRes<IMenuModel>>('/system/menus', query)
       },
       async get(id: string) {
         return await $api.get<DataRes<IMenuModel>>(`/system/menus/${id}`)
@@ -26,7 +26,7 @@ export function useCmsApi() {
         return await $api.post<DataRes<void>>('/organization', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<IOrgModel[]>>('/organization', query)
+        return await $api.get<PageRes<IOrgModel>>('/organization', query)
       },
       async get(id: string) {
         return await $api.get<DataRes<IOrgModel>>(`/organization/${id}`)
@@ -35,7 +35,7 @@ export function useCmsApi() {
         return await $api.put<DataRes<void>>(`/organization/${id}`, body)
       },
       async delete(id: string) {
-        return await $api.delete<DataRes<any>>(`/organization/${id}`)
+        return await $api.delete<DataRes<void>>(`/organization/${id}`)
       },
     },
     user: {
@@ -43,16 +43,16 @@ export function useCmsApi() {
         return await $api.post<DataRes<void>>('/system/users', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<IOrgModel[]>>('/system/users', query)
+        return await $api.get<PageRes<IUserModel>>('/system/users', query)
       },
       async get(id: string) {
-        return await $api.get<DataRes<IOrgModel>>(`/system/users/${id}`)
+        return await $api.get<DataRes<IUserModel>>(`/system/users/${id}`)
       },
       async update(id: string, body: any) {
         return await $api.put<DataRes<void>>(`/system/users/${id}`, body)
       },
       async delete(id: string) {
-        return await $api.delete<DataRes<any>>(`/system/users/${id}`)
+        return await $api.delete<DataRes<void>>(`/system/users/${id}`)
       },
     },
     role: {
@@ -60,7 +60,7 @@ export function useCmsApi() {
         return await $api.post<DataRes<void>>('/system/roles', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<IRoleModel[]>>('/system/roles', query)
+        return await $api.get<PageRes<IRoleModel>>('/system/roles', query)
       },
       async get(id: string) {
         return await $api.get<DataRes<IRoleModel>>(`/system/roles/${id}`)
@@ -77,7 +77,7 @@ export function useCmsApi() {
         return await $api.post<DataRes<void>>('/system/depts', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<IDeptModel[]>>('/system/depts', query)
+        return await $api.get<DataRes<IDeptModel[]>>('/system/depts', query)
       },
       async get(id: string) {
         return await $api.get<DataRes<IDeptModel>>(`/system/depts/${id}`)
@@ -94,13 +94,13 @@ export function useCmsApi() {
         return await $api.post<DataRes<any>>('/area', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<any[]>>('/area', query)
+        return await $api.get<PageRes<IAreaModel>>('/area', query)
       },
       async get(id: string) {
         return await $api.get<DataRes<any>>(`/area/${id}`)
       },
       async update(id: string, body: any) {
-        return await $api.put<DataRes<any>>(`/area/${id}`, body)
+        return await $api.put<DataRes<IAreaModel>>(`/area/${id}`, body)
       },
       async delete(id: string) {
         return await $api.delete<DataRes<any>>(`/area/${id}`)
@@ -111,7 +111,7 @@ export function useCmsApi() {
         return await $api.post<DataRes<any>>('/device/create', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<IDeviceModel[]>>('/device/listPage', query)
+        return await $api.get<PageRes<IDeviceModel>>('/device/listPage', query)
       },
       async get(id: string) {
         return await $api.get<DataRes<any>>(`/device/${id}`)
@@ -128,7 +128,7 @@ export function useCmsApi() {
         return await $api.post<DataRes<any>>('/work-orders', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<IOrderModel[]>>('/work-orders', query)
+        return await $api.get<PageRes<IOrderModel>>('/work-orders', query)
       },
       async get(id: string) {
         return await $api.get<DataRes<any>>(`/work-orders/${id}`)

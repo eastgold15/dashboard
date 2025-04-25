@@ -110,52 +110,55 @@ export interface IUserBase {
   /**
    * 头像
    */
-  avatar?: string
+  avatar?: string;
   /**
    * 归属大区
    */
-  deptId?: number
+  deptId?: number;
   /**
    * 邮箱
    */
-  email?: string
-
+  email?: string;
+  field?: string;
   /**
    * 呢称
    */
-  nickname?: string
-
+  nickname?: string;
+  order?: Order;
+  /**
+   * 所属组织
+   */
+  organizationId?: number;
+  page?: number;
+  pageSize?: number;
   /**
    * 登录密码
    */
-  password?: string
+  password?: string;
   /**
    * 手机号
    */
-  phone?: string
+  phone?: string;
   /**
    * QQ
    */
-  qq?: string
+  qq?: string;
   /**
    * 备注
    */
-  remark?: string
+  remark?: string;
   /**
    * 归属角色
    */
-  roleIds?: string[]
+  roleIds?: number[];
   /**
    * 状态
    */
-  status?: number
+  status?: number;
   /**
    * 登录账号
    */
-  username?: string
-
-  updatedAt?: string
-  createdAt?: string
+  username?: string;
 }
 
 // 完整组织类型（包含id，用于查询/修改/删除）
@@ -419,102 +422,3 @@ export interface Runtime {
   os: string
 }
 
-export interface IDoc extends Record<string, any> {
-  field: string
-  /**
-   * 文档元数据
-   */
-  meta: string
-  order: 'ASC' | 'DESC'
-  /**
-   * 文档权限
-   */
-  permission: string
-  /**
-   * 文档标题
-   */
-  title: string
-
-  record?: {
-    id: number
-    updatedAt: string
-    createdAt: string
-    title: string
-    content: string
-    reason: string
-    status: number
-  }
-
-  id?: number
-  updatedAt?: string
-  createdAt?: string
-}
-
-export interface IDocQuery extends IDoc {
-  page?: number
-  pageSize?: number
-}
-
-export interface ISubscriptionPlan extends Record<string, any> {
-  /**
-   * 订阅结束日期
-   */
-  endDate: Date
-  /**
-   * 订阅是否有效
-   */
-  isActive: boolean
-  /**
-   * 是否自动续费
-   */
-  isAutoRenew: boolean
-  /**
-   * 是否是试用订阅
-   */
-  isTrial: boolean
-  /**
-   * 相关订单号
-   */
-  orderId: string
-  /**
-   * 订阅开始日期
-   */
-  startDate: Date
-  /**
-   * 订阅计划类型
-   */
-  type: 'STANDARD' | 'ULTIMATE'
-  /**
-   * 用户id
-   */
-  userId: string
-}
-
-export interface ISubscriptionPlanQuery extends ISubscriptionPlan {
-  page: number
-  pageSize: number
-}
-
-export enum SubscribeType {
-  STANDARD = 'STANDARD', // 标准订阅计划
-  ULTIMATE = 'ULTIMATE', // 旗舰订阅计划
-}
-
-export interface IFeedbackModelQuery extends IFeedbackModel {
-  page: number
-  pageSize: number
-}
-
-export interface IFeedbackModel {
-
-  allRate?: number
-  feedDesc?: string
-  feedID?: string
-  feedSuggestion?: null | string
-  feedType?: string
-  user?: any
-
-  id?: number
-  updatedAt?: string
-  createdAt?: string
-}

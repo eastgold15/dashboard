@@ -12,7 +12,7 @@ type TransformSubmitData<T> = (
 export interface TemplateCrudHandler<T, TBase, PageQuery, MetaData> {
 
   // 查询 → 返回带id的数据
-  getList: (query: Partial<PageQuery>) => Promise<PageRes<T[]>>
+  getList: (query: Partial<PageQuery>) => Promise<PageRes<T>>
   // 新增 → 必须用 TBase（禁止传入id）
   create: (data: TBase) => Promise<DataRes<void>>
   // 修改 → 必须用 TModel（强制要求id）
@@ -59,7 +59,7 @@ export async function genCmsTemplateData<T extends { id: string }, PageQuery, Me
   const formLoading = ref(false)
 
   // 表格数据
-  const tableData = ref<PageModel<T[]>>({
+  const tableData = ref<PageModel<T>>({
     items: [],
     meta: {
       currentPage: 0,

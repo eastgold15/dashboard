@@ -39,7 +39,15 @@ const { tableData, queryForm, fetchList } = templateData
 
 onMounted(async () => {
   await fetchList()
+  await loadMenus()
 })
+
+// 菜单数据
+const menuTree = ref<any[]>([])
+const loadMenus = async () => {
+  const res = await useCmsApi().menu.list({ page: 1, pageSize: 1000 })
+  menuTree.value = res.data.items
+}
 
 const rules = reactive<FormRules<Partial<IRoleBase>>>({
   name: [
@@ -52,7 +60,11 @@ const rules = reactive<FormRules<Partial<IRoleBase>>>({
   ],
   status: [
     { required: true, message: '请选择状态', trigger: 'change' },
+  { type: 'number', message: '必须为数字值' }
   ],
+  menuIds: [
+    { type: 'array', required: true, message: '请至少选择一个菜单权限', trigger: 'change' }
+  ]
 })
 
 const queryRules = reactive<Record<string, FormItemRule[]>>({
@@ -125,6 +137,21 @@ const queryRules = reactive<Record<string, FormItemRule[]>>({
         </el-radio-group>
       </el-form-item>
 
+      <el-form-item label="菜单权限" prop="menuIds">
+        <el-tree
+          ref="menuTreeRef"
+          :data="menuTree"
+          show-checkbox
+          node-key="id"
+          :props="{
+            label: 'name',
+            children: 'children'
+          }"
+          :default-checked-keys="data.menuIds"
+          @check="(node, checked) => data.menuIds = checked.checkedKeys"
+        />
+      </el-form-item>
+
       <el-form-item label="备注" prop="remark">
         <el-input
           v-model="data.remark"
@@ -135,15 +162,17 @@ const queryRules = reactive<Record<string, FormItemRule[]>>({
           show-word-limit
         />
       </el-form-item>
-
-      <!-- 这里可以添加菜单权限选择器 -->
-      <!-- <el-form-item label="菜单权限" prop="menuIds">
-        <MenuTreeSelect v-model="data.menuIds" multiple />
-      </el-form-item> -->
     </template>
   </CmsCrudTemplate>
 </template>
 
 <style scoped>
 /* 可以添加自定义样式 */
+.el-tree {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  padding: 10px;
+}
 </style>

@@ -245,6 +245,43 @@ export interface IAreaModel extends IAreaBase {
 // 查询参数（继承完整类型，含分页）
 export interface IAreaModelQuery extends IAreaModel, PaginationParams { }
 
+// ----------------------工单管理
+export interface IOrderBase {
+  createdAt: string
+  faultDesc: string
+  faultLevel: number
+  faultLocation: string
+  faultType: string
+  orderId: string
+  orderStatus: number
+  updatedAt: string
+}
+// 完整组织类型（包含id，用于查询/修改/删除）
+export interface IOrderModel extends IOrderBase {
+  id: string
+}
+// 查询参数（继承完整类型，含分页）
+export interface IOrderModelQuery extends IOrderModel, PaginationParams { }
+
+// ---------------------- 设备管理
+
+export interface IDeviceBase {
+  createdAt?: string
+  deviceCode?: string
+  deviceType?: number
+  gatewayId?: null
+  manufacturer?: string
+  model?: null
+  status?: number
+  updatedAt?: string
+}
+// 完整组织类型（包含id，用于查询/修改/删除）
+export interface IDeviceModel extends IDeviceBase {
+  id: string
+}
+// 查询参数（继承完整类型，含分页）
+export interface IDeviceModelQuery extends IDeviceModel, PaginationParams { }
+
 // 系统监控
 /**
  * ServeStatInfo

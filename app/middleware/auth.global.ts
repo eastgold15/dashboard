@@ -4,7 +4,7 @@ export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized) => 
   const { isWhitelist } = useAuth()
 
   const { loggedIn } = useMyAuthStore()
-  const { hasMenuPermission } = useMyPermissionStore()
+  // const { hasMenuPermission } = useMyPermissionStore()
   // 1. 白名单路径直接放行（包括登录页）
 
   console.log('to.path', to.path)

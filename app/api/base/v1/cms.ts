@@ -1,4 +1,4 @@
-import type { $API, DataRes, IDeptModel, IMenuModel, IMenuModelQuery, IOrgBase, IOrgModel, IRes, IRoleModel, PageRes } from '../index.type'
+import type { $API, DataRes, IDeptModel, IDeviceModel, IMenuModel, IMenuModelQuery, IOrderModel, IOrgBase, IOrgModel, IRes, IRoleModel, PageRes } from '../index.type'
 
 export function useCmsApi() {
   const { $api } = useNuxtApp()
@@ -108,16 +108,16 @@ export function useCmsApi() {
     },
     device: {
       async create(body: any) {
-        return await $api.post<DataRes<any>>('/device', body)
+        return await $api.post<DataRes<any>>('/device/create', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<any[]>>('/device', query)
+        return await $api.get<PageRes<IDeviceModel[]>>('/device/listPage', query)
       },
       async get(id: string) {
         return await $api.get<DataRes<any>>(`/device/${id}`)
       },
       async update(id: string, body: any) {
-        return await $api.put<DataRes<any>>(`/device/${id}`, body)
+        return await $api.put<DataRes<IDeviceModel>>(`/device/${id}`, body)
       },
       async delete(id: string) {
         return await $api.delete<DataRes<any>>(`/device/${id}`)
@@ -125,19 +125,19 @@ export function useCmsApi() {
     },
     workOrders: {
       async create(body: any) {
-        return await $api.post<DataRes<any>>('/workOrders', body)
+        return await $api.post<DataRes<any>>('/work-orders', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<any[]>>('/workOrders', query)
+        return await $api.get<PageRes<IOrderModel[]>>('/work-orders', query)
       },
       async get(id: string) {
-        return await $api.get<DataRes<any>>(`/workOrders/${id}`)
+        return await $api.get<DataRes<any>>(`/work-orders/${id}`)
       },
       async update(id: string, body: any) {
-        return await $api.put<DataRes<any>>(`/workOrders/${id}`, body)
+        return await $api.put<DataRes<IOrderModel>>(`/work-orders/${id}`, body)
       },
       async delete(id: string) {
-        return await $api.delete<DataRes<any>>(`/workOrders/${id}`)
+        return await $api.delete<DataRes<any>>(`/work-orders/${id}`)
       },
     },
   }

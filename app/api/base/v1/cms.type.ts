@@ -222,6 +222,29 @@ export interface IDeptModel extends IDeptBase {
 // 查询参数（继承完整类型，含分页）
 export interface IDeptModelQuery extends IDeptModel, PaginationParams { }
 
+// ----------------------地区
+export interface Coordinates {
+  lat: number
+  lng: number
+}
+export interface IAreaBase {
+  areaCode?: string
+  areaName?: string
+  areaType?: string
+  children?: string[]
+  coordinates?: Coordinates
+  createdAt?: string
+  level?: number
+  updatedAt?: string
+  [property: string]: any
+}
+// 完整组织类型（包含id，用于查询/修改/删除）
+export interface IAreaModel extends IAreaBase {
+  id: string
+}
+// 查询参数（继承完整类型，含分页）
+export interface IAreaModelQuery extends IAreaModel, PaginationParams { }
+
 // 系统监控
 /**
  * ServeStatInfo

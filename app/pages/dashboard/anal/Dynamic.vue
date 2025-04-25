@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'anal',
+  layout: 'default',
   alias: ['/anal/dynamic', '/anal'],
 })
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 definePageMeta({
-  layout: 'anal',
+  layout: 'default',
 })
 
 const tableData = ref([{

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-const { rootRoutes } = useRouteChildren()
 // 从pinia 的 获取菜单， 过滤菜单路径为 /dashboard ，只显示这个dashboard下面的菜单
 
-const PermissionStore = useMyPermissionStore()
+const permissionStore = useMyPermissionStore()
 
-console.log(PermissionStore.getDashboardMenuList, 'userStore.getDashboardMenuList()')
+const NestedRoutes = permissionStore.getDashboardMenuList
+console.log('NestedRoutes:', NestedRoutes)
 </script>
 
 <template>
   <section class="layout-container flex-col">
-    <Header class="layout-header" :routes="rootRoutes">
+    <Header class="layout-header" :routes="NestedRoutes">
       <!-- 头部内容 -->
     </Header>
     <main class="layout-main">

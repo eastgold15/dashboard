@@ -57,19 +57,19 @@ export function useCmsApi() {
     },
     role: {
       async create(body: any) {
-        return await $api.post<DataRes<void>>('/role', body)
+        return await $api.post<DataRes<void>>('/system/roles', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<IRoleModel[]>>('/role', query)
+        return await $api.get<PageRes<IRoleModel[]>>('/system/roles', query)
       },
       async get(id: string) {
-        return await $api.get<DataRes<IRoleModel>>(`/role/${id}`)
+        return await $api.get<DataRes<IRoleModel>>(`/system/roles/${id}`)
       },
       async update(id: string, body: any) {
-        return await $api.put<DataRes<void>>(`/role/${id}`, body)
+        return await $api.put<DataRes<void>>(`/system/roles/${id}`, body)
       },
       async delete(id: string) {
-        return await $api.delete<DataRes<any>>(`/role/${id}`)
+        return await $api.delete<DataRes<any>>(`/system/roles/${id}`)
       },
     },
     dept: {

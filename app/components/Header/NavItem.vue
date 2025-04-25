@@ -1,18 +1,17 @@
 <script setup lang="ts">
 // filepath: /d:/1codespace/flutter/web/dashboard/app/components/Header/NavItem.vue
-interface Props {
+
+const props = defineProps<{
   path: string
   label: string
-}
-
-const props = defineProps<Props>()
-const route = useRoute()
-const isActive = computed(() => route.path === props.path)
+  active?: boolean
+}>()
+console.log('props:', props)
 </script>
 
 <template>
-  <NuxtLink :to="props.path" :class="[{ 'header-btn-active': isActive }]" class="  text-4 skew-x--45 header-btn ">
-    <p class="skew-x-45    ">
+  <NuxtLink :to="path" :class="[{ 'header-btn-active': active }]" class="skew-x--45 text-4 header-btn">
+    <p class="skew-x-45">
       {{ label }}
     </p>
   </NuxtLink>

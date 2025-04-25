@@ -98,8 +98,8 @@ export const useMyPermissionStore = defineStore('myPermissionStore', () => {
   // 获取首页相关菜单
   const getDashboardMenuList = computed(() => {
     return menuList.value?.filter((item) => {
-      return item.path.startsWith('/dashboard')
-    })
+      return item.path.startsWith('/home')
+    }) ?? []
   })
 
   return {

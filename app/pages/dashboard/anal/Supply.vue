@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 definePageMeta({
-  layout: 'anal',
+  layout: 'default',
 })
 
 const analysisDate = ref([])

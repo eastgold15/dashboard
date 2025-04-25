@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 definePageMeta({
-  layout: 'quota',
+  layout: 'default',
 
 })
 

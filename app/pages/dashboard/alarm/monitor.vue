@@ -2,7 +2,7 @@
 import { CommonTable } from '#components'
 
 definePageMeta({
-  layout: 'alarm',
+  layout: 'default',
   alias: ['/alarm'],
 })
 // 定义一些模拟数据

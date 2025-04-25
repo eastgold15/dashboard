@@ -1,9 +1,11 @@
-import type { IMenuModel, NestedMenu } from '~/api/base/index.type'
+import type { NestedMenu } from '~/api/base/index.type'
 
 // 将树形菜单转换为扁平化菜单
-export function treeToFlatten(menus: NestedMenu[]): any[] {
-  const flattened: any[] = []
-
+export function treeToFlatten(menus: NestedMenu[]): Omit<NestedMenu, 'children'>[] {
+  if (menus.length <= 0) {
+    return []
+  }
+  const flattened: Omit<NestedMenu, 'children'>[] = []
   // 递归函数
   function flatten(menu: NestedMenu) {
     const { children, ...rest } = menu
@@ -15,6 +17,22 @@ export function treeToFlatten(menus: NestedMenu[]): any[] {
 
   menus.forEach(flatten)
   return flattened
+}
+
+// 找出当前路由对应的菜单项
+export function findActiveMenu(menus: NestedMenu[], path: string): NestedMenu | null {
+  for (const menu of menus) {
+    //  如果当前菜单项的路径匹配当前路由，则返回该菜单项
+    if (menu.path === path)
+      return menu
+    // 递归查找子菜单
+    if (menu.children) {
+      const found = findActiveMenu(menu.children, path)
+      if (found)
+        return found
+    }
+  }
+  return null
 }
 
 // // 合并远程菜单和本地树形菜单

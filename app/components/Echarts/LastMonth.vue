@@ -1,21 +1,20 @@
 <script lang="ts" setup>
-
+// 上月水量
+const lastmonthW = ref(3900)
+// 节约数量
+const WaterSaving = ref(100)
+// 节水率
+const WaterSavingRate = Math.floor((WaterSaving.value / lastmonthW.value) * 100)
 </script>
 
 <template>
   <div class="h-full w-full flex flex-col">
     <EchartsComponentsEchartsTitle title="历年用水量数据" unit="万吨" />
     <div class="last-month-water echart h-full w-full">
-      <div class="wave-circle">
-        <div class="wave-water" :style="{ height: '45%' }">
-          <div class="wave wave1" />
-          <div class="wave wave2" />
-        </div>
-        <div class="wave-text">
-          45%
-        </div>
-        <div class="wave-label">
-          节水率
+      <div class="flex flex-col items-center justify-center">
+        <span class="pb-20px text-2xl">节水比</span>
+        <div class="wave-circle">
+          <AnnimalsCircular :size="200" :percent="WaterSavingRate" :wave-amplitude="5" :wave-speed="0.05" />
         </div>
       </div>
       <div class="water-data">
@@ -24,7 +23,7 @@
             月基准水量
           </div>
           <div class="value">
-            116253<span class="unit">m³</span>
+            4000<span class="unit">m³</span>
           </div>
         </div>
         <div class="data-item">
@@ -32,7 +31,7 @@
             上月用水量
           </div>
           <div class="value">
-            62362<span class="unit">m³</span>
+            {{ lastmonthW }}<span class="unit">m³</span>
           </div>
         </div>
         <div class="data-item">
@@ -40,7 +39,7 @@
             上月节水量
           </div>
           <div class="value">
-            53891<span class="unit">m³</span>
+            {{ WaterSaving }}<span class="unit">m³</span>
           </div>
         </div>
       </div>

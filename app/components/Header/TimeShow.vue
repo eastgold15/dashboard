@@ -25,7 +25,9 @@ onUnmounted(() => {
 
 <template>
   <ClientOnly>
-    <div class="justify- flex gap-1 color-#387e98">
+    <div
+      class="justify- bg-liner-gradient(to-right,#000000,#387e98) flex gap-1 color-#387e98"
+    >
       <div class="clipped-square">
         <!-- {{ time }} -->
         {{ $dayjs(time).format('HH:mm:ss') }}

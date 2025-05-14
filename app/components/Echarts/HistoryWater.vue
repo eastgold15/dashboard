@@ -18,7 +18,7 @@ const waterData = ref([
             {{ item.value }}
           </div>
           <div class="unit">
-            亿
+            万吨
           </div>
           <div class="year">
             {{ item.year }}

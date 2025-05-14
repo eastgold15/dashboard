@@ -7,23 +7,23 @@ definePageMeta({
 const data = ref([
   {
     name: '今日水量',
-    content: 100,
-    unit: 'm',
+    content: 130,
+    unit: 'm³',
   },
   {
     name: '本月水量',
-    content: 100,
-    unit: 'm',
+    content: 39,
+    unit: '百m³',
   },
   {
     name: '本年水量',
-    content: 100,
-    unit: 'm',
+    content: 46.8,
+    unit: '千m³',
   },
   {
     name: '上月水量',
-    content: 100,
-    unit: 'm',
+    content: 40,
+    unit: '百m³',
   },
 ])
 </script>

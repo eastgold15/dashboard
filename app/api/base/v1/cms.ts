@@ -125,13 +125,13 @@ export function useCmsApi() {
     },
     workOrders: {
       async create(body: any) {
-        return await $api.post<DataRes<any>>('/work-orders', body)
+        return await $api.post<DataRes<any>>('/work-orders/report', body)
       },
       async list(query: any = { page: 1, pageSize: 50 }) {
-        return await $api.get<PageRes<IOrderModel>>('/work-orders', query)
+        return await $api.get<PageRes<IOrderModel>>('/work-orders/list', query)
       },
       async get(id: string) {
-        return await $api.get<DataRes<any>>(`/work-orders/${id}`)
+        return await $api.get<DataRes<any>>(`/work-orders/records`, { orderId: id })
       },
       async update(id: string, body: any) {
         return await $api.put<DataRes<IOrderModel>>(`/work-orders/${id}`, body)

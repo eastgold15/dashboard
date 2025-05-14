@@ -18,8 +18,11 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const waveOffset = ref(0)
-const viewBoxSize = 100
+const viewBoxSize = 100 // 保持固定的视图框大小，通过缩放实现大小调整
 const radius = viewBoxSize / 2
+
+// // 计算缩放比例
+// const scale = computed(() => props.size / viewBoxSize)
 
 // 波浪动画
 function animateWave() {
@@ -53,6 +56,9 @@ const waterPath = computed(() => {
     Z
   `
 })
+
+// 计算字体大小，使其随组件大小缩放
+const fontSize = computed(() => Math.max(10, props.size * 0.01))
 </script>
 
 <template>
@@ -62,6 +68,7 @@ const waterPath = computed(() => {
       :width="size"
       :height="size"
       :viewBox="`0 0 ${viewBoxSize} ${viewBoxSize}`"
+      preserveAspectRatio="xMidYMid meet"
     >
       <!-- 玻璃球外框 -->
       <circle
@@ -72,14 +79,12 @@ const waterPath = computed(() => {
         :stroke="color"
         stroke-width="2"
       />
-
       <!-- 剪切路径 -->
       <defs>
         <clipPath id="waterClip">
           <circle :cx="radius" :cy="radius" :r="radius" />
         </clipPath>
       </defs>
-
       <!-- 水波部分 -->
       <g clip-path="url(#waterClip)">
         <path
@@ -87,21 +92,19 @@ const waterPath = computed(() => {
           :fill="color"
           opacity="0.8"
         />
-
         <!-- 百分比文字 -->
         <text
           :x="radius"
           :y="radius"
           text-anchor="middle"
           dominant-baseline="middle"
-          font-size="20"
+          :font-size="fontSize"
           fill="white"
           font-weight="bold"
         >
           {{ percent }}%
         </text>
       </g>
-
       <!-- 高光效果 -->
       <circle
         :cx="radius + 10"
@@ -110,7 +113,6 @@ const waterPath = computed(() => {
         fill="white"
         opacity="0.2"
       />
-
       <!-- 浮动动画 -->
       <animateTransform
         xlink:href=".water-ball"
@@ -135,12 +137,12 @@ const waterPath = computed(() => {
 
 .water-ball {
   overflow: visible;
-  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 0 calc(v-bind('size') * 0.08) rgba(0, 0, 0, 0.2));
 }
 
 text {
   user-select: none;
   pointer-events: none;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 calc(v-bind('size') * 0.03 rgba(0, 0, 0, 0.5));
 }
 </style>

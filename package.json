@@ -68,7 +68,7 @@
     "eslint": "^9.24.0",
     "eslint-plugin-format": "^1.0.1",
     "nuxi": "^3.24.1",
-    "nuxt": "^3.16.2",
+    "nuxt": "^3.19.0",
     "nuxt-auth-utils": "0.5.19",
     "nuxt-echarts": "^0.3.0",
     "sass": "^1.82.0",
